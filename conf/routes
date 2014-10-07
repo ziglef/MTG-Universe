@@ -11,5 +11,8 @@ POST        /user                controllers.Application.addUser()
 # Get a User from the system
 GET         /users               controllers.Application.getPersons()
 
+# Simple card search form
+GET         /cardsearch          controllers.Application.searchCard()
+
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file        controllers.Assets.at(path="/public", file)

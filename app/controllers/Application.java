@@ -32,4 +32,12 @@ public class Application extends Controller {
         return ok(toJson(User.find.all()));
     }
 
+    public static Result searchCard(){
+
+
+
+        return ok();
+        // return seeOther(" link to image ");
+    }
+
 }
