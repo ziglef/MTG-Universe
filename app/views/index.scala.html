@@ -1,12 +1,18 @@
-@(message: String)
+@(userRegister: Form[User])
+@import helper.twitterBootstrap._
 
-@main("Welcome to Play") {
+@main("User Register Form") {
 
-    <form action="@routes.Application.addUser()" method="post">
-        <input type="text" name="name" />
-        <input type="text" name="username" />
-        <input type="password" name="password" />
-        <button>Add User</button>
-    </form>
+    <h1>A simple user registration form</h1>
+    @helper.form(action = routes.Application.addUser(), 'id -> "userRegister" ) {
+        <fieldset>
+            <legend>User Registration Form</legend>
+            @helper.inputText(userRegister("name"), 'id -> "username", '_label -> "Username")
+            @helper.inputText(userRegister("username"), 'id -> "name", '_label -> "Name")
+            @helper.inputPassword(userRegister("password"), 'id -> "password", '_label -> "Password")
+            <input type="submit" class="btn primary" value="Register">
+        </fieldset>
+    }
+
 
 }
