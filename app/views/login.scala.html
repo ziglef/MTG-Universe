@@ -1,0 +1,35 @@
+@(form: Form[Application.Login])
+@import helper.twitterBootstrap._
+
+@main("User Login") {
+
+    @if( session.get("islogged") == null ) {    
+ 
+        @helper.form(routes.Application.authenticate) {
+           <h1>Sign in</h1>
+
+            @if(form.hasErrors) {
+                    @if(form.errors.size() > 0) {
+                        @for((key, value) <- form.errors) {
+                            <p style="color: red;">@key.toString() -> 
+                                @for(err <- value) {
+                                    @err.message().toString()
+                                }
+                            </p>
+                        }
+                    } else { <p>No error returned</p> }
+            }
+
+           <p>
+               <input type="text" name="username" placeholder="username" value="@form("username").value">
+           </p>
+           <p>
+               <input type="password" name="password" placeholder="password" value="@form("password").value">
+           </p>
+           <p>
+               <button type="submit">Login</button>
+           </p>
+        }
+    }
+}
+
