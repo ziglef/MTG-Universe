@@ -17,7 +17,7 @@ public class User extends Model implements Serializable{
     @Column(name = "id")
     public Integer id;
 
-    // Finds all users in the database -> Currently not used <- //
+    // Finds all users in the database
     public static Finder<Integer, User> find = new Model.Finder<>(Integer.class, User.class);
 
     @Basic(optional = false)

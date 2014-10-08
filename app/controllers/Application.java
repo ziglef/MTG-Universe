@@ -1,15 +1,14 @@
 package controllers;
 
-import com.google.gson.JsonObject;
+import models.Card;
 import models.User;
 import play.data.Form;
 import play.db.ebean.Transactional;
 import play.mvc.*;
 
-import utilities.JsonUtil;
 import views.html.*;
 
-import java.io.File;
+import java.util.ArrayList;
 
 import static play.libs.Json.toJson;
 
@@ -48,17 +47,21 @@ public class Application extends Controller {
             return badRequest("/checkcard");
         } else {
             String cardName = cardSearchForm.data().get("cardName");
-            File allCards = new File("app/assets/json/AllCards.json");
 
-            JsonObject result = JsonUtil.find(allCards, "name", cardName);
+            System.out.println("Ammount of cards in the DB: " + Card.find.all().size());
 
-            if( result != null ) {
+            return ok(toJson(Card.find.all()));
+            /*
+            ArrayList<Card> cards = Card.findCardsByName(cardName);
+
+            if( cards != null ) {
                 System.out.println("Found it!");
                 return ok();
             } else {
                 System.out.println("Card not found!");
                 return notFound();
             }
+            */
         }
     }
 

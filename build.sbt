@@ -13,4 +13,4 @@ libraryDependencies ++= Seq(
   javaWs
 )
 
-libraryDependencies += "com.googlecode.json-simple" % "json-simple" % "1.1.1"
+libraryDependencies += "com.google.code.gson" % "gson" % "2.3"

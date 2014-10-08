@@ -2,46 +2,53 @@ package utilities;
 
 import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonToken;
+import models.Card;
+import play.db.ebean.Transactional;
+import play.mvc.*;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStreamReader;
-import java.util.Map;
+import java.io.*;
+
+import static play.mvc.Results.badRequest;
+import static play.mvc.Results.ok;
 
 // Utilities for parsing and searching json files
 public class JsonUtil {
 
-    //TODO: FIX ME!
+    @Transactional
+    public static Result loadCardsDB(String s){
 
-    // Search the json file returning the first appearence of an object with a given field value
-    // Returns: onSuccess -> the JSONObject ; onFail -> null
-    public static JsonObject find(File f, String field, String value){
+        File f = new File("app/assets/json/AllCards-x.json");
 
         JsonReader jsonReader;
 
         try {
-            jsonReader = new JsonReader(new InputStreamReader(new FileInputStream(f)));
+            jsonReader = new JsonReader(new InputStreamReader(new FileInputStream(f), "UTF-8"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             System.out.println("File " + f.toString() + " was not found!");
-            return null;
+            return badRequest("/");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            System.out.println("UTF-8 not supported!");
+            return badRequest("/");
         }
 
-        JsonParser jsonParser = new JsonParser();
+        Gson gson = new Gson();
 
-        // FIX FROM HERE ON //
+        try {
+            while(jsonReader.peek() != JsonToken.END_DOCUMENT){
+                Card card = gson.fromJson(jsonReader, Card.class);
+                card.save();
+            }
 
-        JsonObject allCards = jsonParser.parse(jsonReader).getAsJsonObject();
+            return ok();
 
-        for(Map.Entry<String, JsonElement> card : allCards.entrySet()){
-            String fieldValue = ((JsonObject)card.getValue()).get(field).toString();
-
-            if( fieldValue.equals(value) ) return (JsonObject)card.getValue();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
-
-        return null;
+        return badRequest();
     }
 
 }
