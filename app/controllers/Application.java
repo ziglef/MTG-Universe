@@ -1,11 +1,15 @@
 package controllers;
 
+import com.google.gson.JsonObject;
 import models.User;
 import play.data.Form;
 import play.db.ebean.Transactional;
 import play.mvc.*;
 
+import utilities.JsonUtil;
 import views.html.*;
+
+import java.io.File;
 
 import static play.libs.Json.toJson;
 
@@ -20,7 +24,7 @@ public class Application extends Controller {
         Form<User> regForm = Form.form(User.class).bindFromRequest();
 
         if(regForm.hasErrors()){
-            return badRequest("/registration");
+            return badRequest("/user");
         } else {
             User newUser = regForm.get();
             newUser.save();
@@ -32,12 +36,30 @@ public class Application extends Controller {
         return ok(toJson(User.find.all()));
     }
 
-    public static Result searchCard(){
+    public static Result searchCard() {
+        return ok(searchSimple.render(Form.form(String.class)));
+    }
 
+    public static Result checkCard(){
 
+        Form<String> cardSearchForm = Form.form(String.class).bindFromRequest();
 
-        return ok();
-        // return seeOther(" link to image ");
+        if(cardSearchForm.hasErrors()){
+            return badRequest("/checkcard");
+        } else {
+            String cardName = cardSearchForm.data().get("cardName");
+            File allCards = new File("app/assets/json/AllCards.json");
+
+            JsonObject result = JsonUtil.find(allCards, "name", cardName);
+
+            if( result != null ) {
+                System.out.println("Found it!");
+                return ok();
+            } else {
+                System.out.println("Card not found!");
+                return notFound();
+            }
+        }
     }
 
 }

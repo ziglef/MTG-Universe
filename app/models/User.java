@@ -31,26 +31,4 @@ public class User extends Model implements Serializable{
     @Basic(optional = false)
     @Column(name = "password")
     public String password; // to be changed just for testing
-
-    public User(String name, String username, String password){
-        this.name = name;
-        this.username = username;
-        this.password = password;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
 }

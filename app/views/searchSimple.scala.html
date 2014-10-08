@@ -1,0 +1,15 @@
+@(searchSimple: Form[String])
+
+@main("Card Search Form") {
+
+    <h1>A simple card search form</h1>
+    @helper.form(action = routes.Application.checkCard(), 'id -> "searchSimple" ) {
+        <fieldset>
+            <legend>Card Search Form</legend>
+            @helper.inputText(searchSimple("cardName"), 'id -> "cardName", '_label -> "Card Name")
+            <input type="submit" class="btn primary" value="Search">
+        </fieldset>
+    }
+
+
+}
