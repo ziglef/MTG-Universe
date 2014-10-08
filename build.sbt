@@ -13,4 +13,7 @@ libraryDependencies ++= Seq(
   javaWs
 )
 
-libraryDependencies += "com.google.code.gson" % "gson" % "2.3"
+libraryDependencies ++= Seq(
+    "com.google.code.gson" % "gson" % "2.3",
+    "org.mindrot" % "jbcrypt" % "0.3m"
+)

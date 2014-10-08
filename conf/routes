@@ -11,6 +11,11 @@ POST        /user                controllers.Application.addUser()
 # Get a User from the system
 GET         /users               controllers.Application.getPersons()
 
+# Login/logout
+GET         /login               controllers.Application.login()
+POST        /login               controllers.Application.authenticate()
+GET         /logout              controllers.Application.logout()
+
 # Card search form
 GET         /searchcard          controllers.Application.searchCard()
 

@@ -6,8 +6,8 @@
     @helper.form(action = routes.Application.addUser(), 'id -> "userRegister" ) {
         <fieldset>
             <legend>User Registration Form</legend>
-            @helper.inputText(userRegister("name"), 'id -> "username", '_label -> "Username")
-            @helper.inputText(userRegister("username"), 'id -> "name", '_label -> "Name")
+            @helper.inputText(userRegister("username"), 'id -> "username", '_label -> "Username")
+            @helper.inputText(userRegister("name"), 'id -> "name", '_label -> "Name")
             @helper.inputPassword(userRegister("password"), 'id -> "password", '_label -> "Password")
             <input type="submit" class="btn primary" value="Register">
         </fieldset>
