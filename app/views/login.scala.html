@@ -11,7 +11,7 @@
             @if(form.hasErrors) {
                     @if(form.errors.size() > 0) {
                         @for((key, value) <- form.errors) {
-                            <p style="color: red;">@key.toString() -> 
+                            <p style="color: red;">@key.toString() ->
                                 @for(err <- value) {
                                     @err.message().toString()
                                 }
