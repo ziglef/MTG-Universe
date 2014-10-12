@@ -1,5 +1,6 @@
 package models;
 
+import com.avaje.ebean.event.BeanPersistController;
 import play.db.ebean.Model;
 import javax.persistence.*;
 import java.io.Serializable;
@@ -31,29 +32,19 @@ public class User extends Model implements Serializable{
     @Basic(optional = false)
     @Column(name = "password")
     public String password; // to be changed just for testing
-    
-    public User(String name, String username, String password){
-        this.name = name;
-        this.username = username;
-        
-        // Hash password
-        this.password = BCrypt.hashpw(password, BCrypt.gensalt());
-    }
 
-    public Integer getId() {
-        return id;
-    }
+    @Override
+    public void save(){
+	// Hash password
+	this.password = BCrypt.hashpw(this.password, BCrypt.gensalt());
 
-    public String getName() {
-        return name;
-    }
+	// Ve se utilizador ja existe
+	User findUser = User.find.where().eq("username", this.username).findUnique();
 
-    public String getUsername() {
-        return username;
-    }
-
-    public String getPassword() {
-        return password;
+	if ( findUser == null )
+	{
+        	super.save();
+	}
     }
     
     public static User authenticate(String username, String password) {
@@ -61,7 +52,7 @@ public class User extends Model implements Serializable{
     	User logged = User.find.where().eq("username", username).findUnique();
     	    	
     	// User e passwords corretos
-    	if ( logged != null && BCrypt.checkpw(password, logged.getPassword()) )
+    	if ( logged != null && BCrypt.checkpw(password, logged.password) )
     		return logged;
     	
     	return null;

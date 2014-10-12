@@ -37,7 +37,7 @@ public class JsonUtil {
         Gson gson = new Gson();
 
         try {
-            while(jsonReader.peek() != JsonToken.END_DOCUMENT){
+            while(jsonReader.hasNext() && jsonReader.peek() != JsonToken.END_DOCUMENT){ //old way (didnt work!) jsonReader.peek() != JsonToken.END_DOCUMENT
                 Card card = gson.fromJson(jsonReader, Card.class);
                 card.save();
             }
