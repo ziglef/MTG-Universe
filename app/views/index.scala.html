@@ -1,9 +1,9 @@
 @(userRegister: Form[User])
 
-@main("User Register Form") {
+@main("Home") {
 
-    <h1>A simple user registration form</h1>
-    @helper.form(action = routes.Application.addUser(), 'id -> "userRegister" ) {
+    <!--<h1>A simple user registration form</h1>
+                     @helper.form(action = routes.Application.addUser(), 'id -> "userRegister") {
         <fieldset>
             <legend>User Registration Form</legend>
             @helper.inputText(userRegister("username"), 'id -> "username", '_label -> "Username")
@@ -12,6 +12,162 @@
             <input type="submit" class="btn primary" value="Register">
         </fieldset>
     }
+    -->
+    <div class="wrapper">
+        <header>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <img class="img-responsive" src="http://placehold.it/350x60">
+                    </div>
+                    <div class="col-md-3 col-md-offset-1 mg-top-6">
+                        <div class="input-group">
+                            <span class="input-group-addon input-group-addon-xs">
+                                <span class="glyphicon glyphicon-user"></span>
+                            </span>
+                            <input type="text" class="form-control form-control-xs" placeholder="Insert your username">
+                        </div>
+                        <label class="checkbox inline">
+                            <input type="checkbox" id="inlineCheckbox1" value="option1">
+                            <span class="font-xs">Remember me</span>
+                        </label>
+                    </div>
+                    <div class="col-md-3 mg-top-6">
+                        <div class="input-group">
+                            <span class="input-group-addon input-group-addon-xs">
+                                <span class="glyphicon glyphicon-lock"></span>
+                            </span>
+                            <input type="password" class="form-control form-control-xs" placeholder="Insert your password">
+                        </div>
+                        <span class="font-xs"><a class="forget-pass" data-toggle="modal" data-target="#forgetPassword"><b>
+                            Forgot your password?</b></a></span>
+                    </div>
+                    <div class="col-md-1 mg-top-6">
+                        <button class="btn btn-info btn-sm">Login</button>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="well bs-component shadow-around mg-top-lg">
+                        <form class="form-horizontal">
+                            <fieldset>
+                                <h2>Register</h2>
+                                <hr class="double"/>
+                                <div class="form-group">
+                                    <label for="inputName" class="col-lg-2 control-label text-left">Nome</label>
+                                    <div class="col-lg-10">
+                                        <input class="form-control" id="inputName" placeholder="Insert your name" type="text">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputEmail" class="col-lg-2 control-label text-left">Email</label>
+                                    <div class="col-lg-10">
+                                        <input class="form-control" id="inputEmail" placeholder="Insert your email" type="text">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputUsername" class="col-lg-2 control-label text-left">Username</label>
+                                    <div class="col-lg-10">
+                                        <input class="form-control" id="inputUsername" placeholder="Choose a username" type="text">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPassword" class="col-lg-2 control-label text-left">Password</label>
+                                    <div class="col-lg-10">
+                                        <input class="form-control" id="inputPassword" placeholder="Choose a password" type="password">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPasswordConf" class="col-lg-2">Confirm password</label>
+                                    <div class="col-lg-10">
+                                        <input class="form-control" id="inputPasswordConf" placeholder="Confirm your password" type="password">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-lg-10 col-lg-offset-2">
+                                        <button type="submit" class="btn btn-success btn-block">Register</button>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
 
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="functionalities mg-top-lg">
+                        <h1>You are 30 seconds away from our world!</h1>
+                        <h2>What we have for you:</h2>
+                        <ul class="list-unstyled">
+                            <li><span class="glyphicon glyphicon-ok glyphicon-success"></span>Create a collection</li>
+                            <li><span class="glyphicon glyphicon-ok glyphicon-success"></span>Create a tradelist</li>
+                            <li><span class="glyphicon glyphicon-ok glyphicon-success"></span>Create a wantlist</li>
+                            <li><span class="glyphicon glyphicon-ok glyphicon-success"></span>Friends list</li>
+                            <li><span class="glyphicon glyphicon-ok glyphicon-success"></span>Chat between users</li>
+                            <li><span class="glyphicon glyphicon-ok glyphicon-success"></span>Create Events</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <img class="img-responsive" src="http://placehold.it/200x50" />
+                </div>
+                <div class="col-md-3">
+                    <img class="img-responsive" src="http://placehold.it/200x50" />
+                </div>
+                <div class="col-md-3">
+                    <img class="img-responsive" src="http://placehold.it/200x50" />
+                </div>
+                <div class="col-md-3">
+                    <img class="img-responsive" src="http://placehold.it/200x50" />
+                </div>
+                <div class="col-md-6 mg-top-6">
+                    <ul class="list-inline">
+                        <li>Home</li>
+                        <li>About Us</li>
+                        <li>Privacy</li>
+                        <li>Terms of Service</li>
+                        <li>FAQ</li>
+                        <li>Contact</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <span class="pull-right">
+                        Facebook | Twitter
+                    </span>
+                </div>
+            </div>
+        </div>
+    </footer>
 
+    <!-- Modal -->
+    <div class="modal fade" id="forgetPassword" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">
+                        Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Recover password</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="inputPasswordConf" class="col-lg-2">Email</label>
+                        <div class="col-lg-10">
+                            <input class="form-control" id="inputPasswordConf" placeholder="Insert your email" type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    We will send to your email information to recover the password.
+                </div>
+            </div>
+        </div>
+    </div>
 }
