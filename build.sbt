@@ -15,5 +15,6 @@ libraryDependencies ++= Seq(
 
 libraryDependencies ++= Seq(
   "com.fasterxml.jackson.core" % "jackson-core" % "2.4.3",
-  "org.mindrot" % "jbcrypt" % "0.3m"
+  "org.mindrot" % "jbcrypt" % "0.3m",
+  "com.typesafe.play.plugins" %% "play-plugins-mailer" % "2.3.0"
 )

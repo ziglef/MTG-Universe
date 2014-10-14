@@ -2,15 +2,15 @@ package controllers;
 
 import models.Card;
 import models.User;
+import utilities.PasswordGenerator;
 import play.data.Form;
 import play.data.validation.Constraints;
 import play.db.ebean.Transactional;
 import play.mvc.*;
 import views.html.*;
-
 import java.util.ArrayList;
-
 import static play.libs.Json.toJson;
+import com.typesafe.plugin.*;
 
 public class Application extends Controller {
 
@@ -101,6 +101,50 @@ public class Application extends Controller {
     public static class Login {
         @Constraints.Required
         public String username, password;
+    }
+
+    // Class de recover
+    public static class Recover {
+        //@Constraints.Required
+        public String email;
+    }
+    
+    public static Result recover() {
+        Form<Recover> recoverForm = Form.form(Recover.class).bindFromRequest();
+
+        if ( recoverForm.hasErrors() ) {
+            return badRequest("/");
+        }
+        else {
+            // Vai buscar utilizador
+            User user = User.find.where().eq("email", recoverForm.get().email).findUnique();
+            
+            // Email existe
+            if ( user != null )
+            {
+                String newPassword = PasswordGenerator.random(6);
+                user.password = newPassword;
+                user.save();
+                
+                // Send email (preciso configurar ainda no servidor)
+                MailerAPI mail = play.Play.application().plugin(MailerPlugin.class).email();
+                mail.setSubject("New password at magicgathering");
+                mail.setRecipient(user.email);
+                mail.setFrom("Password Recover <noreply@magicgathering.com>");
+
+                // Send it
+                //mail.send( "Your new password is: " + newPassword );
+                
+                // Temporario
+                System.out.println("Nova password: " + newPassword);
+            }
+            else
+            {
+                //recoverForm.reject("bad","invalid email/username");
+            }
+            
+            return redirect(controllers.routes.Application.index());
+        }
     }
 
 }

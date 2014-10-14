@@ -65,6 +65,7 @@
                                 @helper.inputText(userRegister("email"), 'id -> "emailReg", '_label -> "Email *", 'class -> "form-control", 'placeholder -> "Insert your name")
                                 @helper.inputPassword(userRegister("password"), 'id -> "passReg", '_label -> "Password *", 'class -> "form-control", 'placeholder -> "Choose your password")
                                 @helper.inputPassword(userRegister("passwordConfirm"), 'id -> "passConfReg", '_label -> "Confirm password *", 'class -> "form-control", 'placeholder -> "Confirm your password")
+                                <input type="submit" class="btn primary" value="Register">
                             </fieldset>
                         }
                     </div>
@@ -96,12 +97,15 @@
                     <h4 class="modal-title" id="myModalLabel">Recover password</h4>
                 </div>
                 <div class="modal-body">
+                    @helper.form(action = routes.Application.recover()) {
                     <div class="form-group">
-                        <label for="inputPasswordConf" class="col-lg-2">Email</label>
+                        <label for="email" class="col-lg-2">Email</label>
                         <div class="col-lg-10">
-                            <input class="form-control" id="inputPasswordConf" placeholder="Insert your email" type="text">
+                            <input class="form-control" id="email" name="email" placeholder="Insert your email" type="email">
+                            <input type="submit" class="btn primary" value="Recover">
                         </div>
                     </div>
+                    }
                 </div>
                 <div class="modal-footer">
                     We will send to your email information to recover the password.
