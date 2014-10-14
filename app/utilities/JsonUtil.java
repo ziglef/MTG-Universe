@@ -1,72 +1,52 @@
 package utilities;
 
-import com.google.gson.*;
-import com.google.gson.reflect.TypeToken;
-import com.google.gson.stream.JsonReader;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import models.Card;
+import models.Set;
 import play.db.ebean.Transactional;
 import play.mvc.*;
 
 import java.io.*;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-import static play.mvc.Results.badRequest;
 import static play.mvc.Results.ok;
 
 // Utilities for parsing and searching json files
 public class JsonUtil {
 
     @Transactional
-    public static Result loadCardsDB(String s){
+    public static Result loadCardsDB(String s) throws IOException {
 
-        File f = new File("app/assets/json/AllCards-x.json");
+        File f = new File("app/assets/json/AllSets-x.json");
 
-        JsonReader jsonReader;
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-        try {
-            jsonReader = new JsonReader(new InputStreamReader(new FileInputStream(f), "UTF-8"));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            System.out.println("File " + f.toString() + " was not found!");
-            return badRequest("/");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            System.out.println("UTF-8 not supported!");
-            return badRequest("/");
+        @SuppressWarnings("unchecked")
+        List<Card> allCards =  getAllCards((Map<String, Set>)mapper.readValue(f, new TypeReference<Map<String, Set>>() {}));
+
+        for(Card card : allCards){
+            card.save();
         }
-
-        Type type = new TypeToken<List<Card>>(){}.getType();
-        GsonBuilder gsonBuilder = new GsonBuilder();
-
-        gsonBuilder.registerTypeAdapter(type, new JsonDeserialize());
-
-        Gson gson = gsonBuilder.create();
-
-        List<Card> cards = gson.fromJson(jsonReader, type);
-
-        for(Card c : cards)
-            c.save();
 
         return ok();
     }
 
-    public static class JsonDeserialize implements JsonDeserializer<List<Card>>{
-        Gson gson = new Gson();
+    public static List<Card> getAllCards(Map<String, Set> sets){
 
-        @Override
-        public List<Card> deserialize(JsonElement el, Type type, JsonDeserializationContext context) throws JsonParseException {
-            List<Card> ls = new ArrayList<Card>();
-            JsonArray jarr = el.getAsJsonArray();
+        List<Card> allCards = new ArrayList<Card>();
 
-            for(JsonElement e : jarr){
-                Card c = gson.fromJson(e, Card.class);
-                if( c != null )
-                    ls.add(c);
+        for(Set set : sets.values()){
+            for(Card card : set.getCards()){
+                allCards.add(card);
             }
-            return ls;
         }
+
+        return allCards;
     }
 
 }

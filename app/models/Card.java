@@ -9,8 +9,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
 
 // The model for a single card (current version uses the simple .json file)
 
@@ -21,16 +19,13 @@ public class Card extends Model implements Serializable{
     // Finds all cards containing a given string
     public static ArrayList<Card> findCardsByName(String name){
 
-        ArrayList<Card> cards = new ArrayList<Card>(Ebean.find(Card.class)
-                .where()
-                    .contains("name", name)
-                .findList());
+        ArrayList<Card> cards = new ArrayList<>(find.where().icontains("name", name).findList());
 
         return cards.size() > 0 ? cards : null;
     }
 
     // Finds all the cards in the database
-    public static Finder<Integer, Card> find = new Model.Finder<>(Integer.class, Card.class);
+    public static Finder<String, Card> find = new Model.Finder<>(String.class, Card.class);
 
     // Card id on our database
     @Id
@@ -41,7 +36,7 @@ public class Card extends Model implements Serializable{
 
     // Card layout
     @Column(name = "layout")
-    public Layout layout;
+    public String layout;
 
     // Card name
     @Column(name = "name")
@@ -57,7 +52,7 @@ public class Card extends Model implements Serializable{
 
     // Card converted mana cost
     @Column(name = "cmc")
-    public Float cmc;
+    public Integer cmc;
 
     // Card color(s)
     @Column(name = "colors")
@@ -69,26 +64,26 @@ public class Card extends Model implements Serializable{
 
     // Card supertype(s)
     @Column(name = "supertypes")
-    public String supertypes;
+    public ArrayList<String> supertypes;
 
     // Card types
     @Column(name = "types")
-    public String types;
+    public ArrayList<String> types;
 
     // Card subtypes
     @Column(name = "subtypes")
-    public String subtypes;
+    public ArrayList<String> subtypes;
 
     // Card rarity
     @Column(name = "rarity")
     public String rarity;
 
     // Card text
-    @Column(name = "text")
+    @Column(name = "text", columnDefinition = "TEXT(1023)")
     public String text;
 
     // Card flavor text
-    @Column(name = "flavor")
+    @Column(name = "flavor", columnDefinition = "TEXT(1023)")
     public String flavor;
 
     // Card artist
@@ -117,7 +112,7 @@ public class Card extends Model implements Serializable{
 
     // Card variations (doesnt include its own multiverseid)
     @Column(name = "variations")
-    public List<Integer> variations;
+    public ArrayList<Integer> variations;
 
     // Card image name (for use with mtgimage.com)
     @Column(name = "imageName")
@@ -155,18 +150,18 @@ public class Card extends Model implements Serializable{
 
     // Card rulings
     @Column(name = "rulings")
-    public List<CardRuling> rulings;
+    public ArrayList<HashMap<String, String>> rulings;
 
     // Card foreign names
     @Column(name = "foreignNames")
-    public String foreignNames;
+    public ArrayList<HashMap<String, String>> foreignNames;
 
     // Card printings (in which sets the card was print on)
     @Column(name = "printings")
-    public List<String> printings;
+    public ArrayList<String> printings;
 
     // Card original text
-    @Column(name = "originalText")
+    @Column(name = "originalText", columnDefinition = "TEXT(1023)")
     public String originalText;
 
     // Card original type

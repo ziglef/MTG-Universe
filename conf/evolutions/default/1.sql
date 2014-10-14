@@ -5,17 +5,14 @@
 
 create table Cards (
   id                        integer auto_increment not null,
-  layout                    integer,
+  layout                    varchar(255),
   name                      varchar(255),
   manaCost                  varchar(255),
-  cmc                       float,
+  cmc                       integer,
   type                      varchar(255),
-  supertypes                varchar(255),
-  types                     varchar(255),
-  subtypes                  varchar(255),
   rarity                    varchar(255),
-  text                      varchar(255),
-  flavor                    varchar(255),
+  text                      TEXT(1023),
+  flavor                    TEXT(1023),
   artist                    varchar(255),
   number                    varchar(255),
   power                     varchar(255),
@@ -30,12 +27,22 @@ create table Cards (
   life                      integer,
   reserved                  varchar(255),
   releaseDate               varchar(255),
-  foreignNames              varchar(255),
-  originalText              varchar(255),
+  originalText              TEXT(1023),
   originalType              varchar(255),
   source                    varchar(255),
-  constraint ck_Cards_layout check (layout in (0,1,2,3,4,5,6,7,8,9)),
   constraint pk_Cards primary key (id))
+;
+
+create table Sets (
+  id                        integer auto_increment not null,
+  name                      varchar(255),
+  code                      varchar(255),
+  releaseDate               varchar(255),
+  border                    varchar(255),
+  type                      varchar(255),
+  block                     varchar(255),
+  gathererCode              varchar(255),
+  constraint pk_Sets primary key (id))
 ;
 
 create table Users (
@@ -54,6 +61,8 @@ create table Users (
 SET REFERENTIAL_INTEGRITY FALSE;
 
 drop table if exists Cards;
+
+drop table if exists Sets;
 
 drop table if exists Users;
 

@@ -14,6 +14,6 @@ libraryDependencies ++= Seq(
 )
 
 libraryDependencies ++= Seq(
-    "com.google.code.gson" % "gson" % "2.3",
-    "org.mindrot" % "jbcrypt" % "0.3m"
+  "com.fasterxml.jackson.core" % "jackson-core" % "2.4.3",
+  "org.mindrot" % "jbcrypt" % "0.3m"
 )
