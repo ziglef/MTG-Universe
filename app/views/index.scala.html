@@ -43,41 +43,32 @@
         </header>
         <div class="container">
             <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-12">
                     <div class="well bs-component shadow-around mg-top-lg">
-                            <!--<h1>A simple user registration form</h1>
-                     @helper.form(action = routes.Application.addUser(), 'id -> "userRegister") {
+                    @helper.form(action = routes.Application.addUser(), 'id -> "userRegister", 'class -> "form-horizontal") {
                         <fieldset>
-                            <legend>User Registration Form</legend>
-                            @helper.inputText(userRegister("username"), 'id -> "username", '_label -> "Username")
-                            @helper.inputText(userRegister("name"), 'id -> "name", '_label -> "Name")
-                            @helper.inputPassword(userRegister("password"), 'id -> "password", '_label -> "Password")
-                            <input type="submit" class="btn primary" value="Register">
+                            <h2>Register<span class="pull-right requiredFields">* Required fields</span></h2>
+                            <hr class="double"/>
+                            @helper.inputText(userRegister("name"), 'id -> "nameReg", '_label -> "Name *", 'class -> "form-control", 'placeholder -> "Insert your name")
+                            @helper.inputText(userRegister("username"), 'id -> "usernameReg", '_label -> "Username *", 'class -> "form-control", 'placeholder -> "Choose your username")
+                            @helper.inputText(userRegister("email"), 'id -> "emailReg", '_label -> "Email *", 'class -> "form-control", 'placeholder -> "Insert your name")
+                            @helper.inputPassword(userRegister("password"), 'id -> "passReg", '_label -> "Password *", 'class -> "form-control", 'placeholder -> "Choose your password")
+                            @helper.inputPassword(userRegister("passwordConfirm"), 'id -> "passConfReg", '_label -> "Confirm password *", 'class -> "form-control", 'placeholder -> "Confirm your password")
+                            <input type="submit" class="btn btn-block btn-success" value="Register">
                         </fieldset>
                     }
-                        -->
-                        @helper.form(action = routes.Application.addUser(), 'id -> "userRegister", 'class -> "form-horizontal") {
-                            <fieldset>
-                                <h2>Register</h2>
-                                <hr class="double"/>
-                                @helper.inputText(userRegister("name"), 'id -> "nameReg", '_label -> "Name *", 'class -> "form-control", 'placeholder -> "Insert your name")
-                                @helper.inputText(userRegister("username"), 'id -> "usernameReg", '_label -> "Username *", 'class -> "form-control", 'placeholder -> "Choose your username")
-                                @helper.inputText(userRegister("email"), 'id -> "emailReg", '_label -> "Email *", 'class -> "form-control", 'placeholder -> "Insert your name")
-                                @helper.inputPassword(userRegister("password"), 'id -> "passReg", '_label -> "Password *", 'class -> "form-control", 'placeholder -> "Choose your password")
-                                @helper.inputPassword(userRegister("passwordConfirm"), 'id -> "passConfReg", '_label -> "Confirm password *", 'class -> "form-control", 'placeholder -> "Confirm your password")
-                            </fieldset>
-                        }
                     </div>
                 </div>
-                <div class="col-lg-6 col-md-6 col-sm-6">
-                    <div class="functionalities mg-top-lg">
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="functionalities mg-top-lg shadow-around">
                         <h1>You are 30 seconds away from our world!</h1>
                         <h2>What we have for you:</h2>
                         <ul class="list-unstyled">
                             <li><span class="glyphicon glyphicon-ok glyphicon-success"></span>Create a collection</li>
                             <li><span class="glyphicon glyphicon-ok glyphicon-success"></span>Create a tradelist</li>
                             <li><span class="glyphicon glyphicon-ok glyphicon-success"></span>Create a wantlist</li>
-                            <li><span class="glyphicon glyphicon-ok glyphicon-success"></span>Friends list and chat</li>
+                            <li><span class="glyphicon glyphicon-ok glyphicon-success"></span>Friends list</li>
+                            <li><span class="glyphicon glyphicon-ok glyphicon-success"></span>Chat between friends</li>
                             <li><span class="glyphicon glyphicon-ok glyphicon-success"></span>Create Events</li>
                         </ul>
                     </div>
@@ -93,7 +84,7 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">
                         Close</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Recover password</h4>
+                    <h4 class="modal-title" id="myModalLabel"><span class="glyphicon glyphicon-question-sign"></span> Recover password</h4>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
@@ -104,7 +95,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    We will send to your email information to recover the password.
+                    <span class="modal-info">We will send to your email information to recover the password.</span><button type="submit" class="btn btn-info">Submit</button>
                 </div>
             </div>
         </div>

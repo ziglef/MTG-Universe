@@ -12,6 +12,10 @@ import org.mindrot.jbcrypt.BCrypt;
 @Table(name = "Users")
 public class User extends Model implements Serializable{
 
+    private static final int SAVE_OK = 1;
+    private static final int SAVE_ERROR_USER = -1;
+    private static final int SAVE_ERROR_EMAIL = -2;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -38,17 +42,16 @@ public class User extends Model implements Serializable{
     public String password; // to be changed just for testing
 
     @Override
-    public void save(){
-	// Hash password
-	this.password = BCrypt.hashpw(this.password, BCrypt.gensalt());
+    public void save() {
+        // Hash password
+        this.password = BCrypt.hashpw(this.password, BCrypt.gensalt());
 
-	// Ve se utilizador ja existe
-	User findUser = User.find.where().eq("username", this.username).findUnique();
+        // Ve se utilizador ja existe
+        User findUser = User.find.where().eq("username", this.username).findUnique();
 
-	if ( findUser == null )
-	{
-        	super.save();
-	}
+        if (findUser == null) {
+            super.save();
+        }
     }
     
     public static User authenticate(String username, String password) {

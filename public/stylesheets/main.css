@@ -1,5 +1,4 @@
 body {
-    padding-bottom: 40px;
     background-color: #eee;
     background: url("../images/pattern.png") repeat;
 }
@@ -61,7 +60,7 @@ hr.double {
 
 .functionalities{
     background:rgba(160,160,160,0.3);
-    padding: 21px;
+    padding: 17px;
     border-radius: 10px;
 }
 
@@ -92,8 +91,13 @@ hr.double {
 .modal-body{
     overflow: hidden;
 }
-.modal-footer{
-    text-align: center;
+.modal-info{
+    float: left;
+    padding-top: 6px;
+}
+.requiredFields{
+    font-size: 11px;
+    padding-top: 13px;
 }
 
 footer{
