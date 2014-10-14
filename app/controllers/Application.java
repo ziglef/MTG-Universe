@@ -7,6 +7,9 @@ import play.data.validation.Constraints;
 import play.db.ebean.Transactional;
 import play.mvc.*;
 import views.html.*;
+
+import java.util.ArrayList;
+
 import static play.libs.Json.toJson;
 
 public class Application extends Controller {
@@ -45,20 +48,11 @@ public class Application extends Controller {
         } else {
             String cardName = cardSearchForm.data().get("cardName");
 
-            System.out.println("Ammount of cards in the DB: " + Card.find.all().size());
-
-            return ok(toJson(Card.find.all()));
-            /*
-            ArrayList<Card> cards = Card.findCardsByName(cardName);
-
-            if( cards != null ) {
-                System.out.println("Found it!");
-                return ok();
-            } else {
-                System.out.println("Card not found!");
+            ArrayList<Card> results = Card.findCardsByName(cardName);
+            if( results != null )
+                return ok(toJson(results));
+            else
                 return notFound();
-            }
-            */
         }
     }
 
