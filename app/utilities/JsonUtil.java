@@ -1,13 +1,16 @@
 package utilities;
 
 import com.google.gson.*;
+import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonToken;
 import models.Card;
 import play.db.ebean.Transactional;
 import play.mvc.*;
 
 import java.io.*;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 import static play.mvc.Results.badRequest;
 import static play.mvc.Results.ok;
@@ -34,21 +37,36 @@ public class JsonUtil {
             return badRequest("/");
         }
 
+        Type type = new TypeToken<List<Card>>(){}.getType();
+        GsonBuilder gsonBuilder = new GsonBuilder();
+
+        gsonBuilder.registerTypeAdapter(type, new JsonDeserialize());
+
+        Gson gson = gsonBuilder.create();
+
+        List<Card> cards = gson.fromJson(jsonReader, type);
+
+        for(Card c : cards)
+            c.save();
+
+        return ok();
+    }
+
+    public static class JsonDeserialize implements JsonDeserializer<List<Card>>{
         Gson gson = new Gson();
 
-        try {
-            while(jsonReader.hasNext() && jsonReader.peek() != JsonToken.END_DOCUMENT){ //old way (didnt work!) jsonReader.peek() != JsonToken.END_DOCUMENT
-                Card card = gson.fromJson(jsonReader, Card.class);
-                card.save();
+        @Override
+        public List<Card> deserialize(JsonElement el, Type type, JsonDeserializationContext context) throws JsonParseException {
+            List<Card> ls = new ArrayList<Card>();
+            JsonArray jarr = el.getAsJsonArray();
+
+            for(JsonElement e : jarr){
+                Card c = gson.fromJson(e, Card.class);
+                if( c != null )
+                    ls.add(c);
             }
-
-            return ok();
-
-        } catch (IOException e) {
-            e.printStackTrace();
+            return ls;
         }
-
-        return badRequest();
     }
 
 }
