@@ -42,6 +42,7 @@ create table Users (
   id                        integer auto_increment not null,
   name                      varchar(255) not null,
   username                  varchar(255) not null,
+  email                     varchar(255) not null,
   password                  varchar(255) not null,
   constraint pk_Users primary key (id))
 ;

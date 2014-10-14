@@ -30,6 +30,10 @@ public class User extends Model implements Serializable{
     public String username;
 
     @Basic(optional = false)
+    @Column(name ="email")
+    public String email;
+
+    @Basic(optional = false)
     @Column(name = "password")
     public String password; // to be changed just for testing
 
