@@ -9,6 +9,8 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
 
 // The model for a single card (current version uses the simple .json file)
 
@@ -115,7 +117,7 @@ public class Card extends Model implements Serializable{
 
     // Card variations (doesnt include its own multiverseid)
     @Column(name = "variations")
-    public ArrayList<Integer> variations;
+    public List<Integer> variations;
 
     // Card image name (for use with mtgimage.com)
     @Column(name = "imageName")
@@ -153,7 +155,7 @@ public class Card extends Model implements Serializable{
 
     // Card rulings
     @Column(name = "rulings")
-    public ArrayList<CardRuling> rulings;
+    public List<CardRuling> rulings;
 
     // Card foreign names
     @Column(name = "foreignNames")
@@ -161,7 +163,7 @@ public class Card extends Model implements Serializable{
 
     // Card printings (in which sets the card was print on)
     @Column(name = "printings")
-    public ArrayList<String> printings;
+    public List<String> printings;
 
     // Card original text
     @Column(name = "originalText")
@@ -171,6 +173,7 @@ public class Card extends Model implements Serializable{
     @Column(name = "originalType")
     public String originalType;
 
+    // Will hash map work? //
     // Card legalities
     @Column(name = "legalities")
     public HashMap<String, String> legalities;
