@@ -15,7 +15,7 @@ import com.typesafe.plugin.*;
 public class Application extends Controller {
 
     public static Result index() {
-        return ok(index.render(Form.form(User.class)));
+        return ok(index.render(Form.form(User.class), Form.form(Login.class)));
     }
 
     @Transactional
@@ -55,17 +55,20 @@ public class Application extends Controller {
                 return notFound();
         }
     }
-
+/*
     public static Result login() {
+        if(!session("islogged").equalsIgnoreCase("true"))
+            session("islogged", "false");
         return ok(login.render(Form.form(Login.class)));
     }
-
+*/
     public static Result authenticate() {
 
         Form<Login> loginForm = Form.form(Login.class).bindFromRequest();
 
         if ( loginForm.hasErrors() ) {
-            return badRequest(login.render(loginForm));
+            session("islogged", "false");
+            return redirect(controllers.routes.Application.index());
         }
         else {
             User logged = User.authenticate(loginForm.get().username, loginForm.get().password);
@@ -85,8 +88,10 @@ public class Application extends Controller {
             }
             else
             {
+                session().clear();
+                session("islogged", "false");
                 loginForm.reject("login","invalid username/password");
-                return badRequest(login.render(loginForm));
+                return redirect(controllers.routes.Application.index());
             }
         }
     }

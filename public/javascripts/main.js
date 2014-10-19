@@ -1,3 +1,4 @@
+/*
 $(function(){
     var textfield = $("input[name=user]");
     $('button[type="submit"]').click(function(e) {
@@ -37,3 +38,4 @@ $(function(){
 
     });
 });
+*/
