@@ -9,6 +9,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 // The model for a single card (current version uses the simple .json file)
 
@@ -177,6 +178,9 @@ public class Card extends Model implements Serializable{
     @Column(name = "source")
     public String source;
 
-
+    // Collections on which the card is
+    @ManyToMany(cascade=CascadeType.ALL)
+    @JoinTable(name="cards_collection")
+    List<GenericCollection> collection;
 
 }

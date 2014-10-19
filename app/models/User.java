@@ -37,6 +37,12 @@ public class User extends Model implements Serializable{
     @Column(name = "password")
     public String password; // to be changed just for testing
 
+
+    //Collection of cards
+    @OneToOne
+    public GenericCollection collection;
+
+
     @Override
     public void save() {
         // Hash password
