@@ -1,7 +1,9 @@
 package controllers;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import models.Card;
 import models.User;
+import play.twirl.api.Html;
 import utilities.PasswordGenerator;
 import play.data.Form;
 import play.data.validation.Constraints;
@@ -9,6 +11,8 @@ import play.db.ebean.Transactional;
 import play.mvc.*;
 import views.html.*;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
+
 import static play.libs.Json.toJson;
 import com.typesafe.plugin.*;
 
@@ -53,6 +57,22 @@ public class Application extends Controller {
                 return ok(toJson(results));
             else
                 return notFound();
+        }
+    }
+
+    public static Result createCollectionData(){
+
+        ArrayList<Card> results = Card.findCardsByName("");
+        if( results != null ) {
+            LinkedHashSet<Card> cards = new LinkedHashSet<>();
+            for(Card c : results){
+                if(!cards.contains(c))
+                    cards.add(c);
+            }
+
+            return ok(createCollection.render(toJson(cards)));
+        } else {
+            return notFound();
         }
     }
 /*
