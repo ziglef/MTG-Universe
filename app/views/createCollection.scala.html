@@ -1,0 +1,9 @@
+@(cards: com.fasterxml.jackson.databind.JsonNode)
+
+@main("Create Collection") {
+
+    @for(c <- cards.elements()){
+        <p>@c.get("name") @c.get("imageName")</p>
+    }
+
+}
