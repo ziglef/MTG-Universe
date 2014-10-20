@@ -6,48 +6,47 @@
     <head>
         <title>@title</title>
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("bootstrap/css/bootstrap.min.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("bootstrap/css/bootstrap-social.css")">
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-        <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:400,300italic' rel='stylesheet' type='text/css'>
     </head>
     <body>
-        @content
+        <div id="wrap">
+            <div id="main">
+            @content
+            </div>
+        </div>
         <footer>
             <div class="container">
                 <div class="row">
-                    <div class="col-md-3">
-                        <img class="img-responsive" src="http://placehold.it/250x100" />
-                    </div>
-                    <div class="col-md-3">
-                        <img class="img-responsive" src="http://placehold.it/250x100" />
-                    </div>
-                    <div class="col-md-3">
-                        <img class="img-responsive" src="http://placehold.it/250x100" />
-                    </div>
-                    <div class="col-md-3">
-                        <img class="img-responsive" src="http://placehold.it/250x100" />
-                    </div>
                     <div class="col-md-6 mg-top-6">
                         <ul class="list-inline">
-                            <li>Home</li>
-                            <li>About Us</li>
-                            <li>Privacy</li>
-                            <li>Terms of Service</li>
-                            <li>FAQ</li>
-                            <li>Contact</li>
+                            <li><a href="">About Us</a></li>
+                            <li><a href="">Privacy</a></li>
+                            <li><a href="">Terms of Service</a></li>
+                            <li><a href="">FAQ</a></li>
+                            <li><a href="">Advertising</a></li>
+                            <li><a href="">Contact us</a></li>
                         </ul>
                     </div>
                     <div class="col-md-6">
                         <span class="pull-right">
-                        Facebook | Twitter
+                            <ul class="list-inline">
+                                <li><a class="btn btn-social-icon btn-facebook" href=""><i class="fa fa-facebook"></i></a></li>
+                                <li><a class="btn btn-social-icon btn-twitter" href=""><i class="fa fa-twitter"></i></a></li>
+                                <li><a class="btn btn-social-icon btn-google-plus" href=""><i class="fa fa-google-plus"></i></a></li>
+                            </ul>
                         </span>
+                    </div>
+                    <div class="col-md-12">
+                        <p class="font-xs">The information presented on this site about Magic: The Gathering, both literal and graphical, is copyrighted by Wizards of the Coast.</p>
                     </div>
                 </div>
             </div>
         </footer>
-        <!-- scripts at the end : page load faster -->
+            <!-- scripts at the end : page load faster -->
         <script src="@routes.Assets.at("bootstrap/js/bootstrap.min.js")" type="text/javascript"></script>
         <script src="@routes.Assets.at("javascripts/main.js")" type="text/javascript"></script>
     </body>

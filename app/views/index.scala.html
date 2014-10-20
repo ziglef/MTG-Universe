@@ -3,238 +3,242 @@
 @implicitField = @{
     FieldConstructor(horizontalForm.f)
 }
-
 @main("Home") {
 
-
-     @if(session.contains("islogged") && session.get("islogged").equalsIgnoreCase("true")) {
-         <header class="navbar">
-             <div class="container-fluid expanded-panel">
-                 <div class="row">
-                     <div id="logo" class="col-xs-12 col-sm-2">
-                         <a href="index_v1.html"><img class="img-responsive" src="@routes.Assets.at("images/logo.png")"/></a>
-                     </div>
-                     <div id="top-panel" class="col-xs-12 col-sm-10">
-                         <div class="row">
-                             <div class="col-xs-12 col-sm-8">
-                                 <div id="search">
-                                     <input type="text" placeholder="Type keywords here..."/>
-                                     <a href="search.html" class="fa fa-search"></a>
-                                 </div>
-                             </div>
-                             <div class="col-xs-12 col-sm-4 top-panel-right">
-                                 <ul class="nav navbar-nav pull-right panel-menu">
-                                     <a href="#" class="show-sidebar">
-                                         <i class="fa fa-bars"></i>
-                                     </a>
-                                     <li class="hidden-xs">
-                                         <a class="ajax-link" href="ajax/calendar.html">
-                                             <i class="fa fa-bullhorn"></i>
-                                             <span class="badge">7</span>
-                                         </a>
-                                     </li>
-                                     <li class="hidden-xs">
-                                         <a class="ajax-link" href="ajax/calendar.html">
-                                             <i class="fa fa-users"></i>
-                                             <span class="badge">7</span>
-                                         </a>
-                                     </li>
-                                     <li class="hidden-xs">
-                                         <a class="ajax-link" href="ajax/calendar.html">
-                                             <i class="fa fa-comments"></i>
-                                             <span class="badge">7</span>
-                                         </a>
-                                     </li>
-                                     <li class="hidden-xs">
-                                         <a class="ajax-link" href="ajax/calendar.html">
-                                             <i class="fa fa-envelope"></i>
-                                             <span class="badge">7</span>
-                                         </a>
-                                     </li>
-                                     <li class="dropdown">
-                                         <a href="#" class="dropdown-toggle account" data-toggle="dropdown">
-                                             <div class="avatar">
-                                                 <img src="@routes.Assets.at("images/avatar.png")" class="img-circle" alt="avatar" />
-                                             </div>
-                                             <i class="fa fa-angle-down pull-right"></i>
-                                             <div class="user-mini pull-right">
-                                                 <span class="welcome">Welcome,</span>
-                                                 <span>@session.get("name")</span>
-                                             </div>
-                                         </a>
-                                         <ul class="dropdown-menu">
-                                             <li>
-                                                 <a href="#">
-                                                     <i class="fa fa-user"></i>
-                                                     <span>Profile</span>
-                                                 </a>
-                                             </li>
-                                             <li>
-                                                 <a href="#">
-                                                     <i class="fa fa-cog"></i>
-                                                     <span>Settings</span>
-                                                 </a>
-                                             </li>
-                                             <li class="divider"></li>
-                                             <li>
-                                                 <a href="@routes.Application.logout">
-                                                     <i class="fa fa-power-off"></i>
-                                                     <span> Logout</span>
-                                                 </a>
-                                             </li>
-                                         </ul>
-                                     </li>
-                                 </ul>
-                             </div>
-                         </div>
-                     </div>
-                 </div>
-             </div>
-         </header>
-         <!--End Header-->
-         <!--Start Container-->
-         <div id="main" class="container-fluid">
-             <div class="row">
-                 <div id="sidebar-left" class="col-xs-2 col-sm-2">
-                     <ul class="nav main-menu">
-                         <li>
-                             <a href="ajax/dashboard.html" class="active ajax-link">
-                                 <i class="fa fa-clock-o"></i>
-                                 <span class="hidden-xs">Timeline</span>
-                             </a>
-                         </li>
-                         <li class="dropdown">
-                             <a href="#" class="dropdown-toggle">
-                                 <i class="fa fa-pencil-square-o"></i>
-                                 <span class="hidden-xs">Create</span>
-                             </a>
-                             <ul class="dropdown-menu">
-                                 <li><a class="ajax-link" href="ajax/charts_xcharts.html">Collection</a></li>
-                                 <li><a class="ajax-link" href="ajax/charts_morris.html">Decks</a></li>
-                                 <li><a class="ajax-link" href="ajax/charts_flot.html">Wanted List</a></li>
-                                 <li><a class="ajax-link" href="ajax/charts_google.html">Trade List</a></li>
-                             </ul>
-                         </li>
-                         <li>
-                             <a href="ajax/dashboard.html" class="ajax-link">
-                                 <i class="fa fa-newspaper-o"></i>
-                                 <span class="hidden-xs">Articles</span>
-                             </a>
-                         </li>
-                         <li>
-                             <a href="ajax/dashboard.html" class="ajax-link">
-                                 <i class="fa fa-calendar"></i>
-                                 <span class="hidden-xs">Events</span>
-                             </a>
-                         </li>
-                         <li>
-                             <a href="ajax/dashboard.html" class="ajax-link">
-                                 <i class="fa fa-search-plus"></i>
-                                 <span class="hidden-xs">Advanced search</span>
-                             </a>
-                         </li>
-                     </ul>
-                 </div>
-                     <!--Start Content-->
-                 <div id="content" class="col-xs-12 col-sm-10">
-                 </div>
-                     <!--End Content-->
-             </div>
-         </div>
+    @if(session.contains("islogged") && session.get("islogged").equalsIgnoreCase("true")) {
+        <header class="navbar header-log">
+            <div class="container-fluid expanded-panel">
+                <div class="row">
+                    <div id="logo" class="col-xs-12 col-sm-2">
+                        <a href="index_v1.html"><img class="img-responsive" src="@routes.Assets.at("images/logo.png")"/></a>
+                    </div>
+                    <div id="top-panel" class="col-xs-12 col-sm-10">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6">
+                                <div id="search">
+                                    <input type="text" placeholder="Type keywords here..."/>
+                                    <a href="search.html" class="fa fa-search"></a>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 top-panel-right">
+                                <ul class="nav navbar-nav pull-right panel-menu">
+                                        <!--<a href="#" class="show-sidebar">
+                                        <i class="fa fa-bars"></i>
+                                    </a>-->
+                                    <li class="hidden-xs">
+                                        <a class="ajax-link" href="ajax/calendar.html">
+                                            <i class="fa fa-flag"></i>
+                                            <span class="badge">7</span>
+                                        </a>
+                                    </li>
+                                    <li class="hidden-xs">
+                                        <a class="ajax-link" href="ajax/calendar.html">
+                                            <i class="fa fa-users"></i>
+                                            <span class="badge">7</span>
+                                        </a>
+                                    </li>
+                                    <li class="hidden-xs">
+                                        <a class="ajax-link" href="ajax/calendar.html">
+                                            <i class="fa fa-comments"></i>
+                                            <span class="badge">7</span>
+                                        </a>
+                                    </li>
+                                    <li class="hidden-xs">
+                                        <a class="ajax-link" href="ajax/calendar.html">
+                                            <i class="fa fa-envelope"></i>
+                                            <span class="badge">7</span>
+                                        </a>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle account" data-toggle="dropdown">
+                                            <div class="avatar">
+                                                <img src="@routes.Assets.at("images/avatar.png")" class="img-circle" alt="avatar" />
+                                            </div>
+                                            <i class="fa fa-angle-down pull-right"></i>
+                                            <div class="user-mini pull-right">
+                                                <span class="welcome">Welcome,</span>
+                                                <span>@session.get("name")</span>
+                                            </div>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a href="#">
+                                                    <i class="fa fa-user"></i>
+                                                    <span>Profile</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <i class="fa fa-cog"></i>
+                                                    <span>Settings</span>
+                                                </a>
+                                            </li>
+                                            <li class="divider"></li>
+                                            <li>
+                                                <a href="@routes.Application.logout">
+                                                    <i class="fa fa-power-off"></i>
+                                                    <span> Logout</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!--End Header-->
+        <!--Start Container-->
+        <div class="container-fluid">
+            <div class="row">
+                <div id="sidebar-left" class="col-xs-2 col-sm-2">
+                    <ul class="nav main-menu">
+                        <li>
+                            <a href="ajax/dashboard.html" class="active ajax-link">
+                                <i class="fa fa-clock-o"></i>
+                                <span class="hidden-xs">Timeline</span>
+                            </a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle">
+                                <i class="fa fa-pencil-square-o"></i>
+                                <span class="hidden-xs">Create</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="ajax-link" href="ajax/charts_xcharts.html">Collection</a></li>
+                                <li><a class="ajax-link" href="ajax/charts_morris.html">Decks</a></li>
+                                <li><a class="ajax-link" href="ajax/charts_flot.html">Wanted List</a></li>
+                                <li><a class="ajax-link" href="ajax/charts_google.html">Trade List</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="ajax/dashboard.html" class="ajax-link">
+                                <i class="fa fa-newspaper-o"></i>
+                                <span class="hidden-xs">Articles</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="ajax/dashboard.html" class="ajax-link">
+                                <i class="fa fa-calendar"></i>
+                                <span class="hidden-xs">Events</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="ajax/dashboard.html" class="ajax-link">
+                                <i class="fa fa-search-plus"></i>
+                                <span class="hidden-xs">Advanced search</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                    <!--Start Content-->
+                <div id="content" class="col-xs-12 col-sm-10">
+                </div>
+                    <!--End Content-->
+            </div>
+        </div>
     } else {
-         <div class="wrapper">
-             <header>
-                 <div class="container">
-                     <div class="row">
-                         <div class="col-md-4">
-                             <img class="img-responsive" src="http://placehold.it/350x60">
-                         </div>
-                         @helper.form(routes.Application.authenticate) {
-                             <div class="col-md-3 col-md-offset-1 mg-top-6">
-                                 <div class="input-group">
-                                     <span class="input-group-addon input-group-addon-xs">
-                                         <span class="glyphicon glyphicon-user"></span>
-                                     </span>
-                                     <input type="text" name="username" class="form-control form-control-xs" placeholder="Insert your username" value="@userLogin("username").value">
-                                 </div>
-                                 <label class="checkbox inline">
-                                     <input type="checkbox" id="inlineCheckbox1" value="option1">
-                                     <span class="font-xs">Remember me</span>
-                                 </label>
-                             </div>
-                             <div class="col-md-3 mg-top-6">
-                                 <div class="input-group">
-                                     <span class="input-group-addon input-group-addon-xs">
-                                         <span class="glyphicon glyphicon-lock"></span>
-                                     </span>
-                                     <input type="password" name="password" class="form-control form-control-xs" placeholder="Insert your password" value="@userLogin("password").value">
-                                 </div>
-                                 <span class="font-xs"><a class="forget-pass" data-toggle="modal" data-target="#forgetPassword"><b>
-                                     Forgot your password?</b></a></span>
-                             </div>
-                             <div class="col-md-1 mg-top-6">
-                                 <button type="submit" class="btn btn-info btn-sm">Login</button>
-                             </div>
-                         }
-                     </div>
-                     <div class="col-md-offset-5 col-md-7">
-                         <div class="input-group">
-                             <div class="input-group-btn search-panel">
-                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" style="padding: 5px 12px;">
-                                     <span id="search_concept">Filter by</span> <span class="caret"></span>
-                                 </button>
-                                 <ul class="dropdown-menu" role="menu">
-                                     <li><a href="#contains">Contains</a></li>
-                                     <li><a href="#its_equal">It's equal</a></li>
-                                     <li><a href="#greather_than">Greather than ></a></li>
-                                     <li><a href="#less_than">Less than < </a></li>
-                                     <li class="divider"></li>
-                                     <li><a href="#all">Anything</a></li>
-                                 </ul>
-                             </div>
-                             <input type="text" class="form-control form-control-xs" name="x" placeholder="Type keywords here...">
-                             <span class="input-group-btn">
-                                 <button class="btn btn-default " type="button" style="padding: 5px 12px;"><span class="glyphicon glyphicon-search"></span></button>
-                             </span>
-                         </div>
-                     </div>
-                 </div>
-             </header>
-             <div class="container">
-                 <div class="row">
-                     <div class="col-lg-6 col-md-6 col-sm-6">
-                         <div class="well bs-component shadow-around mg-top-lg">
-                         @helper.form(action = routes.Application.addUser(), 'id -> "userRegister", 'class -> "form-horizontal") {
-                             <fieldset>
-                                 <h2>Register</h2>
-                                 <hr class="double"/>
-                                 @helper.inputText(userRegister("name"), 'id -> "nameReg", '_label -> "Name *", 'class -> "form-control", 'placeholder -> "Insert your name")
-                                 @helper.inputText(userRegister("username"), 'id -> "usernameReg", '_label -> "Username *", 'class -> "form-control", 'placeholder -> "Choose your username")
-                                 @helper.inputText(userRegister("email"), 'id -> "emailReg", '_label -> "Email *", 'class -> "form-control", 'placeholder -> "Insert your name")
-                                 @helper.inputPassword(userRegister("password"), 'id -> "passReg", '_label -> "Password *", 'class -> "form-control", 'placeholder -> "Choose your password")
-                                 @helper.inputPassword(userRegister("passwordConfirm"), 'id -> "passConfReg", '_label -> "Confirm password *", 'class -> "form-control", 'placeholder -> "Confirm your password")
-                                 <input type="submit" class="btn btn-success btn-block" value="Register">
-                             </fieldset>
-                         }
-                         </div>
-                     </div>
-                     <div class="col-lg-6 col-md-6 col-sm-6">
-                         <div class="functionalities mg-top-lg shadow-around">
-                             <h1>You are 30 seconds away from our world!</h1>
-                             <h2>What we have for you:</h2>
-                             <ul class="list-unstyled">
-                                 <li><span class="glyphicon glyphicon-ok glyphicon-success"></span>Create a collection</li>
-                                 <li><span class="glyphicon glyphicon-ok glyphicon-success"></span>Create a tradelist</li>
-                                 <li><span class="glyphicon glyphicon-ok glyphicon-success"></span>Create a wantlist</li>
-                                 <li><span class="glyphicon glyphicon-ok glyphicon-success"></span>Friends list</li>
-                                 <li><span class="glyphicon glyphicon-ok glyphicon-success"></span>Chat with friends</li>
-                                 <li><span class="glyphicon glyphicon-ok glyphicon-success"></span>Create Events</li>
-                             </ul>
-                         </div>
-                     </div>
-                 </div>
-             </div>
-         </div>
+        <div class="wrapper">
+            <header>
+                <div class="container topbar">
+                    <div class="row">
+                        <div class="col-md-4 logo">
+                            <img class="img-responsive" src="@routes.Assets.at("images/logo.png")"/>
+                        </div>
+                        @helper.form(routes.Application.authenticate) {
+                            <div class="col-md-3 col-md-offset-1 mg-top">
+                                <div class="input-group">
+                                    <span class="input-group-addon input-group-addon-xs">
+                                        <span class="glyphicon glyphicon-user"></span>
+                                    </span>
+                                    <input type="text" name="username" class="form-control form-control-xs" placeholder="Insert your username" value="@userLogin("username").value">
+                                </div>
+                                <label class="checkbox inline">
+                                    <input type="checkbox" id="inlineCheckbox1" value="option1">
+                                    <span class="font-xs">Remember me</span>
+                                </label>
+                            </div>
+                            <div class="col-md-3 mg-top">
+                                <div class="input-group">
+                                    <span class="input-group-addon input-group-addon-xs">
+                                        <span class="glyphicon glyphicon-lock"></span>
+                                    </span>
+                                    <input type="password" name="password" class="form-control form-control-xs" placeholder="Insert your password" value="@userLogin("password").value">
+                                </div>
+                                <span class="font-xs"><a class="forget-pass" data-toggle="modal" data-target="#forgetPassword"><b>
+                                    Forgot your password?</b></a></span>
+                            </div>
+                            <div class="col-md-1 mg-top">
+                                <button type="submit" class="btn btn-primary btn-sm">Login</button>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="header-search">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12">
+                                <div class="input-group">
+                                    <div class="input-group-btn search-panel">
+                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" style="padding : 5 px 12 px ;">
+                                            <span id="search_concept">Filter by</span> <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="#contains">Cards</a></li>
+                                            <li><a href="#its_equal">Artist</a></li>
+                                            <li><a href="#greather_than">Articles</a></li>
+                                            <li><a href="#less_than">Events</a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="#all">All</a></li>
+                                        </ul>
+                                    </div>
+                                    <input type="text" class="form-control" name="x" placeholder="Type keywords here...">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" style="padding : 5 px 12 px ;"><span class="glyphicon glyphicon-search"></span></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="well bs-component shadow-around mg-top-lg">
+                        @helper.form(action = routes.Application.addUser(), 'id -> "userRegister", 'class -> "form-horizontal") {
+                            <fieldset>
+                                <h2 class="color-theme">Register</h2>
+                                <hr class="double color-theme"/>
+                                @helper.inputText(userRegister("name"), 'id -> "nameReg", '_label -> "Name *", 'class -> "form-control", 'placeholder -> "Insert your name")
+                                @helper.inputText(userRegister("username"), 'id -> "usernameReg", '_label -> "Username *", 'class -> "form-control", 'placeholder -> "Choose your username")
+                                @helper.inputText(userRegister("email"), 'id -> "emailReg", '_label -> "Email *", 'class -> "form-control", 'placeholder -> "Insert your name")
+                                @helper.inputPassword(userRegister("password"), 'id -> "passReg", '_label -> "Password *", 'class -> "form-control", 'placeholder -> "Choose your password")
+                                @helper.inputPassword(userRegister("passwordConfirm"), 'id -> "passConfReg", '_label -> "Confirm password *", 'class -> "form-control", 'placeholder -> "Confirm your password")
+                                <input type="submit" class="btn btn-success btn-block" value="Register">
+                            </fieldset>
+                        }
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="functionalities mg-top-lg shadow-around">
+                            <h1>You are 30 seconds away from our world!</h1>
+                            <h2>What we have for you:</h2>
+                            <ul class="list-unstyled">
+                                <li><span class="glyphicon glyphicon-ok glyphicon-success"></span>Create a collection</li>
+                                <li><span class="glyphicon glyphicon-ok glyphicon-success"></span>Create a tradelist</li>
+                                <li><span class="glyphicon glyphicon-ok glyphicon-success"></span>Create a wantlist</li>
+                                <li><span class="glyphicon glyphicon-ok glyphicon-success"></span>Friends list</li>
+                                <li><span class="glyphicon glyphicon-ok glyphicon-success"></span>Chat with friends</li>
+                                <li><span class="glyphicon glyphicon-ok glyphicon-success"></span>Create Events</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     }
 
     @if(session.contains("islogged") != true || session.get("islogged").equalsIgnoreCase("false")) {
