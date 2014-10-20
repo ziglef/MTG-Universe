@@ -25,7 +25,6 @@ public class GenericCollection extends Model implements Serializable {
     @OneToOne
     protected User owner;
 
-    // Finds all users in the database -> Currently not used <- //
     public static Finder<Integer, GenericCollection> find = new Model.Finder<>(Integer.class, GenericCollection.class);
 
     public Integer getId() {
