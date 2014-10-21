@@ -48,10 +48,6 @@ $(document).ready(function () {
         $('.row-offcanvas').toggleClass('active');
     });
 
-    $('#example').DataTable({
-        "pagingType": "simple"
-    });
-
     t = $('#example1').DataTable({
         "pagingType": "simple"
     });
@@ -81,3 +77,10 @@ function removeFromCollection(elem){
     t.row('.select').remove().draw(false);
 }
 
+
+/* @for(node <- cards.fields()) {
+<tr>
+    <td> <a href="#" name="@node.getKey()" onclick="changeImg ( this.name ) ;">@node.getKey()</a></td>
+    <td> <button class="btn btn-sm btn-success btn-block" name="@node.getKey()" onclick="addToCollection ( this.name )">ADD</button></td>
+    </tr>
+} */

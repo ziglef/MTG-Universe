@@ -1,8 +1,13 @@
 package controllers;
 
+import com.avaje.ebean.Expr;
+import com.avaje.ebean.Page;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import models.Card;
 import models.User;
+import play.libs.Json;
 import play.twirl.api.Html;
 import utilities.PasswordGenerator;
 import play.data.Form;
@@ -169,6 +174,51 @@ public class Application extends Controller {
             
             return redirect(controllers.routes.Application.index());
         }
+    }
+
+    public static Result sortCards(){
+
+        Map<String, String[]> params = request().queryString();
+
+        Integer iTotalRecords = Card.find.select("name").setDistinct(true).findRowCount();
+        String filter = params.get("sSearch")[0];
+        Integer pageSize = Integer.valueOf(params.get("iDisplayLength")[0]);
+        Integer page = Integer.valueOf(params.get("iDisplayStart")[0]);
+
+        String sortBy = "name";
+        String order = params.get("sSortDir_0")[0];
+
+        /*
+        switch(Integer.valueOf(params.get("iSortCol_0)[0]))){
+        case 1: sortBy ="rowValue";
+
+        }*/
+
+        Page<Card> cardsPage = Card.find.where(
+                Expr.ilike("name", "%" + filter + "%")
+        )
+        .orderBy(sortBy + " " + order + ", id " + order)
+        .findPagingList(pageSize).setFetchAhead(false)
+        .getPage(page);
+
+        Integer iTotalDisplayRecords = cardsPage.getTotalRowCount();
+
+        ObjectNode result = Json.newObject();
+
+        result.put("sEcho", Integer.valueOf(params.get("sEcho")[0]));
+        result.put("iTotalRecords", iTotalRecords);
+        result.put("iTotalDisplayRecords", iTotalDisplayRecords);
+
+        ArrayNode an = result.putArray("aaData");
+
+        for(Card c: cardsPage.getList()){
+            ObjectNode row = Json.newObject();
+            row.put("0","<a href=\"#\" name=\""+c.name+"\" onclick=\"changeImg ( this.name ) ;\">"+c.name+"</a>");
+            row.put("1","<button class=\"btn btn-sm btn-success btn-block\" name=\""+c.name+"\" onclick=\"addToCollection(this.name)\"> ADD </button>");
+            an.add(row);
+        }
+
+        return ok(result);
     }
 
 }
