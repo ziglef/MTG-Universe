@@ -61,18 +61,7 @@ public class Application extends Controller {
     }
 
     public static Result createCollectionData(){
-
-        Map<String, String> results = new HashMap<>();
-
-        for(Card c: Card.find.select("name").select("imageName").findList()) {
-            results.put(c.name, c.imageName);
-        }
-
-        if( results != null ) {
-            return ok(createCollection.render(toJson(results)));
-        } else {
-            return notFound();
-        }
+        return ok(createCollection.render());
     }
 /*
     public static Result login() {
