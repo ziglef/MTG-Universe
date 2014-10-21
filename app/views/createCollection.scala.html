@@ -2,8 +2,181 @@
 
 @main("Create Collection") {
 
-    @for(c <- cards.elements()){
-        <p>@c.get("name") @c.get("imageName")</p>
+    @if(session.contains("islogged") && session.get("islogged").equalsIgnoreCase("true")) {
+        <header class="navbar header-log">
+            <div class="container-fluid expanded-panel">
+                <div class="row">
+                    <div id="logo" class="col-xs-12 col-sm-2">
+
+                        <a href="index_v1.html"><img class="img-responsive" src="@routes.Assets.at("images/logo.png")"/></a>
+                    </div>
+                    <div id="top-panel" class="col-xs-12 col-sm-10">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6">
+                                <div class="input-group" style="width : 100 %">
+                                    <div class="input-group-btn search-panel">
+                                        <button id="menu-toggle" type="button" class="btn btn-primary form-control-xs visible-xs" data-toggle="offcanvas" data-target=".sidebar-nav">
+                                            <i class="fa fa-bars"></i>
+                                        </button>
+                                    </div>
+                                    <div id="search">
+                                        <input type="text" placeholder="Type keywords here..."/>
+                                        <a href="search.html" class="fa fa-search"></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 top-panel-right">
+                                <ul class="nav navbar-nav pull-right panel-menu">
+                                    <li class="hidden-xs">
+                                        <a class="ajax-link" href="ajax/calendar.html">
+                                            <i class="fa fa-flag"></i>
+                                            <span class="badge">7</span>
+                                        </a>
+                                    </li>
+                                    <li class="hidden-xs">
+                                        <a class="ajax-link" href="ajax/calendar.html">
+                                            <i class="fa fa-users"></i>
+                                            <span class="badge">7</span>
+                                        </a>
+                                    </li>
+                                    <li class="hidden-xs">
+                                        <a class="ajax-link" href="ajax/calendar.html">
+                                            <i class="fa fa-comments"></i>
+                                            <span class="badge">7</span>
+                                        </a>
+                                    </li>
+                                    <li class="hidden-xs">
+                                        <a class="ajax-link" href="ajax/calendar.html">
+                                            <i class="fa fa-envelope"></i>
+                                            <span class="badge">7</span>
+                                        </a>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle account" data-toggle="dropdown">
+                                            <div class="avatar">
+                                                <img src="@routes.Assets.at("images/avatar.png")" class="img-circle" alt="avatar" />
+                                            </div>
+                                            <i class="fa fa-angle-down pull-right"></i>
+                                            <div class="user-mini pull-right">
+                                                <span class="welcome">Welcome,</span>
+                                                <span>@session.get("name")</span>
+                                            </div>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a href="#">
+                                                    <i class="fa fa-user"></i>
+                                                    <span>Profile</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <i class="fa fa-cog"></i>
+                                                    <span>Settings</span>
+                                                </a>
+                                            </li>
+                                            <li class="divider"></li>
+                                            <li>
+                                                <a href="@routes.Application.logout">
+                                                    <i class="fa fa-power-off"></i>
+                                                    <span> Logout</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!--End Header-->
+        <!--Start Container-->
+        <div class="page-container">
+            <div class="container-fluid">
+                <div class="row row-offcanvas row-offcanvas-left">
+
+                        <!-- sidebar -->
+                    <div class="col-xs-6 col-sm-2 sidebar-offcanvas" id="sidebar" role="navigation">
+                        <ul class="nav">
+                            <li><a href="#"><i class="fa fa-clock-o"></i><span class="hidden-xs">
+                                Timeline</span></a></li>
+                            <li>
+                                <a href="#" data-toggle="collapse" data-target="#toggleDemo2" data-parent="#sidenav01" class="collapsed">
+                                    <i class="fa fa-pencil-square-o"></i>
+                                    Create <i class="fa fa-angle-down pull-right"></i>
+                                </a>
+                                <div class="collapse" id="toggleDemo2">
+                                    <ul class="nav nav-list">
+                                        <li><a href="@routes.Application.createCollectionData()"> - Collection</a></li>
+                                        <li><a href="#"> - Decks</a></li>
+                                        <li><a href="#"> - Want List</a></li>
+                                        <li><a href="#"> - Trade List</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li><a href="#"><i class="fa fa-newspaper-o"></i><span class="hidden-xs">
+                                Articles</span></a></li>
+                            <li><a href="#"><i class="fa fa-calendar"></i><span class="hidden-xs">
+                                Events</span></a></li>
+                            <li><a href="#"><i class="fa fa-search-plus"></i><span class="hidden-xs">
+                                Advanced search</span></a></li>
+                        </ul>
+                    </div>
+
+                        <!-- main area -->
+                    <div class="col-xs-12 col-sm-10 main-area">
+                        <div class="col-md-4">
+                            <h3>Add cards</h3>
+                            <hr class="hr">
+                            <table id="example" class="table table-bordered table-hover" cellspacing="0" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th width="90%">Name</th>
+                                        <th width="10%">Action</th>
+                                    </tr>
+                                </thead>
+                                @for(node <- cards.fields()) {
+                                    <tr>
+                                        <td> <a href="#" name="@node.getKey()" onclick="changeImg ( this.name ) ;">@node.getKey()</a></td>
+                                        <td> <button class="btn btn-sm btn-success btn-block" name="@node.getKey()" onclick="addToCollection ( this.name )">ADD</button> </i></td>
+                                    </tr>
+                                }
+                            </table>
+                        </div>
+                        <div class="col-md-3">
+                            <h3>Card Image</h3>
+                            <hr class="hr">
+                            <img src="@routes.Assets.at("images/cardback.jpg")" alt="Card unavailable" class="img-responsive img-card" style=" margin-top : 46 px"/>
+                            <span style="text-align : center ;"><a data-toggle="modal" data-target="#myCard" style="cursor : pointer ;">
+                                Click here to zoom </a></span>
+                        </div>
+                        <div class="col-md-5">
+                            <h3>My collection</h3>
+                            <hr class="hr">
+                            <table id="example1" class="table table-bordered table-hover" cellspacing="0" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th width="90%">Name</th>
+                                        <th width="10%">Action</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div><!--/.row-->
+            </div> <!--/.container-->
+        </div> <!--/.page-container-->
     }
+
+    <!-- Modal -->
+    <div class="modal fade" id="myCard" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-body">
+                <img src="@routes.Assets.at("images/cardback.jpg")" alt="Card unavailable" class="img-responsive img-modal img-card" style="margin : 0 auto ;"/>
+            </div>
+        </div>
+    </div>
 
 }

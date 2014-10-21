@@ -14,7 +14,6 @@ body {
 
 #main {
     overflow:auto;
-    padding-bottom: 92px;
 }
 header{
     background-color: #2B3E50;
@@ -134,7 +133,7 @@ hr.double {
     border-radius: 3px;
     color: #686868;
     line-height: 1em;
-    height: 30px;
+    height: 33px;
     padding: 0px 35px 0px 10px;
     font-size: 15px;
 }
@@ -241,12 +240,50 @@ a.show-sidebar {
 
 
 /* SIDE BAR */
-#sidebar-left{
+#sidebar {
+    height: 100%;
+    padding: 0;
     background-color: #2B3E50;
-    min-height: 100%;
-    overflow: auto;
-    height: 668px;
 }
+#sidebar .nav {
+    width: 100%;
+}
+
+/* collapsed sidebar styles */
+@media screen and (max-width: 767px) {
+    .row-offcanvas {
+        position: relative;
+        -webkit-transition: all 0.25s ease-out;
+        -moz-transition: all 0.25s ease-out;
+        transition: all 0.25s ease-out;
+    }
+    .row-offcanvas-right
+    .sidebar-offcanvas {
+        right: -41.6%;
+    }
+
+    .row-offcanvas-left
+    .sidebar-offcanvas {
+        left: -41.6%;
+    }
+    .row-offcanvas-right.active {
+        right: 41.6%;
+    }
+    .row-offcanvas-left.active {
+        left: 41.6%;
+    }
+    .sidebar-offcanvas {
+        position: absolute;
+        top: 0;
+        width: 41.6%;
+    }
+    #sidebar {
+        padding-top:0;
+    }
+}
+
+
+
 /* SIDEBAR END */
 
 
@@ -267,3 +304,26 @@ footer .list-inline{
     padding-top: 10px;
 }
 
+/* TABLES */
+thead{
+    background-color: #ddd;
+}
+
+.main-area{
+    background-color: #FFF;
+    padding: 2px 20px 20px 20px;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    padding: 2px 8px;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    background-color: #DDD;
+    border-radius: 5px;
+    border-color: #333;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active{
+    cursor: not-allowed;
+}

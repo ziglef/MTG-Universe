@@ -2118,7 +2118,7 @@ th {
 }
 .table-hover > tbody > tr:hover > td,
 .table-hover > tbody > tr:hover > th {
-    background-color: #485563;
+    background-color: #ccc;
 }
 table col[class*="col-"] {
     position: static;
@@ -6245,8 +6245,7 @@ table,
 }
 table a:not(.btn),
 .table a:not(.btn) {
-    color: #fff;
-    text-decoration: underline;
+
 }
 table .text-muted,
 .table .text-muted {

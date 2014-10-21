@@ -10,21 +10,26 @@
             <div class="container-fluid expanded-panel">
                 <div class="row">
                     <div id="logo" class="col-xs-12 col-sm-2">
+
                         <a href="index_v1.html"><img class="img-responsive" src="@routes.Assets.at("images/logo.png")"/></a>
                     </div>
                     <div id="top-panel" class="col-xs-12 col-sm-10">
                         <div class="row">
                             <div class="col-xs-12 col-sm-6">
-                                <div id="search">
-                                    <input type="text" placeholder="Type keywords here..."/>
-                                    <a href="search.html" class="fa fa-search"></a>
+                                <div class="input-group" style="width: 100%">
+                                    <div class="input-group-btn search-panel">
+                                        <button id="menu-toggle" type="button" class="btn btn-primary form-control-xs visible-xs" data-toggle="offcanvas" data-target=".sidebar-nav">
+                                            <i class="fa fa-bars"></i>
+                                        </button>
+                                    </div>
+                                    <div id="search">
+                                        <input type="text" placeholder="Type keywords here..."/>
+                                        <a href="search.html" class="fa fa-search"></a>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-6 top-panel-right">
                                 <ul class="nav navbar-nav pull-right panel-menu">
-                                        <!--<a href="#" class="show-sidebar">
-                                        <i class="fa fa-bars"></i>
-                                    </a>-->
                                     <li class="hidden-xs">
                                         <a class="ajax-link" href="ajax/calendar.html">
                                             <i class="fa fa-flag"></i>
@@ -91,54 +96,40 @@
         </header>
         <!--End Header-->
         <!--Start Container-->
-        <div class="container-fluid">
-            <div class="row">
-                <div id="sidebar-left" class="col-xs-2 col-sm-2">
-                    <ul class="nav main-menu">
-                        <li>
-                            <a href="ajax/dashboard.html" class="active ajax-link">
-                                <i class="fa fa-clock-o"></i>
-                                <span class="hidden-xs">Timeline</span>
-                            </a>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle">
-                                <i class="fa fa-pencil-square-o"></i>
-                                <span class="hidden-xs">Create</span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="ajax-link" href="ajax/charts_xcharts.html">Collection</a></li>
-                                <li><a class="ajax-link" href="ajax/charts_morris.html">Decks</a></li>
-                                <li><a class="ajax-link" href="ajax/charts_flot.html">Wanted List</a></li>
-                                <li><a class="ajax-link" href="ajax/charts_google.html">Trade List</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="ajax/dashboard.html" class="ajax-link">
-                                <i class="fa fa-newspaper-o"></i>
-                                <span class="hidden-xs">Articles</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="ajax/dashboard.html" class="ajax-link">
-                                <i class="fa fa-calendar"></i>
-                                <span class="hidden-xs">Events</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="ajax/dashboard.html" class="ajax-link">
-                                <i class="fa fa-search-plus"></i>
-                                <span class="hidden-xs">Advanced search</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                    <!--Start Content-->
-                <div id="content" class="col-xs-12 col-sm-10">
-                </div>
-                    <!--End Content-->
-            </div>
-        </div>
+        <div class="page-container">
+            <div class="container-fluid">
+                <div class="row row-offcanvas row-offcanvas-left">
+
+                        <!-- sidebar -->
+                    <div class="col-xs-6 col-sm-2 sidebar-offcanvas" id="sidebar" role="navigation">
+                        <ul class="nav">
+                            <li><a href="#"><i class="fa fa-clock-o"></i><span class="hidden-xs"> Timeline</span></a></li>
+                            <li>
+                                <a href="#" data-toggle="collapse" data-target="#toggleDemo2" data-parent="#sidenav01" class="collapsed">
+                                    <i class="fa fa-pencil-square-o"></i> Create <i class="fa fa-angle-down pull-right"></i>
+                                </a>
+                                <div class="collapse" id="toggleDemo2">
+                                    <ul class="nav nav-list">
+                                        <li><a href="@routes.Application.createCollectionData()"> - Collection</a></li>
+                                        <li><a href="#"> - Decks</a></li>
+                                        <li><a href="#"> - Want List</a></li>
+                                        <li><a href="#"> - Trade List</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li><a href="#"><i class="fa fa-newspaper-o"></i><span class="hidden-xs"> Articles</span></a></li>
+                            <li><a href="#"><i class="fa fa-calendar"></i><span class="hidden-xs"> Events</span></a></li>
+                            <li><a href="#"><i class="fa fa-search-plus"></i><span class="hidden-xs"> Advanced search</span></a></li>
+                        </ul>
+                    </div>
+
+                        <!-- main area -->
+                    <div class="col-xs-12 col-sm-10">
+
+                    </div><!-- /.col-xs-12 main -->
+                </div><!--/.row-->
+            </div><!--/.container-->
+        </div> <!--/.page-container-->
     } else {
         <div class="wrapper">
             <header>
@@ -257,8 +248,6 @@
             }
         }
     }
-
-
 
     <!-- Modal -->
     <div class="modal fade" id="forgetPassword" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

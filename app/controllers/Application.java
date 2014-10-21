@@ -10,8 +10,8 @@ import play.data.validation.Constraints;
 import play.db.ebean.Transactional;
 import play.mvc.*;
 import views.html.*;
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
+
+import java.util.*;
 
 import static play.libs.Json.toJson;
 import com.typesafe.plugin.*;
@@ -62,15 +62,14 @@ public class Application extends Controller {
 
     public static Result createCollectionData(){
 
-        ArrayList<Card> results = Card.findCardsByName("");
-        if( results != null ) {
-            LinkedHashSet<Card> cards = new LinkedHashSet<>();
-            for(Card c : results){
-                if(!cards.contains(c))
-                    cards.add(c);
-            }
+        Map<String, String> results = new HashMap<>();
 
-            return ok(createCollection.render(toJson(cards)));
+        for(Card c: Card.find.select("name").select("imageName").findList()) {
+            results.put(c.name, c.imageName);
+        }
+
+        if( results != null ) {
+            return ok(createCollection.render(toJson(results)));
         } else {
             return notFound();
         }

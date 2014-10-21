@@ -24,6 +24,14 @@ public class Card extends Model implements Serializable, Comparable{
         return cards.size() > 0 ? cards : null;
     }
 
+    // Finds all cards
+    public static ArrayList<Card> findAll(){
+
+        ArrayList<Card> cards = new ArrayList<>(find.all());
+
+        return cards.size() > 0 ? cards : null;
+    }
+
     // Finds all the cards in the database
     public static Finder<String, Card> find = new Model.Finder<>(String.class, Card.class);
 
