@@ -314,14 +314,18 @@ thead{
     padding: 2px 20px 20px 20px;
 }
 
-.dataTables_wrapper .dataTables_paginate .paginate_button {
-    padding: 2px 8px;
-}
+.dataTables_wrapper .dataTables_paginate .ui-button {
+     padding: 2px 8px;
+     color: black;
+    cursor: pointer;
+    margin: 2px;
+ }
 
-.dataTables_wrapper .dataTables_paginate .paginate_button {
+.dataTables_wrapper .dataTables_paginate .ui-button {
     background-color: #DDD;
     border-radius: 5px;
     border-color: #333;
+    color: black;
 }
 
 .dataTables_wrapper .dataTables_paginate .paginate_button.disabled, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active{
