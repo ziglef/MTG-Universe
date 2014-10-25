@@ -9,22 +9,25 @@ import models.Card;
 import models.User;
 import play.libs.Json;
 import play.twirl.api.Html;
+import utilities.AuthenticationSystem;
 import utilities.PasswordGenerator;
 import play.data.Form;
 import play.data.validation.Constraints;
 import play.db.ebean.Transactional;
 import play.mvc.*;
 import views.html.*;
-
 import java.util.*;
-
 import static play.libs.Json.toJson;
+
 import com.typesafe.plugin.*;
 
 public class Application extends Controller {
 
     public static Result index() {
-        return ok(index.render(Form.form(User.class), Form.form(Login.class)));
+		if ( AuthenticationSystem.isLoggedIn() )
+			return ok(dashboard.render("Dashboard", null));
+		else
+			return ok(index.render(Form.form(User.class), Form.form(Login.class)));
     }
 
     @Transactional
