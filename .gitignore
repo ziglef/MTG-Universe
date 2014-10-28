@@ -15,3 +15,4 @@ dist
 /.settings
 deprecated_code.txt
 conf/evolutions/default/*.sql
+*~
