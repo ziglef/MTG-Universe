@@ -147,17 +147,14 @@ public class Application extends Controller {
                 user.password = newPassword;
                 user.save();
                 
-                // Send email (preciso configurar ainda no servidor)
+                // Send email (funciona so no servidor ldso02.fe.up.pt)
                 MailerAPI mail = play.Play.application().plugin(MailerPlugin.class).email();
-                mail.setSubject("New password at magicgathering");
+                mail.setSubject("New password at MTGUniverse");
                 mail.setRecipient(user.email);
-                mail.setFrom("Password Recover <noreply@magicgathering.com>");
+                mail.setFrom("noreply@ldso02.fe.up.pt");
 
                 // Send it
-                //mail.send( "Your new password is: " + newPassword );
-                
-                // Temporario
-                System.out.println("Nova password: " + newPassword);
+                mail.send( "You requested a new password for your account: " + newPassword + "\n\nBest regards,\nMTGUniverse Team");
             }
             else
             {
