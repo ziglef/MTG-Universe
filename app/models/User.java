@@ -4,6 +4,8 @@ import com.avaje.ebean.event.BeanPersistController;
 import play.db.ebean.Model;
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+
 import org.mindrot.jbcrypt.BCrypt;
 
 // The model for the average user
@@ -39,7 +41,7 @@ public class User extends Model implements Serializable{
 
 
     //Collection of cards
-    @OneToOne
+    @OneToMany
     public GenericCollection collection;
 
 
@@ -66,5 +68,11 @@ public class User extends Model implements Serializable{
     		return logged;
     	
     	return null;
+    }
+
+    public static User findUserByUsername(String username){
+        User user = null;
+        user = find.where().eq("username", username).findUnique();
+        return user;
     }
 }
