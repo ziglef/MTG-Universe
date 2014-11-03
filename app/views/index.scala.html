@@ -1,116 +1,152 @@
-@(userRegister: Form[User])
+@(userRegister: Form[User], userLogin: Form[Application.Login])
 @import helper._
 @implicitField = @{
     FieldConstructor(horizontalForm.f)
 }
 
+@**
+	User is not logged (checked on Application.java)
+**@
+
 @main("Home") {
-
-    <div class="wrapper">
-        <header>
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-4">
-                        <img class="img-responsive" src="http://placehold.it/350x60">
-                    </div>
-                    <div class="col-md-3 col-md-offset-1 mg-top-6">
-                        <div class="input-group">
-                            <span class="input-group-addon input-group-addon-xs">
-                                <span class="glyphicon glyphicon-user"></span>
-                            </span>
-                            <input type="text" class="form-control form-control-xs" placeholder="Insert your username">
-                        </div>
-                        <label class="checkbox inline">
-                            <input type="checkbox" id="inlineCheckbox1" value="option1">
-                            <span class="font-xs">Remember me</span>
-                        </label>
-                    </div>
-                    <div class="col-md-3 mg-top-6">
-                        <div class="input-group">
-                            <span class="input-group-addon input-group-addon-xs">
-                                <span class="glyphicon glyphicon-lock"></span>
-                            </span>
-                            <input type="password" class="form-control form-control-xs" placeholder="Insert your password">
-                        </div>
-                        <span class="font-xs"><a class="forget-pass" data-toggle="modal" data-target="#forgetPassword"><b>
-                            Forgot your password?</b></a></span>
-                    </div>
-                    <div class="col-md-1 mg-top-6">
-                        <button class="btn btn-info btn-sm">Login</button>
-                    </div>
-                </div>
-            </div>
-        </header>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-6">
-                    <div class="well bs-component shadow-around mg-top-lg">
-                            <!--<h1>A simple user registration form</h1>
-                     @helper.form(action = routes.Application.addUser(), 'id -> "userRegister") {
-                        <fieldset>
-                            <legend>User Registration Form</legend>
-                            @helper.inputText(userRegister("username"), 'id -> "username", '_label -> "Username")
-                            @helper.inputText(userRegister("name"), 'id -> "name", '_label -> "Name")
-                            @helper.inputPassword(userRegister("password"), 'id -> "password", '_label -> "Password")
-                            <input type="submit" class="btn primary" value="Register">
-                        </fieldset>
-                    }
-                        -->
-                        @helper.form(action = routes.Application.addUser(), 'id -> "userRegister", 'class -> "form-horizontal") {
-                            <fieldset>
-                                <h2>Register</h2>
-                                <hr class="double"/>
-                                @helper.inputText(userRegister("name"), 'id -> "nameReg", '_label -> "Name *", 'class -> "form-control", 'placeholder -> "Insert your name")
-                                @helper.inputText(userRegister("username"), 'id -> "usernameReg", '_label -> "Username *", 'class -> "form-control", 'placeholder -> "Choose your username")
-                                @helper.inputText(userRegister("email"), 'id -> "emailReg", '_label -> "Email *", 'class -> "form-control", 'placeholder -> "Insert your name")
-                                @helper.inputPassword(userRegister("password"), 'id -> "passReg", '_label -> "Password *", 'class -> "form-control", 'placeholder -> "Choose your password")
-                                @helper.inputPassword(userRegister("passwordConfirm"), 'id -> "passConfReg", '_label -> "Confirm password *", 'class -> "form-control", 'placeholder -> "Confirm your password")
-                                <input type="submit" class="btn primary" value="Register">
-                            </fieldset>
-                        }
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-6">
-                    <div class="functionalities mg-top-lg">
-                        <h1>You are 30 seconds away from our world!</h1>
-                        <h2>What we have for you:</h2>
-                        <ul class="list-unstyled">
-                            <li><span class="glyphicon glyphicon-ok glyphicon-success"></span>Create a collection</li>
-                            <li><span class="glyphicon glyphicon-ok glyphicon-success"></span>Create a tradelist</li>
-                            <li><span class="glyphicon glyphicon-ok glyphicon-success"></span>Create a wantlist</li>
-                            <li><span class="glyphicon glyphicon-ok glyphicon-success"></span>Friends list and chat</li>
-                            <li><span class="glyphicon glyphicon-ok glyphicon-success"></span>Create Events</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal -->
-    <div class="modal fade" id="forgetPassword" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">
-                        Close</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Recover password</h4>
-                </div>
-                <div class="modal-body">
-                    @helper.form(action = routes.Application.recover()) {
-                    <div class="form-group">
-                        <label for="email" class="col-lg-2">Email</label>
-                        <div class="col-lg-10">
-                            <input class="form-control" id="email" name="email" placeholder="Insert your email" type="email">
-                            <input type="submit" class="btn primary" value="Recover">
-                        </div>
-                    </div>
-                    }
-                </div>
-                <div class="modal-footer">
-                    We will send to your email information to recover the password.
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="wrapper">
+		<header>
+			<div class="container topbar">
+				<div class="row">
+					<div class="col-md-4 logo">
+						<img class="img-responsive" src="@routes.Assets.at("images/logo.png")"/>
+					</div>
+					@helper.form(routes.Application.authenticate) {
+						<div class="col-md-3 col-md-offset-1 mg-top">
+							<div class="input-group">
+								<span class="input-group-addon input-group-addon-xs">
+									<span class="glyphicon glyphicon-user"></span>
+								</span>
+								<input type="text" name="username" class="form-control form-control-xs" placeholder="Insert your username" value="@userLogin("username").value">
+							</div>
+							<label class="checkbox inline">
+								<input type="checkbox" id="inlineCheckbox1" value="option1">
+								<span class="font-xs">Remember me</span>
+							</label>
+						</div>
+						<div class="col-md-3 mg-top">
+							<div class="input-group">
+								<span class="input-group-addon input-group-addon-xs">
+									<span class="glyphicon glyphicon-lock"></span>
+								</span>
+								<input type="password" name="password" class="form-control form-control-xs" placeholder="Insert your password" value="@userLogin("password").value">
+							</div>
+							<span class="font-xs"><a class="forget-pass" data-toggle="modal" data-target="#forgetPassword"><b>
+								Forgot your password?</b></a></span>
+						</div>
+						<div class="col-md-1 mg-top">
+							<button type="submit" class="btn btn-primary btn-sm">Login</button>
+						</div>
+					}
+				</div>
+			</div>
+			<div class="header-search">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-12 col-md-12">
+							<div class="input-group">
+								<div class="input-group-btn search-panel">
+									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" style="padding : 5 px 12 px ;">
+										<span id="search_concept">Filter by</span> <span class="caret"></span>
+									</button>
+									<ul class="dropdown-menu" role="menu">
+										<li><a href="#contains">Cards</a></li>
+										<li><a href="#its_equal">Artist</a></li>
+										<li><a href="#greather_than">Articles</a></li>
+										<li><a href="#less_than">Events</a></li>
+										<li class="divider"></li>
+										<li><a href="#all">All</a></li>
+									</ul>
+								</div>
+								<input type="text" class="form-control" name="x" placeholder="Type keywords here...">
+								<span class="input-group-btn">
+									<button class="btn btn-default" type="button" style="padding : 5 px 12 px ;"><span class="glyphicon glyphicon-search"></span></button>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 col-md-6 col-sm-6">
+					<div class="well bs-component shadow-around mg-top-lg">
+					@helper.form(action = routes.Application.addUser(), 'id -> "userRegister", 'class -> "form-horizontal") {
+						<fieldset>
+							<h2 class="color-theme">Register</h2>
+							<hr class="double color-theme"/>
+							@helper.inputText(userRegister("name"), 'id -> "nameReg", '_label -> "Name *", 'class -> "form-control", 'placeholder -> "Insert your name")
+							@helper.inputText(userRegister("username"), 'id -> "usernameReg", '_label -> "Username *", 'class -> "form-control", 'placeholder -> "Choose your username")
+							@helper.inputText(userRegister("email"), 'id -> "emailReg", '_label -> "Email *", 'class -> "form-control", 'placeholder -> "Insert your name")
+							@helper.inputPassword(userRegister("password"), 'id -> "passReg", '_label -> "Password *", 'class -> "form-control", 'placeholder -> "Choose your password")
+							@helper.inputPassword(userRegister("passwordConfirm"), 'id -> "passConfReg", '_label -> "Confirm password *", 'class -> "form-control", 'placeholder -> "Confirm your password")
+							<input type="submit" class="btn btn-success btn-block" value="Register">
+						</fieldset>
+					}
+					</div>
+				</div>
+				<div class="col-lg-6 col-md-6 col-sm-6">
+					<div class="functionalities mg-top-lg shadow-around">
+						<h1>You are 30 seconds away from our world!</h1>
+						<h2>What we have for you:</h2>
+						<ul class="list-unstyled">
+							<li><span class="glyphicon glyphicon-ok glyphicon-success"></span>Create a collection</li>
+							<li><span class="glyphicon glyphicon-ok glyphicon-success"></span>Create a tradelist</li>
+							<li><span class="glyphicon glyphicon-ok glyphicon-success"></span>Create a wantlist</li>
+							<li><span class="glyphicon glyphicon-ok glyphicon-success"></span>Friends list</li>
+							<li><span class="glyphicon glyphicon-ok glyphicon-success"></span>Chat with friends</li>
+							<li><span class="glyphicon glyphicon-ok glyphicon-success"></span>Create Events</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	@if(userLogin.hasErrors) {
+		@if(userLogin.errors.size() > 0) {
+			@for((key, value) <- userLogin.errors) {
+				<p style="color : red ;">@key.toString() ->
+					@for(err <- value) {
+						@err.message().toString()
+					}
+				</p>
+			}
+		} else {
+			<p>No error returned</p>
+		}
+	}
+	
+	<!-- Modal -->
+	<div class="modal fade" id="forgetPassword" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">
+						Close</span></button>
+					<h4 class="modal-title" id="myModalLabel">Recover password</h4>
+				</div>
+				<div class="modal-body">
+				@helper.form(action = routes.Application.recover()) {
+					<div class="form-group">
+						<label for="email" class="col-lg-2">Email</label>
+						<div class="col-lg-10">
+							<input class="form-control" id="email" name="email" placeholder="Insert your email" type="email">
+							<input type="submit" class="btn primary" value="Recover">
+						</div>
+					</div>
+				}
+				</div>
+				<div class="modal-footer">
+					We will send to your email information to recover the password.
+				</div>
+			</div>
+		</div>
+	</div>
 }

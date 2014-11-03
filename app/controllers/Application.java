@@ -1,21 +1,33 @@
 package controllers;
 
+import com.avaje.ebean.Expr;
+import com.avaje.ebean.Page;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import models.Card;
 import models.User;
+import play.libs.Json;
+import play.twirl.api.Html;
+import utilities.AuthenticationSystem;
 import utilities.PasswordGenerator;
 import play.data.Form;
 import play.data.validation.Constraints;
 import play.db.ebean.Transactional;
 import play.mvc.*;
 import views.html.*;
-import java.util.ArrayList;
+import java.util.*;
 import static play.libs.Json.toJson;
+
 import com.typesafe.plugin.*;
 
 public class Application extends Controller {
 
     public static Result index() {
-        return ok(index.render(Form.form(User.class)));
+		if ( AuthenticationSystem.isLoggedIn() )
+			return ok(dashboard.render("Dashboard", null));
+		else
+			return ok(index.render(Form.form(User.class), Form.form(Login.class)));
     }
 
     @Transactional
@@ -56,16 +68,23 @@ public class Application extends Controller {
         }
     }
 
+    public static Result createCollectionData(){
+        return ok(createCollection.render());
+    }
+/*
     public static Result login() {
+        if(!session("islogged").equalsIgnoreCase("true"))
+            session("islogged", "false");
         return ok(login.render(Form.form(Login.class)));
     }
-
+*/
     public static Result authenticate() {
 
         Form<Login> loginForm = Form.form(Login.class).bindFromRequest();
 
         if ( loginForm.hasErrors() ) {
-            return badRequest(login.render(loginForm));
+            session("islogged", "false");
+            return redirect(controllers.routes.Application.index());
         }
         else {
             User logged = User.authenticate(loginForm.get().username, loginForm.get().password);
@@ -85,8 +104,10 @@ public class Application extends Controller {
             }
             else
             {
+                session().clear();
+                session("islogged", "false");
                 loginForm.reject("login","invalid username/password");
-                return badRequest(login.render(loginForm));
+                return redirect(controllers.routes.Application.index());
             }
         }
     }
@@ -145,6 +166,51 @@ public class Application extends Controller {
             
             return redirect(controllers.routes.Application.index());
         }
+    }
+
+    public static Result sortCards(){
+
+        Map<String, String[]> params = request().queryString();
+
+        Integer iTotalRecords = Card.find.select("name").setDistinct(true).findRowCount();
+        String filter = params.get("sSearch")[0];
+        Integer pageSize = Integer.valueOf(params.get("iDisplayLength")[0]);
+        Integer page = Integer.valueOf(params.get("iDisplayStart")[0]);
+
+        String sortBy = "name";
+        String order = params.get("sSortDir_0")[0];
+
+        /*
+        switch(Integer.valueOf(params.get("iSortCol_0)[0]))){
+        case 1: sortBy ="rowValue";
+
+        }*/
+
+        Page<Card> cardsPage = Card.find.where(
+                Expr.ilike("name", "%" + filter + "%")
+        )
+        .orderBy(sortBy + " " + order + ", id " + order)
+        .findPagingList(pageSize).setFetchAhead(false)
+        .getPage(page);
+
+        Integer iTotalDisplayRecords = cardsPage.getTotalRowCount();
+
+        ObjectNode result = Json.newObject();
+
+        result.put("sEcho", Integer.valueOf(params.get("sEcho")[0]));
+        result.put("iTotalRecords", iTotalRecords);
+        result.put("iTotalDisplayRecords", iTotalDisplayRecords);
+
+        ArrayNode an = result.putArray("aaData");
+
+        for(Card c: cardsPage.getList()){
+            ObjectNode row = Json.newObject();
+            row.put("0","<a href=\"#\" name=\""+c.name+"\" onclick=\"changeImg ( this.name ) ;\">"+c.name+"</a>");
+            row.put("1","<button class=\"btn btn-sm btn-success btn-block\" name=\""+c.name+"\" onclick=\"addToCollection(this.name)\"> ADD </button>");
+            an.add(row);
+        }
+
+        return ok(result);
     }
 
 }
