@@ -6,6 +6,8 @@ import models.Collection;
 import play.mvc.Controller;
 import play.mvc.Result;
 
+import java.util.List;
+
 
 public class Collections extends Controller {
 
@@ -35,5 +37,11 @@ public class Collections extends Controller {
         collection.saveManyToManyAssociations("cards");
         return ok(); //FIXME
     }
+
+    public static Result getUserCollections(Integer userId) {
+        List<Collection> collections = Collection.findUserCollections(userId);
+        return ok(); //FIXME
+    }
+
 
 }

@@ -55,13 +55,6 @@ public abstract class AbstractSetofCards extends Model implements Serializable {
 
     // TODO delete a collection
 
-    // find all collections of some user
-    public static List<AbstractSetofCards> findUserCollections(String username) {
-        return find.where().eq("owner.username", username).findList();
-    }
-
-    public static Finder<Integer, AbstractSetofCards> find = new Model.Finder<>(Integer.class, AbstractSetofCards.class);
-
     public void addCard(Card c) {
         cards.add(c);
         this.save();

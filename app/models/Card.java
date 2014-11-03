@@ -53,7 +53,7 @@ public class Card extends Model implements Serializable, Comparable{
 
     // Card names (if it has multiple names, optional)
     @Column(name = "names")
-    public ArrayList<String> names;
+    public ArrayList<String> names; //FIXME
 
     // Card mana cost
     @Column(name = "manaCost")
@@ -65,7 +65,7 @@ public class Card extends Model implements Serializable, Comparable{
 
     // Card color(s)
     @Column(name = "colors")
-    public ArrayList<String> colors;
+    public ArrayList<String> colors; //FIXME
 
     // Card type
     @Column(name = "type")
@@ -73,15 +73,15 @@ public class Card extends Model implements Serializable, Comparable{
 
     // Card supertype(s)
     @Column(name = "supertypes")
-    public ArrayList<String> supertypes;
+    public ArrayList<String> supertypes; //FIXME
 
     // Card types
     @Column(name = "types")
-    public ArrayList<String> types;
+    public ArrayList<String> types; //FIXME
 
     // Card subtypes
     @Column(name = "subtypes")
-    public ArrayList<String> subtypes;
+    public ArrayList<String> subtypes; //FIXME
 
     // Card rarity
     @Column(name = "rarity")
@@ -121,7 +121,7 @@ public class Card extends Model implements Serializable, Comparable{
 
     // Card variations (doesnt include its own multiverseid)
     @Column(name = "variations")
-    public ArrayList<Integer> variations;
+    public ArrayList<Integer> variations; //FIXME
 
     // Card image name (for use with mtgimage.com)
     @Column(name = "imageName")
@@ -159,15 +159,15 @@ public class Card extends Model implements Serializable, Comparable{
 
     // Card rulings
     @Column(name = "rulings")
-    public ArrayList<HashMap<String, String>> rulings;
+    public ArrayList<HashMap<String, String>> rulings; //FIXME
 
     // Card foreign names
     @Column(name = "foreignNames")
-    public ArrayList<HashMap<String, String>> foreignNames;
+    public ArrayList<HashMap<String, String>> foreignNames; //FIXME
 
     // Card printings (in which sets the card was print on)
     @Column(name = "printings")
-    public ArrayList<String> printings;
+    public ArrayList<String> printings; //FIXME
 
     // Card original text
     @Column(name = "originalText", columnDefinition = "TEXT(1023)")
@@ -180,7 +180,7 @@ public class Card extends Model implements Serializable, Comparable{
     // Will hash map work? //
     // Card legalities
     @Column(name = "legalities")
-    public HashMap<String, String> legalities;
+    public HashMap<String, String> legalities; //FIXME
 
     // Card source (where promo cards could be obtained)
     @Column(name = "source")

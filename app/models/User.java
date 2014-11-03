@@ -39,8 +39,8 @@ public class User extends Model implements Serializable{
 
 
     //Collection of cards
-    @OneToMany
-    public AbstractSetofCards collection;
+    //@OneToMany
+    //public Collection collection;
 
     public User(String name, String username, String email, String password) {
         this.name=name;
