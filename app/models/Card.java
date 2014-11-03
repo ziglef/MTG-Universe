@@ -178,9 +178,10 @@ public class Card extends Model implements Serializable{
     @Column(name = "source")
     public String source;
 
+    // not necessary
     // Collections on which the card is
-    @ManyToMany(cascade=CascadeType.ALL)
-    @JoinTable(name="cards_collection")
-    List<GenericCollection> collection;
+    //@ManyToMany(cascade=CascadeType.ALL)
+    // @JoinTable(name="cards_collection")
+    // List<GenericCollection> collection = new ArrayList<>();
 
 }

@@ -1,10 +1,8 @@
 package models;
 
-import com.avaje.ebean.event.BeanPersistController;
 import play.db.ebean.Model;
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
 
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -42,7 +40,14 @@ public class User extends Model implements Serializable{
 
     //Collection of cards
     @OneToMany
-    public GenericCollection collection;
+    public AbstractSetofCards collection;
+
+    public User(String name, String username, String email, String password) {
+        this.name=name;
+        this.username=username;
+        this.email=email;
+        this.password=password;
+    }
 
 
     @Override

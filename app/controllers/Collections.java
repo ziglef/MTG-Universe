@@ -1,8 +1,8 @@
 package controllers;
 
+import models.AbstractSetofCards;
 import models.Card;
-import models.GenericCollection;
-import play.data.Form;
+import models.Collection;
 import play.mvc.Controller;
 import play.mvc.Result;
 
@@ -10,23 +10,30 @@ import play.mvc.Result;
 public class Collections extends Controller {
 
     public static Result addCollection() {
-        GenericCollection collection = GenericCollection.create(
-                Form.form().bindFromRequest().get("name"),
-                //request().username()
-                session().get("name")
+        Collection collection = Collection.create(
+                "nome",
+                1 //user id
         );
         return ok(); //FIXME
     }
 
+    public static Result deleteCollection(Integer collectionId) {
+        Collection.find.ref(collectionId).delete();
+        return ok(); //FIXME
+    }
+
+    public static Result renameCollection(Integer collectionId, String newName) {
+        Collection.find.ref(collectionId).rename(newName);
+        return ok(); //FIXME
+    }
+
     public static Result addCardtoCollection(Integer collectionId, Integer cardId) {
-        GenericCollection collection = GenericCollection.find.ref(collectionId);
+        AbstractSetofCards collection = Collection.find.ref(collectionId);
         Card newcard = Card.find.byId(cardId.toString());
         collection.addCard(newcard);
         collection.save();
         collection.saveManyToManyAssociations("cards");
         return ok(); //FIXME
     }
-
-
 
 }
