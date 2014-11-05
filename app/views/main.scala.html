@@ -6,17 +6,14 @@
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("bootstrap/css/bootstrap.min.css")">
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("bootstrap/css/bootstrap-social.css")">
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("datatables/jquery.dataTables.min.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("datatables/dataTables.bootstrap.css")">
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     </head>
-    <body>
-        <div id="wrap">
-            <div id="main">
-            @content
-            </div>
-        </div>
+    <body class="skin">
+		@content
         <footer>
             <div class="container">
                 <div class="row">

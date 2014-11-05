@@ -33,4 +33,4 @@ GET         /loadCards               utilities.JsonUtil.loadCardsDB(s: String = 
 GET         /createCollection        controllers.Application.createCollectionData()
 
 # Sort all cards
-GET         /sortCards              controllers.Application.sortCards()
+GET         /sortCards               controllers.Application.sortCards()

@@ -2,139 +2,461 @@
 
 @main(title) {
 	@if(session.contains("islogged") && session.get("islogged").equalsIgnoreCase("true")) {
-		<header class="navbar header-log">
-			<div class="container-fluid expanded-panel">
-				<div class="row">
-					<div id="logo" class="col-xs-12 col-sm-2">
+		 <!-- header logo: style can be found in header.less -->
+        <header class="header">
+            <a href="index.html" class="logo">
+                <!-- Add the class icon to your logo image or logo icon to add the margining -->
+                MTGUniverse
+            </a>
+            <!-- Header Navbar: style can be found in header.less -->
+            <nav class="navbar navbar-static-top" role="navigation">
+                <!-- Sidebar toggle button-->
+                <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <div class="navbar-right">
+                    <ul class="nav navbar-nav"><!-- Notifications: style can be found in dropdown.less -->
+                        <li class="dropdown notifications-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-warning"></i>
+                                <span class="label label-warning">10</span>
+                            </a>
+                            <ul class="dropdown-menu" style="padding:0">
+                                <li class="header">You have 4 messages</li>
+                                <li>
+                                    <!-- inner menu: contains the actual data -->
+                                    <ul class="menu">
+                                        <li><!-- start message -->
+                                            <a href="#">
+                                                <div class="pull-left">
+                                                    <img src="@routes.Assets.at("images/avatar.png")" class="img-circle" alt="User Image"/>
+                                                </div>
+                                                <h4>
+                                                    Support Team
+                                                    <small><i class="fa fa-clock-o"></i> 5 mins</small>
+                                                </h4>
+                                                <p>Why not buy a new awesome theme?</p>
+                                            </a>
+                                        </li><!-- end message -->
+                                        <li>
+                                            <a href="#">
+                                                <div class="pull-left">
+                                                    <img src="@routes.Assets.at("images/avatar.png")" class="img-circle" alt="user image"/>
+                                                </div>
+                                                <h4>
+                                                    AdminLTE Design Team
+                                                    <small><i class="fa fa-clock-o"></i> 2 hours</small>
+                                                </h4>
+                                                <p>Why not buy a new awesome theme?</p>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <div class="pull-left">
+                                                    <img src="@routes.Assets.at("images/avatar.png")" class="img-circle" alt="user image"/>
+                                                </div>
+                                                <h4>
+                                                    Developers
+                                                    <small><i class="fa fa-clock-o"></i> Today</small>
+                                                </h4>
+                                                <p>Why not buy a new awesome theme?</p>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <div class="pull-left">
+                                                    <img src="@routes.Assets.at("images/avatar.png")" class="img-circle" alt="user image"/>
+                                                </div>
+                                                <h4>
+                                                    Sales Department
+                                                    <small><i class="fa fa-clock-o"></i> Yesterday</small>
+                                                </h4>
+                                                <p>Why not buy a new awesome theme?</p>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <div class="pull-left">
+                                                    <img src="@routes.Assets.at("images/avatar.png")" class="img-circle" alt="user image"/>
+                                                </div>
+                                                <h4>
+                                                    Reviewers
+                                                    <small><i class="fa fa-clock-o"></i> 2 days</small>
+                                                </h4>
+                                                <p>Why not buy a new awesome theme?</p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="footer"><a href="#">See All Messages</a></li>
+                            </ul>
+                        </li><!-- Notifications: style can be found in dropdown.less -->
+                        <li class="dropdown friends-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-users"></i>
+                                <span class="label label-warning">10</span>
+                            </a>
+                            <ul class="dropdown-menu" style="padding:0">
+                                <li class="header">You have 4 messages</li>
+                                <li>
+                                    <!-- inner menu: contains the actual data -->
+                                    <ul class="menu">
+                                        <li><!-- start message -->
+                                            <a href="#">
+                                                <div class="pull-left">
+                                                    <img src="@routes.Assets.at("images/avatar.png")" class="img-circle" alt="User Image"/>
+                                                </div>
+                                                <h4>
+                                                    Support Team
+                                                    <small><i class="fa fa-clock-o"></i> 5 mins</small>
+                                                </h4>
+                                                <p>Why not buy a new awesome theme?</p>
+                                            </a>
+                                        </li><!-- end message -->
+                                        <li>
+                                            <a href="#">
+                                                <div class="pull-left">
+                                                    <img src="@routes.Assets.at("images/avatar.png")" class="img-circle" alt="user image"/>
+                                                </div>
+                                                <h4>
+                                                    AdminLTE Design Team
+                                                    <small><i class="fa fa-clock-o"></i> 2 hours</small>
+                                                </h4>
+                                                <p>Why not buy a new awesome theme?</p>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <div class="pull-left">
+                                                    <img src="@routes.Assets.at("images/avatar.png")" class="img-circle" alt="user image"/>
+                                                </div>
+                                                <h4>
+                                                    Developers
+                                                    <small><i class="fa fa-clock-o"></i> Today</small>
+                                                </h4>
+                                                <p>Why not buy a new awesome theme?</p>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <div class="pull-left">
+                                                    <img src="@routes.Assets.at("images/avatar.png")" class="img-circle" alt="user image"/>
+                                                </div>
+                                                <h4>
+                                                    Sales Department
+                                                    <small><i class="fa fa-clock-o"></i> Yesterday</small>
+                                                </h4>
+                                                <p>Why not buy a new awesome theme?</p>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <div class="pull-left">
+                                                    <img src="@routes.Assets.at("images/avatar.png")" class="img-circle" alt="user image"/>
+                                                </div>
+                                                <h4>
+                                                    Reviewers
+                                                    <small><i class="fa fa-clock-o"></i> 2 days</small>
+                                                </h4>
+                                                <p>Why not buy a new awesome theme?</p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="footer"><a href="#">See All Messages</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown messages-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-envelope"></i>
+                                <span class="label label-success">4</span>
+                            </a>
+                            <ul class="dropdown-menu" style="padding:0">
+                                <li class="header">You have 4 messages</li>
+                                <li>
+                                    <!-- inner menu: contains the actual data -->
+                                    <ul class="menu">
+                                        <li><!-- start message -->
+                                            <a href="#">
+                                                <div class="pull-left">
+                                                    <img src="@routes.Assets.at("images/avatar.png")" class="img-circle" alt="User Image"/>
+                                                </div>
+                                                <h4>
+                                                    Support Team
+                                                    <small><i class="fa fa-clock-o"></i> 5 mins</small>
+                                                </h4>
+                                                <p>Why not buy a new awesome theme?</p>
+                                            </a>
+                                        </li><!-- end message -->
+                                        <li>
+                                            <a href="#">
+                                                <div class="pull-left">
+                                                    <img src="@routes.Assets.at("images/avatar.png")" class="img-circle" alt="user image"/>
+                                                </div>
+                                                <h4>
+                                                    AdminLTE Design Team
+                                                    <small><i class="fa fa-clock-o"></i> 2 hours</small>
+                                                </h4>
+                                                <p>Why not buy a new awesome theme?</p>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <div class="pull-left">
+                                                    <img src="@routes.Assets.at("images/avatar.png")" class="img-circle" alt="user image"/>
+                                                </div>
+                                                <h4>
+                                                    Developers
+                                                    <small><i class="fa fa-clock-o"></i> Today</small>
+                                                </h4>
+                                                <p>Why not buy a new awesome theme?</p>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <div class="pull-left">
+                                                    <img src="@routes.Assets.at("images/avatar.png")" class="img-circle" alt="user image"/>
+                                                </div>
+                                                <h4>
+                                                    Sales Department
+                                                    <small><i class="fa fa-clock-o"></i> Yesterday</small>
+                                                </h4>
+                                                <p>Why not buy a new awesome theme?</p>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <div class="pull-left">
+                                                    <img src="@routes.Assets.at("images/avatar.png")" class="img-circle" alt="user image"/>
+                                                </div>
+                                                <h4>
+                                                    Reviewers
+                                                    <small><i class="fa fa-clock-o"></i> 2 days</small>
+                                                </h4>
+                                                <p>Why not buy a new awesome theme?</p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="footer"><a href="#">See All Messages</a></li>
+                            </ul>
+                        </li>
+                        <!-- Tasks: style can be found in dropdown.less -->
+                        <li class="dropdown chat-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-comments"></i>
+                                <span class="label label-danger">9</span>
+                            </a>
+                            <ul class="dropdown-menu" style="padding:0">
+                                <li class="header">You have 4 messages</li>
+                                <li>
+                                    <!-- inner menu: contains the actual data -->
+                                    <ul class="menu">
+                                        <li><!-- start message -->
+                                            <a href="#">
+                                                <div class="pull-left">
+                                                    <img src="@routes.Assets.at("images/avatar.png")" class="img-circle" alt="User Image"/>
+                                                </div>
+                                                <h4>
+                                                    Support Team
+                                                    <small><i class="fa fa-clock-o"></i> 5 mins</small>
+                                                </h4>
+                                                <p>Why not buy a new awesome theme?</p>
+                                            </a>
+                                        </li><!-- end message -->
+                                        <li>
+                                            <a href="#">
+                                                <div class="pull-left">
+                                                    <img src="@routes.Assets.at("images/avatar.png")" class="img-circle" alt="user image"/>
+                                                </div>
+                                                <h4>
+                                                    AdminLTE Design Team
+                                                    <small><i class="fa fa-clock-o"></i> 2 hours</small>
+                                                </h4>
+                                                <p>Why not buy a new awesome theme?</p>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <div class="pull-left">
+                                                    <img src="@routes.Assets.at("images/avatar.png")" class="img-circle" alt="user image"/>
+                                                </div>
+                                                <h4>
+                                                    Developers
+                                                    <small><i class="fa fa-clock-o"></i> Today</small>
+                                                </h4>
+                                                <p>Why not buy a new awesome theme?</p>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <div class="pull-left">
+                                                    <img src="@routes.Assets.at("images/avatar.png")" class="img-circle" alt="user image"/>
+                                                </div>
+                                                <h4>
+                                                    Sales Department
+                                                    <small><i class="fa fa-clock-o"></i> Yesterday</small>
+                                                </h4>
+                                                <p>Why not buy a new awesome theme?</p>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <div class="pull-left">
+                                                    <img src="@routes.Assets.at("images/avatar.png")" class="img-circle" alt="user image"/>
+                                                </div>
+                                                <h4>
+                                                    Reviewers
+                                                    <small><i class="fa fa-clock-o"></i> 2 days</small>
+                                                </h4>
+                                                <p>Why not buy a new awesome theme?</p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="footer"><a href="#">See All Messages</a></li>
+                            </ul>
+                        </li>
+                        <!-- User Account: style can be found in dropdown.less -->
+                        <li class="dropdown user user-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="glyphicon glyphicon-user"></i>
+                                <span>@session.get("name")<i class="caret"></i></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <!-- User image -->
+                                <li class="user-header bg-light-blue">
+                                    <img src="@routes.Assets.at("images/avatar.png")" class="img-circle" alt="User Image" />
+                                    <p>
+                                        @session.get("name")
+                                    </p>
+                                </li>
+                                <!-- Menu Body -->
+                                <li class="user-body">
+                                    <div class="col-xs-4 text-center">
+                                        <a href="#">Followers</a>
+                                    </div>
+                                    <div class="col-xs-4 text-center">
+                                        <a href="#">Following</a>
+                                    </div>
+                                    <div class="col-xs-4 text-center">
+                                        <a href="#">Friends</a>
+                                    </div>
+                                </li>
+                                <!-- Menu Footer-->
+                                <li class="user-footer">
+                                    <div class="pull-left">
+                                        <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                    </div>
+                                    <div class="pull-right">
+                                        <a href="@routes.Application.logout" class="btn btn-default btn-flat">Logout</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <div class="wrapper row-offcanvas row-offcanvas-left">
+            <!-- Left side column. contains the logo and sidebar -->
+            <aside class="left-side sidebar-offcanvas">
+                <!-- sidebar: style can be found in sidebar.less -->
+                <section class="sidebar">
+                    <!-- Sidebar user panel -->
+                    <div class="user-panel">
+                        <div class="image">
+                            <img src="@routes.Assets.at("images/avatar.png")" class="img-circle" alt="User Image" />
+                        </div>
+                        <div class="info">
+                            <p>Hello, <span class="user-name">@session.get("name")</span>.</p>
+                        </div>
+                    </div>
+                    <!-- search form -->
+                    <div class="search-bar">
+                        <form action="#" method="get" class="sidebar-form">
+                            <div class="input-group">
+                                <input type="text" name="q" class="form-control" placeholder="Search..."/>
+                                <span class="input-group-btn">
+                                    <button type='submit' name='seach' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button>
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- /.search form -->
+                    <!-- sidebar menu: : style can be found in sidebar.less -->
+                    <ul class="sidebar-menu">
+                        <li class="active">
+                            <a href="index.html">
+                                <i class="fa fa-clock-o"></i> <span>Timeline</span>
+                            </a>
+                        </li>
+                        <li class="treeview active-tree">
+                            <a href="#">
+                                <i class="fa fa-bar-chart-o"></i>
+                                <span>My Cards</span>
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="@routes.Application.createCollectionData()"><i class="fa fa-angle-double-right"></i> Collections</a></li>
+                                <li><a href="pages/charts/flot.html"><i class="fa fa-angle-double-right"></i> Decks</a></li>
+                                <li><a href="pages/charts/inline.html"><i class="fa fa-angle-double-right"></i> Want List</a></li>
+                                <li><a href="pages/charts/inline.html"><i class="fa fa-angle-double-right"></i> Trade List</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="pages/calendar.html">
+                                <i class="fa fa-newspaper-o"></i> <span>Articles</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="pages/calendar.html">
+                                <i class="fa fa-calendar"></i> <span>Events</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="pages/mailbox.html">
+                                <i class="fa fa-envelope"></i> <span>Messages</span>
+                                <small class="badge pull-right label-warning">12</small>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="pages/mailbox.html">
+                                <i class="fa fa-search-plus"></i> <span>Advanced Search</span>
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+                <!-- /.sidebar -->
+            </aside>
 
-						<a href="@routes.Application.index()"><img class="img-responsive" src="@routes.Assets.at("images/logo.png")"/></a>
-					</div>
-					<div id="top-panel" class="col-xs-12 col-sm-10">
-						<div class="row">
-							<div class="col-xs-12 col-sm-6">
-								<div class="input-group" style="width : 100 %">
-									<div class="input-group-btn search-panel">
-										<button id="menu-toggle" type="button" class="btn btn-primary form-control-xs visible-xs" data-toggle="offcanvas" data-target=".sidebar-nav">
-											<i class="fa fa-bars"></i>
-										</button>
-									</div>
-									<div id="search">
-										<input type="text" placeholder="Type keywords here..."/>
-										<a href="search.html" class="fa fa-search"></a>
-									</div>
-								</div>
-							</div>
-							<div class="col-xs-12 col-sm-6 top-panel-right">
-								<ul class="nav navbar-nav pull-right panel-menu">
-									<li class="hidden-xs">
-										<a class="ajax-link" href="ajax/calendar.html">
-											<i class="fa fa-flag"></i>
-											<span class="badge">7</span>
-										</a>
-									</li>
-									<li class="hidden-xs">
-										<a class="ajax-link" href="ajax/calendar.html">
-											<i class="fa fa-users"></i>
-											<span class="badge">7</span>
-										</a>
-									</li>
-									<li class="hidden-xs">
-										<a class="ajax-link" href="ajax/calendar.html">
-											<i class="fa fa-comments"></i>
-											<span class="badge">7</span>
-										</a>
-									</li>
-									<li class="hidden-xs">
-										<a class="ajax-link" href="ajax/calendar.html">
-											<i class="fa fa-envelope"></i>
-											<span class="badge">7</span>
-										</a>
-									</li>
-									<li class="dropdown">
-										<a href="#" class="dropdown-toggle account" data-toggle="dropdown">
-											<div class="avatar">
-												<img src="@routes.Assets.at("images/avatar.png")" class="img-circle" alt="avatar" />
-											</div>
-											<i class="fa fa-angle-down pull-right"></i>
-											<div class="user-mini pull-right">
-												<span class="welcome">Welcome,</span>
-												<span>@session.get("name")</span>
-											</div>
-										</a>
-										<ul class="dropdown-menu">
-											<li>
-												<a href="#">
-													<i class="fa fa-user"></i>
-													<span>Profile</span>
-												</a>
-											</li>
-											<li>
-												<a href="#">
-													<i class="fa fa-cog"></i>
-													<span>Settings</span>
-												</a>
-											</li>
-											<li class="divider"></li>
-											<li>
-												<a href="@routes.Application.logout">
-													<i class="fa fa-power-off"></i>
-													<span> Logout</span>
-												</a>
-											</li>
-										</ul>
-									</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</header>
-		<!--End Header-->
-		<!--Start Container-->
-		<div class="page-container">
-			<div class="container-fluid">
-				<div class="row row-offcanvas row-offcanvas-left">
+            <!-- Right side column. Contains the navbar and content of the page -->
+            <aside class="right-side">
+                <!-- Content Header (Page header) -->
+                <section class="content-header">
+                    <h1>
+                        Dashboard
+                        <small>Control panel</small>
+                    </h1>
+                    <ol class="list-type list-inline">
+                        <li class="active"><a href="#" title="View in list"><i class="fa fa-list fa-2x"></i></a></li>
+                        <li class="active"><a href="#" title="View as gallery"><i class="fa fa-file-image-o fa-2x"></i></a></li>
+                    </ol>
+                </section>
 
-						<!-- sidebar -->
-					<div class="col-xs-6 col-sm-2 sidebar-offcanvas" id="sidebar" role="navigation">
-						<ul class="nav">
-							<li><a href="#"><i class="fa fa-clock-o"></i><span class="hidden-xs">
-								Timeline</span></a></li>
-							<li>
-								<a href="#" data-toggle="collapse" data-target="#toggleDemo2" data-parent="#sidenav01" class="collapsed">
-									<i class="fa fa-pencil-square-o"></i>
-									Create <i class="fa fa-angle-down pull-right"></i>
-								</a>
-								<div class="collapse" id="toggleDemo2">
-									<ul class="nav nav-list">
-										<li><a href="@routes.Application.createCollectionData()"> - Collection</a></li>
-										<li><a href="#"> - Decks</a></li>
-										<li><a href="#"> - Want List</a></li>
-										<li><a href="#"> - Trade List</a></li>
-									</ul>
-								</div>
-							</li>
-							<li><a href="#"><i class="fa fa-newspaper-o"></i><span class="hidden-xs">
-								Articles</span></a></li>
-							<li><a href="#"><i class="fa fa-calendar"></i><span class="hidden-xs">
-								Events</span></a></li>
-							<li><a href="#"><i class="fa fa-search-plus"></i><span class="hidden-xs">
-								Advanced search</span></a></li>
-						</ul>
-					</div>
-
-					<!-- main area -->
-					<div class="col-xs-12 col-sm-10 main-area">
-						@if( content == null ) {
-							<p>Default message on dashboard index</p>
-						} else {
-							@content
-						}
-					</div>
-				</div><!--/.row-->
-			</div> <!--/.container-->
-		</div> <!--/.page-container-->
+                <!-- Main content -->
+                <section class="content">
+                 	@if( content == null ) {
+						<p>Default message on dashboard index</p>
+					} else {
+						@content
+					}
+                </section><!-- /.content -->
+            </aside><!-- /.right-side -->
+        </div><!-- ./wrapper -->
 	} else {
 		<p>Not logged in</p>
 	}
