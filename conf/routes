@@ -12,7 +12,7 @@ POST        /user                    controllers.Application.addUser()
 GET         /users                   controllers.Application.getPersons()
 
 # Login/logout
-#GET         /login               controllers.Application.login()
+#GET        /login                   controllers.Application.login()
 POST        /login                   controllers.Application.authenticate()
 GET         /logout                  controllers.Application.logout()
 POST        /recover                 controllers.Application.recover()
@@ -33,4 +33,8 @@ GET         /loadCards               utilities.JsonUtil.loadCardsDB(s: String = 
 GET         /createCollection        controllers.Application.createCollectionData()
 
 # Sort all cards
-GET         /sortCards              controllers.Application.sortCards()
+GET         /sortCards               controllers.Application.sortCards()
+
+# Query the database
+GET         /queryDB                 controllers.Application.queryDB()
+POST        /queryRun                controllers.Application.queryRun()

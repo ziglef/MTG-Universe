@@ -1,14 +1,12 @@
 package models;
 
-import com.avaje.ebean.Ebean;
-import models.enums.Layout;
-
 import play.db.ebean.Model;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 // The model for a single card (current version uses the simple .json file)
 
@@ -52,7 +50,8 @@ public class Card extends Model implements Serializable, Comparable{
 
     // Card names (if it has multiple names, optional)
     @Column(name = "names")
-    public ArrayList<String> names;
+    @OneToMany(mappedBy = "cNames")
+    public List<CardNames> names;
 
     // Card mana cost
     @Column(name = "manaCost")
@@ -64,7 +63,8 @@ public class Card extends Model implements Serializable, Comparable{
 
     // Card color(s)
     @Column(name = "colors")
-    public ArrayList<String> colors;
+    @OneToMany(mappedBy = "cColors")
+    public List<CardColor> colors;
 
     // Card type
     @Column(name = "type")

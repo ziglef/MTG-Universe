@@ -33,6 +33,20 @@ create table Cards (
   constraint pk_Cards primary key (id))
 ;
 
+create table cardcolors (
+  id                        integer not null,
+  CCOLORS_ID                integer,
+  color                     varchar(255),
+  constraint pk_cardcolors primary key (id))
+;
+
+create table cardnames (
+  id                        integer not null,
+  CNAMES_ID                 integer,
+  name                      varchar(255),
+  constraint pk_cardnames primary key (id))
+;
+
 create table Sets (
   id                        integer auto_increment not null,
   name                      varchar(255),
@@ -54,6 +68,14 @@ create table Users (
   constraint pk_Users primary key (id))
 ;
 
+create sequence cardcolors_seq;
+
+create sequence cardnames_seq;
+
+alter table cardcolors add constraint fk_cardcolors_cColors_1 foreign key (CCOLORS_ID) references Cards (id) on delete restrict on update restrict;
+create index ix_cardcolors_cColors_1 on cardcolors (CCOLORS_ID);
+alter table cardnames add constraint fk_cardnames_cNames_2 foreign key (CNAMES_ID) references Cards (id) on delete restrict on update restrict;
+create index ix_cardnames_cNames_2 on cardnames (CNAMES_ID);
 
 
 
@@ -63,9 +85,17 @@ SET REFERENTIAL_INTEGRITY FALSE;
 
 drop table if exists Cards;
 
+drop table if exists cardcolors;
+
+drop table if exists cardnames;
+
 drop table if exists Sets;
 
 drop table if exists Users;
 
 SET REFERENTIAL_INTEGRITY TRUE;
+
+drop sequence if exists cardcolors_seq;
+
+drop sequence if exists cardnames_seq;
 

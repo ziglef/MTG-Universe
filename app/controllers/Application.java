@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import models.Card;
+import models.CardNames;
 import models.User;
 import play.libs.Json;
 import play.twirl.api.Html;
@@ -208,6 +209,27 @@ public class Application extends Controller {
         }
 
         return ok(result);
+    }
+
+    public static Result queryDB() {
+        return ok(query_db.render(Form.form(String.class)));
+    }
+
+    public static Result queryRun(){
+
+        Form<String> queryForm = Form.form(String.class).bindFromRequest();
+
+        if(queryForm.hasErrors()){
+            return badRequest("/queryDB");
+        } else {
+            String query = queryForm.data().get("query");
+
+            ArrayList<CardNames> results = CardNames.findCardNames(query);
+            if( results != null )
+                return ok(toJson(results));
+            else
+                return notFound();
+        }
     }
 
 }

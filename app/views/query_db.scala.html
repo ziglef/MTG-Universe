@@ -1,0 +1,13 @@
+@(query_db: Form[String])
+
+@main("Card Search Form") {
+
+    <h1>A simple database query form</h1>
+    @helper.form(action = routes.Application.queryRun(), 'id -> "query_db" ) {
+    <fieldset>
+        <legend>Database query form</legend>
+        @helper.inputText(query_db("query"), 'id -> "query", '_label -> "Query")
+        <input type="submit" class="btn primary" value="Query">
+    </fieldset>
+    }
+}
