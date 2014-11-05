@@ -1,5 +1,7 @@
 package models;
 
+import models.enums.Visibility;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -7,12 +9,12 @@ import javax.persistence.Table;
 @Table(name = "deck")
 public class Deck extends AbstractSetofCards {
 
-    public Deck(String name, User owner) {
-        super(name, owner);
+    public Deck(String name, User owner, Visibility vis) {
+        super(name, owner, vis);
     }
 
-    public static Deck create(String name, Integer owner_id) {
-        Deck deck = new Deck(name, User.find.byId(owner_id));
+    public static Deck create(String name, Integer owner_id, Visibility vis) {
+        Deck deck = new Deck(name, User.find.byId(owner_id), vis);
         deck.save();
         return deck;
     }

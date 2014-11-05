@@ -3,6 +3,7 @@ package controllers;
 import models.AbstractSetofCards;
 import models.Card;
 import models.Collection;
+import models.enums.Visibility;
 import play.mvc.Controller;
 import play.mvc.Result;
 
@@ -14,7 +15,8 @@ public class Collections extends Controller {
     public static Result addCollection() {
         Collection collection = Collection.create(
                 "nome",
-                1 //user id
+                1, //user id
+                Visibility.PUBLIC_
         );
         return ok(); //FIXME
     }
