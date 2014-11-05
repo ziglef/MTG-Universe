@@ -1,0 +1,47 @@
+@(userEdit: Form[Application.Profile])
+
+@dashboard("Home") {
+	<div class="col-md-3 content-sidebar">
+	
+		<h3>Profile</h3>
+		<hr class="hr">		
+		
+		<form role="form" action="/profile" id="userEdit" method="POST">
+		  <div class="form-group">
+			<label for="inputUsername">Username</label>
+			<input type="text" class="form-control" id="inputUsername" name="username" value="@session.get("username")">
+		  </div>
+		  <div class="form-group">
+			<label for="inputName">Name</label>
+			<input type="text" class="form-control" id="inputName" name="name" value="@session.get("name")">
+		  </div>
+		  <div class="form-group">
+			<label for="inputEmail">Email address</label>
+			<input type="email" class="form-control" id="inputEmail" name="email" value="@session.get("email")">
+		  </div>
+		  <div class="form-group">
+			<label for="inputAvatar">Avatar input</label>
+			<input type="file" id="inputAvatar">
+			<p class="help-block">Choose a avatar to your profile.</p>
+		  </div>
+		  <div class="form-group">
+			<label for="inputNewPassword">New password</label>
+			<input type="password" class="form-control" name="newPassword" id="inputNewPassword">
+		  </div>
+		  <div class="form-group">
+			<label for="inputNewPasswordConfirm">New password confirm</label>
+			<input type="password" class="form-control" name="newPassword2" id="inputNewPasswordConfirm">
+		  </div>
+		  
+		  <br>
+		  <div class="form-group">
+			<label for="inputActualPassword">Confirm new password</label>
+			<input type="password" class="form-control" name="actualPassword" id="inputActualPassword" required>
+		  </div>
+		  <button type="submit" class="btn btn-default">Submit</button>
+		</form>
+	
+	</div>
+	
+	<br>
+}

@@ -42,6 +42,52 @@ public class Application extends Controller {
             return redirect(routes.Application.index());
         }
     }
+	
+    // Class de login
+    public static class Profile {
+        //@Constraints.Required
+        public String name, username, email, actualPassword, newPassword, newPassword2;
+    }
+    
+    public static Result profile() {
+    	return ok(profile.render(Form.form(Profile.class)));
+    }
+    
+    public static Result editUser() {
+        Form<Profile> editForm = Form.form(Profile.class).bindFromRequest();
+
+        if(editForm.hasErrors()){
+            return badRequest("/profile");
+        } else {
+            // Vai buscar utilizador
+            User user = User.authenticate(session().get("username"), editForm.get().actualPassword);
+
+            // Password atual correta
+            if ( user != null )
+            {
+	            // Altera campos
+	            user.name = editForm.get().name;
+	            user.username = editForm.get().username;
+	            user.email = editForm.get().email;
+	            user.password = editForm.get().actualPassword;
+	            
+	            // Length maior que 5 e igual ao confirm
+	            if ( editForm.get().newPassword.length() >= 5 && editForm.get().newPassword.equals(editForm.get().newPassword2) )
+	            {
+	            	user.password = editForm.get().newPassword;
+	            }
+	            
+	            // Set sessions
+	            session("username", user.username);
+	            session("name", user.name);
+	            session("email", user.email);
+	            
+	        	user.save();
+            }
+            
+            return redirect(routes.Application.profile());
+        }
+    }
 
     public static Result getPersons() {
         return ok(toJson(User.find.all()));
@@ -98,6 +144,7 @@ public class Application extends Controller {
                 session("id", logged.id.toString());
                 session("username", logged.username);
                 session("name", logged.name);
+				session("email", logged.email);
                 session("islogged", "true");
 
                 return redirect(controllers.routes.Application.index());
