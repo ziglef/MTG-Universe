@@ -6,6 +6,7 @@ import models.Collection;
 import models.enums.Visibility;
 import play.mvc.Controller;
 import play.mvc.Result;
+import com.fasterxml.jackson.databind.JsonNode;
 
 import java.util.List;
 
@@ -13,12 +14,26 @@ import java.util.List;
 public class Collections extends Controller {
 
     public static Result addCollection() {
+        
+        String name;
+        
+        JsonNode json = request().body().asJson();
+          if(json == null) {
+            return badRequest("Expecting Json data");
+          } else {
+            name = json.findPath("name").textValue();
+            if(name == null) {
+              return badRequest("Missing parameter [name]");
+            }
+          }
+        
         Collection collection = Collection.create(
-                "nome",
-                1, //user id
+                name,
+                2, //user id
                 Visibility.PUBLIC_
         );
-        return ok(); //FIXME
+        
+        return ok();
     }
 
     public static Result deleteCollection(Integer collectionId) {
@@ -45,5 +60,12 @@ public class Collections extends Controller {
         return ok(); //FIXME
     }
 
+        
+    public static Result getUserCollections(){
+        List<Collection> collections = Collection.findUserCollections(Integer.parseInt(session().get("id")));
+        return ok(play.libs.Json.toJson(collections));
+        
+    }
+                  
 
 }

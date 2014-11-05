@@ -12,7 +12,7 @@ POST        /user                    controllers.Application.addUser()
 GET         /users                   controllers.Application.getPersons()
 
 # Login/logout
-#GET         /login               controllers.Application.login()
+#GET        /login                   controllers.Application.login()
 POST        /login                   controllers.Application.authenticate()
 GET         /logout                  controllers.Application.logout()
 POST        /recover                 controllers.Application.recover()
@@ -34,3 +34,10 @@ GET         /createCollection        controllers.Application.createCollectionDat
 
 # Sort all cards
 GET         /sortCards               controllers.Application.sortCards()
+
+
+# Test to get collections from users
+GET        /getCollections          controllers.Collections.getUserCollections()
+
+# Create collection
+POST       /createNewCollection     controllers.Collections.addCollection()

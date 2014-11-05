@@ -55,8 +55,9 @@ function removeFromCollection(elem){
 }
 
 
-function createNewCollection(){
-    if ( $('#myCollections').children().length == 0 ) {
+//function createNewCollection(){
+function backup(){
+        if ( $('#myCollections').children().length == 0 ) {
     $('#myCollections').empty();
     }
     if (!$('#myCollections li:contains('+$('#newCollection .collection-name').val()+')').length ) {
@@ -66,9 +67,6 @@ function createNewCollection(){
     }else{
         alert('Essa já existe');
     }
-    
-
-
 }
 
 var left_side_width = 220; //Sidebar width in pixels

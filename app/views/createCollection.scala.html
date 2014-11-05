@@ -56,7 +56,7 @@
 	      <div class="modal-body">
 	      	<div class="form-group">
                 <label>Name</label>
-                <input class="form-control collection-name" placeholder="Collection name" type="text">
+                <input class="form-control collection-name" placeholder="Collection name" type="text" name="collection-name">
             </div>
             <div class="btn-group" data-toggle="buttons">
               <label>Who can see this collection?</label><br>
@@ -92,4 +92,38 @@
 		</div>
 	</div>
 
+    <script type="text/javascript">
+        
+      function createNewCollection(){
+          
+            alert('1');
+          
+            dataString = "name="+$("input[name=collection-name]").val();
+          
+            alert(dataString);
+
+            $.ajax({
+            url: '/createNewCollection',
+            data: dataString,
+            dataType: 'json',
+            type: 'POST',
+            success: function (data, textStatus, jqXHR) {
+                   if ( $('#myCollections').children().length == 0 ) {
+                        $('#myCollections').empty();
+                        }
+                        if (!$('#myCollections li:contains('+$('#newCollection .collection-name').val()+')').length ) {
+                            $('#myCollections').prepend('<li><a href="#">'+$('#newCollection .collection-name').val()+'</a><a href="#" class="badge pull-right label-danger remove">X</a><a href="#" class="badge pull-right label-warning">Edit</a></li>');
+                            $('#newCollection .collection-name').val('');
+                            $('#newCollection').modal('hide');
+                        }else{
+                            alert('Essa já existe');
+                        }
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert(textStatus + ": " + errorThrown);
+            }
+        });
+      }
+    </script>
 }
