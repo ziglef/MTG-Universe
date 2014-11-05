@@ -1,5 +1,6 @@
 package models;
 
+import models.enums.Visibility;
 import play.db.ebean.Model;
 
 import javax.persistence.Entity;
@@ -10,12 +11,12 @@ import java.util.List;
 @Table(name = "collection")
 public class Collection extends AbstractSetofCards {
 
-    public Collection(String name, User owner) {
-        super(name, owner);
+    public Collection(String name, User owner, Visibility vis) {
+        super(name, owner, vis);
     }
 
-    public static Collection create(String name, Integer owner_id) {
-        Collection collection = new Collection(name, User.find.byId(owner_id));
+    public static Collection create(String name, Integer owner_id, Visibility vis) {
+        Collection collection = new Collection(name, User.find.byId(owner_id), vis);
         collection.save();
         return collection;
     }

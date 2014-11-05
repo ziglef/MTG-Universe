@@ -1,5 +1,6 @@
 package models;
 
+import models.enums.Visibility;
 import play.db.ebean.Model;
 
 import javax.persistence.*;
@@ -28,9 +29,12 @@ public abstract class AbstractSetofCards extends Model implements Serializable {
     @ManyToOne
     public User owner;
 
-    public AbstractSetofCards(String name, User owner) {
+    public Visibility visibility;
+
+    public AbstractSetofCards(String name, User owner, Visibility vis) {
         this.name=name;
         this.owner=owner;
+        this.visibility=vis;
     }
 
     //create a collection and add to database
