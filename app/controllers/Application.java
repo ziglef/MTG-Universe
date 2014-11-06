@@ -223,6 +223,7 @@ public class Application extends Controller {
         }
         
         // Error logging
+        session().clear();
         session("islogged", "false");
         return badRequest("Invalid username/password");
     }
