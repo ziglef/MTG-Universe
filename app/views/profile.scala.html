@@ -6,7 +6,7 @@
 		<h3>Profile</h3>
 		<hr class="hr">		
 		
-		<form role="form" action="/profile" id="userEdit" method="POST">
+		<form role="form" action="/profile" id="userEdit" method="POST" enctype="multipart/form-data">
 		  <div class="form-group">
 			<label for="inputUsername">Username</label>
 			<input type="text" class="form-control" id="inputUsername" name="username" value="@session.get("username")">
@@ -21,7 +21,7 @@
 		  </div>
 		  <div class="form-group">
 			<label for="inputAvatar">Avatar input</label>
-			<input type="file" id="inputAvatar">
+			<input type="file" id="inputAvatar" name="avatar">
 			<p class="help-block">Choose a avatar to your profile.</p>
 		  </div>
 		  <div class="form-group">
@@ -40,7 +40,7 @@
 		  </div>
 		  <button type="submit" class="btn btn-default">Submit</button>
 		</form>
-		test commit
+		
 	</div>
 	
 	<br>
