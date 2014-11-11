@@ -3,35 +3,39 @@ package models;
 import play.db.ebean.Model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 @Entity
 @Table(name = "cardcolors")
-public class CardColor {
+public class CardColor extends Model implements Serializable {
 
     // Finds all the cards in the database
-    public static Model.Finder<String, CardNames> find = new Model.Finder<>(String.class, CardNames.class);
+    public static Model.Finder<String, CardColor> find = new Model.Finder<>(String.class, CardColor.class);
 
     // Finds all cards containing a given string
-    public static ArrayList<CardNames> findCardNames(String name){
+    public static ArrayList<CardColor> findCardColors(String name){
 
-        ArrayList<CardNames> cardNames = new ArrayList<>(find.where().icontains("name", name).findList());
+        ArrayList<CardColor> cardColors = new ArrayList<>(find.where().icontains("color", name).findList());
 
-        return cardNames.size() > 0 ? cardNames : null;
+        return cardColors.size() > 0 ? cardColors : null;
     }
 
     // Card id on our database
     @Id
-    public Integer id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "cardcolorid")
+    public Long cardcolorid;
 
     // Card layout
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CCOLORS_ID")
-    public Card cColors;
+    @ManyToOne
+    @JoinColumn(name = "cardidfk")
+    public Card card;
 
     public String color;
 
-    public CardColor(String name){
+    public CardColor(String color){
         this.color = color;
+        this.save();
     }
 }

@@ -5,9 +5,9 @@ import java.util.ArrayList;
 
 @Entity
 @Table(name = "Sets")
-public class Set {
+public class CardSet {
 
-    // Set id on our database
+    // CardSet id on our database
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)

@@ -1,6 +1,6 @@
 @(query_db: Form[String])
 
-@main("Card Search Form") {
+@main("Database Query") {
 
     <h1>A simple database query form</h1>
     @helper.form(action = routes.Application.queryRun(), 'id -> "query_db" ) {

@@ -1,11 +1,14 @@
 package controllers;
 
+import com.avaje.ebean.Ebean;
 import com.avaje.ebean.Expr;
+import com.avaje.ebean.FetchConfig;
 import com.avaje.ebean.Page;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import models.Card;
+import models.CardColor;
 import models.CardNames;
 import models.User;
 import play.libs.Json;
@@ -61,7 +64,7 @@ public class Application extends Controller {
         } else {
             String cardName = cardSearchForm.data().get("cardName");
 
-            ArrayList<Card> results = Card.findCardsByName(cardName);
+            List<Card> results = Card.findCardsByName(cardName);
             if( results != null )
                 return ok(toJson(results));
             else
@@ -224,7 +227,7 @@ public class Application extends Controller {
         } else {
             String query = queryForm.data().get("query");
 
-            ArrayList<CardNames> results = CardNames.findCardNames(query);
+            ArrayList<CardColor> results = CardColor.findCardColors(query);
             if( results != null )
                 return ok(toJson(results));
             else

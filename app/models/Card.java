@@ -1,12 +1,14 @@
 package models;
 
+import com.avaje.ebean.Ebean;
+import com.avaje.ebean.RawSql;
+import com.avaje.ebean.RawSqlBuilder;
+import com.avaje.ebean.Query;
 import play.db.ebean.Model;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 // The model for a single card (current version uses the simple .json file)
 
@@ -15,11 +17,33 @@ import java.util.List;
 public class Card extends Model implements Serializable, Comparable{
 
     // Finds all cards containing a given string
-    public static ArrayList<Card> findCardsByName(String name){
+    public static List<Card> findCardsByName(String name){
 
-        ArrayList<Card> cards = new ArrayList<>(find.where().icontains("name", name).findList());
+        ArrayList<Card> cards = new ArrayList<>(find
+                                                .where()
+                                                    .icontains("name", name)
+                                                .findList());
 
         return cards.size() > 0 ? cards : null;
+    }
+
+    /**
+     * Function which process a sql query returning a list of object.
+     * @param req       the sql query
+     * @param classObj  class object of the class to return
+     * @return  the list matching the req
+     */
+    public static <T> List<T> getListFromSql(String req, Class<T> classObj)
+    {
+        List<T>         lst;
+
+        RawSql rawSql = RawSqlBuilder
+                .parse(req)
+                .create();
+        Query<T> query = Ebean.find(classObj);
+        query.setRawSql(rawSql);
+        lst = query.findList();
+        return lst;
     }
 
     // Finds all cards
@@ -35,10 +59,9 @@ public class Card extends Model implements Serializable, Comparable{
 
     // Card id on our database
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
-    public Integer id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "cardid")
+    public Long cardid;
 
     // Card layout
     @Column(name = "layout")
@@ -62,9 +85,8 @@ public class Card extends Model implements Serializable, Comparable{
     public Integer cmc;
 
     // Card color(s)
-    @Column(name = "colors")
-    @OneToMany(mappedBy = "cColors")
-    public List<CardColor> colors;
+    @OneToMany(mappedBy = "card")
+    public Set<CardColor> colors;
 
     // Card type
     @Column(name = "type")

@@ -3,11 +3,12 @@ package models;
 import play.db.ebean.Model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 @Entity
 @Table(name = "cardnames")
-public class CardNames {
+public class CardNames extends Model implements Serializable{
 
     // Finds all the cards in the database
     public static Model.Finder<String, CardNames> find = new Model.Finder<>(String.class, CardNames.class);
@@ -25,7 +26,7 @@ public class CardNames {
     public Integer id;
 
     // Card layout
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "CNAMES_ID")
     public Card cNames;
 
@@ -33,5 +34,6 @@ public class CardNames {
 
     public CardNames(String name){
         this.name = name;
+        this.save();
     }
 }

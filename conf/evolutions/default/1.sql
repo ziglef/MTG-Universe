@@ -4,7 +4,7 @@
 # --- !Ups
 
 create table Cards (
-  id                        integer auto_increment not null,
+  cardid                    bigint not null,
   layout                    varchar(255),
   name                      varchar(255),
   manaCost                  varchar(255),
@@ -30,19 +30,19 @@ create table Cards (
   originalText              TEXT(1023),
   originalType              varchar(255),
   source                    varchar(255),
-  constraint pk_Cards primary key (id))
+  constraint pk_Cards primary key (cardid))
 ;
 
 create table cardcolors (
-  id                        integer not null,
-  CCOLORS_ID                integer,
+  cardcolorid               bigint not null,
+  cardidfk                  bigint,
   color                     varchar(255),
-  constraint pk_cardcolors primary key (id))
+  constraint pk_cardcolors primary key (cardcolorid))
 ;
 
 create table cardnames (
   id                        integer not null,
-  CNAMES_ID                 integer,
+  CNAMES_ID                 bigint,
   name                      varchar(255),
   constraint pk_cardnames primary key (id))
 ;
@@ -68,13 +68,15 @@ create table Users (
   constraint pk_Users primary key (id))
 ;
 
+create sequence Cards_seq;
+
 create sequence cardcolors_seq;
 
 create sequence cardnames_seq;
 
-alter table cardcolors add constraint fk_cardcolors_cColors_1 foreign key (CCOLORS_ID) references Cards (id) on delete restrict on update restrict;
-create index ix_cardcolors_cColors_1 on cardcolors (CCOLORS_ID);
-alter table cardnames add constraint fk_cardnames_cNames_2 foreign key (CNAMES_ID) references Cards (id) on delete restrict on update restrict;
+alter table cardcolors add constraint fk_cardcolors_card_1 foreign key (cardidfk) references Cards (cardid) on delete restrict on update restrict;
+create index ix_cardcolors_card_1 on cardcolors (cardidfk);
+alter table cardnames add constraint fk_cardnames_cNames_2 foreign key (CNAMES_ID) references Cards (cardid) on delete restrict on update restrict;
 create index ix_cardnames_cNames_2 on cardnames (CNAMES_ID);
 
 
@@ -94,6 +96,8 @@ drop table if exists Sets;
 drop table if exists Users;
 
 SET REFERENTIAL_INTEGRITY TRUE;
+
+drop sequence if exists Cards_seq;
 
 drop sequence if exists cardcolors_seq;
 

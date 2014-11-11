@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import models.Card;
-import models.Set;
+import models.CardSet;
 import play.db.ebean.Transactional;
 import play.mvc.*;
 
@@ -27,7 +27,7 @@ public class JsonUtil {
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
         @SuppressWarnings("unchecked")
-        List<Card> allCards =  getAllCards((Map<String, Set>)mapper.readValue(f, new TypeReference<Map<String, Set>>() {}));
+        List<Card> allCards =  getAllCards((Map<String, CardSet>)mapper.readValue(f, new TypeReference<Map<String, CardSet>>() {}));
 
         for(Card card : allCards){
             card.save();
@@ -36,11 +36,11 @@ public class JsonUtil {
         return ok();
     }
 
-    public static List<Card> getAllCards(Map<String, Set> sets){
+    public static List<Card> getAllCards(Map<String, CardSet> sets){
 
-        List<Card> allCards = new ArrayList<Card>();
+        List<Card> allCards = new ArrayList<>();
 
-        for(Set set : sets.values()){
+        for(CardSet set : sets.values()){
             for(Card card : set.getCards()){
                 allCards.add(card);
             }
