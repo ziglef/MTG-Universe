@@ -4,6 +4,7 @@ import models.AbstractSetofCards;
 import models.Card;
 import models.Collection;
 import models.enums.Visibility;
+import play.mvc.BodyParser;
 import play.mvc.Controller;
 import play.mvc.Result;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -13,6 +14,10 @@ import java.util.List;
 
 public class Collections extends Controller {
 
+    /*
+     *  Collection
+     */
+    @BodyParser.Of(BodyParser.Json.class)
     public static Result addCollection() {
         
         String name;
@@ -26,7 +31,7 @@ public class Collections extends Controller {
               return badRequest("Missing parameter [name]");
             }
           }
-        
+
         Collection collection = Collection.create(
                 name,
                 2, //user id
@@ -55,17 +60,20 @@ public class Collections extends Controller {
         return ok(); //FIXME
     }
 
-    public static Result getUserCollections(Integer userId) {
-        List<Collection> collections = Collection.findUserCollections(userId);
-        return ok(); //FIXME
-    }
-
-        
     public static Result getUserCollections(){
         List<Collection> collections = Collection.findUserCollections(Integer.parseInt(session().get("id")));
         return ok(play.libs.Json.toJson(collections));
-        
     }
-                  
 
+    /*
+     *  Deck
+     */
+
+    /*
+     *  WantList
+     */
+
+    /*
+     *  TradeList
+     */
 }

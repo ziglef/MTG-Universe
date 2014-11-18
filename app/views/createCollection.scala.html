@@ -99,7 +99,10 @@
             alert('1');
           
             dataString = "name="+$("input[name=collection-name]").val();
-          
+         /* 	dataString = '{ "employees" : [' +
+	  '{ "firstName":"John" , "lastName":"Doe" },' +
+	  '{ "firstName":"Anna" , "lastName":"Smith" },' +
+	  '{ "firstName":"Peter" , "lastName":"Jones" } ]}';*/
             alert(dataString);
 
             $.ajax({
