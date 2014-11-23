@@ -1,20 +1,43 @@
 package models;
 
 import com.avaje.ebean.Ebean;
+import com.avaje.ebean.Query;
 import com.avaje.ebean.RawSql;
 import com.avaje.ebean.RawSqlBuilder;
-import com.avaje.ebean.Query;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.JsonNode;
+import org.apache.commons.lang3.StringUtils;
 import play.db.ebean.Model;
+import utilities.JsonUtil;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 // The model for a single card (current version uses the simple .json file)
 
 @Entity
 @Table(name = "Cards")
 public class Card extends Model implements Serializable, Comparable{
+
+
+    @JsonCreator // constructor can be public, private, whatever
+    private Card(@JsonProperty("colors") JsonNode colorsNode,
+                     @JsonProperty("names") JsonNode namesNode
+                     )
+    {
+        if(namesNode.isArray())
+            this.other_names = StringUtils.join(JsonUtil.parseStringArray(namesNode), "/");
+
+            ArrayList<String> colornames = JsonUtil.parseStringArray(colorsNode);
+            for (String cname : colornames)
+               colors.add(CardColor.getCardColor(cname));
+
+    }
+
 
     // Finds all cards containing a given string
     public static List<Card> findCardsByName(String name){
@@ -72,9 +95,8 @@ public class Card extends Model implements Serializable, Comparable{
     public String name;
 
     // Card names (if it has multiple names, optional)
-    @Column(name = "names")
-    @OneToMany(mappedBy = "cNames")
-    public List<CardNames> names;
+    //@ManyToMany(cascade=CascadeType.ALL)
+    public String other_names;
 
     // Card mana cost
     @Column(name = "manaCost")
@@ -85,8 +107,8 @@ public class Card extends Model implements Serializable, Comparable{
     public Integer cmc;
 
     // Card color(s)
-    @OneToMany(mappedBy = "card")
-    public Set<CardColor> colors;
+    @ManyToMany
+    public List<CardColor> colors = new ArrayList<CardColor>();
 
     // Card type
     @Column(name = "type")
@@ -94,15 +116,15 @@ public class Card extends Model implements Serializable, Comparable{
 
     // Card supertype(s)
     @Column(name = "supertypes")
-    public ArrayList<String> supertypes;
+    public List<String> supertypes;
 
     // Card types
     @Column(name = "types")
-    public ArrayList<String> types;
+    public List<String> types;
 
     // Card subtypes
     @Column(name = "subtypes")
-    public ArrayList<String> subtypes;
+    public List<String> subtypes;
 
     // Card rarity
     @Column(name = "rarity")

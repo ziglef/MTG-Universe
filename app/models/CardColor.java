@@ -10,13 +10,14 @@ import java.util.ArrayList;
 @Table(name = "cardcolors")
 public class CardColor extends Model implements Serializable {
 
-    // Finds all the cards in the database
+    // Finds a color
     public static Model.Finder<String, CardColor> find = new Model.Finder<>(String.class, CardColor.class);
 
-    // Finds all cards containing a given string
-    public static ArrayList<CardColor> findCardColors(String name){
 
-        ArrayList<CardColor> cardColors = new ArrayList<>(find.where().icontains("color", name).findList());
+    // Finds all cards containing a given string
+    public static ArrayList<CardColor> findCardColors(String name) {
+
+        ArrayList<CardColor> cardColors = new ArrayList<>(find.where().icontains("colorname", name).findList());
 
         return cardColors.size() > 0 ? cardColors : null;
     }
@@ -24,18 +25,18 @@ public class CardColor extends Model implements Serializable {
     // Card id on our database
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "cardcolorid")
     public Long cardcolorid;
 
-    // Card layout
-    @ManyToOne
-    @JoinColumn(name = "cardidfk")
-    public Card card;
-
-    public String color;
+    //@Id
+    public String colorname;
 
     public CardColor(String color){
-        this.color = color;
+        this.colorname = color;
         this.save();
+    }
+
+    public static CardColor getCardColor(String cname) {
+        CardColor c = find.where().eq("colorname",cname).findUnique();
+        return c == null ? new CardColor(cname) : c;
     }
 }

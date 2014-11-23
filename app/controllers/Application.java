@@ -1,29 +1,29 @@
 package controllers;
 
-import com.avaje.ebean.Ebean;
 import com.avaje.ebean.Expr;
-import com.avaje.ebean.FetchConfig;
 import com.avaje.ebean.Page;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.typesafe.plugin.MailerAPI;
+import com.typesafe.plugin.MailerPlugin;
 import models.Card;
 import models.CardColor;
-import models.CardNames;
 import models.User;
-import play.libs.Json;
-import play.twirl.api.Html;
-import utilities.AuthenticationSystem;
-import utilities.PasswordGenerator;
 import play.data.Form;
 import play.data.validation.Constraints;
 import play.db.ebean.Transactional;
-import play.mvc.*;
+import play.libs.Json;
+import play.mvc.Controller;
+import play.mvc.Result;
+import utilities.AuthenticationSystem;
+import utilities.PasswordGenerator;
 import views.html.*;
-import java.util.*;
-import static play.libs.Json.toJson;
 
-import com.typesafe.plugin.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import static play.libs.Json.toJson;
 
 public class Application extends Controller {
 

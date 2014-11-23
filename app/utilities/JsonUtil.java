@@ -2,6 +2,7 @@ package utilities;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import models.Card;
 import models.CardSet;
@@ -30,7 +31,11 @@ public class JsonUtil {
         List<Card> allCards =  getAllCards((Map<String, CardSet>)mapper.readValue(f, new TypeReference<Map<String, CardSet>>() {}));
 
         for(Card card : allCards){
+
             card.save();
+
+            //not necessary?!
+            //card.saveManyToManyAssociations("colors");
         }
 
         return ok();
@@ -47,6 +52,14 @@ public class JsonUtil {
         }
 
         return allCards;
+    }
+
+    public static ArrayList<String> parseStringArray(JsonNode node) {
+        ArrayList<String> result = new ArrayList<>();
+        for(int i=0; i<node.size();i++) {
+            result.add(node.get(i).asText());
+        }
+        return result;
     }
 
 }
