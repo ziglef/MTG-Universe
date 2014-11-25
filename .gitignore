@@ -16,3 +16,4 @@ dist
 deprecated_code.txt
 conf/evolutions/default/*.sql
 *~
+*.sbt

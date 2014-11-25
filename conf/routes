@@ -17,6 +17,10 @@ POST        /login                   controllers.Application.authenticate()
 GET         /logout                  controllers.Application.logout()
 POST        /recover                 controllers.Application.recover()
 
+# Profile
+GET         /profile               controllers.Application.profile()
+POST        /profile               controllers.Application.editUser()
+
 # Card search form
 GET         /searchcard              controllers.Application.searchCard()
 
