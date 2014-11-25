@@ -18,10 +18,10 @@ public class Collections extends Controller {
 
     @BodyParser.Of(BodyParser.Json.class)
     public static Result addCollection() {
-        
+
         String name;
         String visibility;
-        
+
         JsonNode json = request().body().asJson();
 
           if(json == null) {
@@ -33,7 +33,7 @@ public class Collections extends Controller {
               return badRequest("Missing parameter [name]");
             }
           }
-        
+
         Collection collection;
         if(visibility.equals("public"))
             collection =  Collection.create(name, Integer.parseInt(session().get("id")), Visibility.PUBLIC_);
@@ -91,7 +91,7 @@ public class Collections extends Controller {
         return ok(); //FIXME
     }
 
-        
+
     public static JsonNode getUserCollections(){
         List<Collection> collections = Collection.findUserCollections(Integer.parseInt(session().get("id")));
         return Json.toJson(collections);
