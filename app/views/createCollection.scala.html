@@ -1,129 +1,100 @@
-@()
+@(userCollections: com.fasterxml.jackson.databind.JsonNode)
+@import com.fasterxml.jackson.databind.JsonNode;
 
 @dashboard("Create Collection") {
-	<div class="col-md-3 content-sidebar">
-		<h3>My collections</h3>
-		<hr class="hr">
-		<button class="btn btn-block btn-default" data-toggle="modal" data-target="#newCollection" style="cursor: pointer;">New Collection</button>
-		<div class="alert-message alert-message-info">
-              <strong>Click on the collection name</strong> to view the content.</p>
+    <div class="col-md-3 content-sidebar">
+        <h3>My collections</h3>
+        <hr class="hr">
+        <button class="btn btn-block btn-default" data-toggle="modal" data-target="#newCollection" style="cursor : pointer ;">
+            New Collection</button>
+        <div class="alert-message alert-message-info">
+            <strong>Click on the collection name</strong> to view the content.</p>
         </div>
-		<div class="panel panel-default">
-			<div class="panel-body">
-			<ul id="myCollections" class="list-unstyled">
-				You don't have collections
-			</ul>
-			</div>
-		<!--<img src="@routes.Assets.at("images/cardback.jpg")" alt="Card unavailable" class="img-responsive img-card" style=" margin-top : 46 px"/>
-		<span style="text-align : center ;"><a data-toggle="modal" data-target="#myCard" style="cursor : pointer ;">
-			Click here to zoom </a></span>
-		</div>-->
-		</div>
-	</div>
-	<div class="col-md-9">
-		<h3><span class="collection-name">Collection Name</span></h3>
-		<hr class="hr">
-		<table id="collection" class="table table-bordered table-hover" cellspacing="0" width="100%">
-			<thead>
-				<tr>
-					<th width="50%">Name</th>
-					<th width="20%">Language</th>
-					<th width="10%">Edition</th>
-					<th width="5%">Signed</th>
-					<th width="5%">Foil</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td width="50%"><a class="btn" rel="popover" data-img="http://mtgjson.com/images/sentriplets.jpg">Image 1</a></td>
-					<td width="20%">Engrishe</td>
-					<td width="10%">EDT</td>
-					<td class="text-center" width="5%"><i class="fa fa-check fa-success"></i></td>
-					<td class="text-center" width="5%"><i class="fa fa-check fa-success"></i></td>
-				</tr>		
-			</tbody>
-		</table>
-	</div>
-					
-
-	<div class="modal fade" id="newCollection" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	  <div class="modal-dialog">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-	        <h4 class="modal-title">Create new collection</h4>
-	      </div>
-	      <div class="modal-body">
-	      	<div class="form-group">
-                <label>Name</label>
-                <input class="form-control collection-name" placeholder="Collection name" type="text" name="collection-name">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <ul id="myCollections" class="list-unstyled">
+                    @for(name <- userCollections.elements()){
+                        <li><a href="">@name.findValuesAsText("name").get(0)</a><button name="col@name.findValuesAsText("id").get(0)" onclick="removeCollection(this.name)" class="badge pull-right label-danger remove">X</button><a href="#" class="badge pull-right label-warning">Edit</a></li>
+                    }
+                </ul>
             </div>
-            <div class="btn-group" data-toggle="buttons">
-              <label>Who can see this collection?</label><br>
-			  <label class="btn btn-primary active">
-			    <input type="radio" name="options" id="option1" checked> Only me
-			  </label>
-			  <label class="btn btn-primary">
-			    <input type="radio" name="options" id="option2"> Friends
-			  </label>
-			  <label class="btn btn-primary">
-			    <input type="radio" name="options" id="option3"> Public
-			  </label>
-			</div>
-            <div class="checkbox">
-				<label>
-					<input type="checkbox"> Allow comments on this collection
-				</label>
-			</div>
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-	        <button type="button" class="btn btn-primary" onclick="createNewCollection()">Create</button>
-	      </div>
-	    </div><!-- /.modal-content -->
-	  </div><!-- /.modal-dialog -->
-	</div><!-- /.modal -->
-	<!-- Modal -->
-	<div class="modal fade" id="myCard" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-body">
-				<img src="@routes.Assets.at("images/cardback.jpg")" alt="Card unavailable" class="img-responsive img-modal img-card" style="margin : 0 auto ;"/>
-			</div>
-		</div>
-	</div>
+                <!--<img src="@routes.Assets.at("images/cardback.jpg")" alt="Card unavailable" class="img-responsive img-card" style=" margin-top : 46 px"/>
+            <span style="text-align : center ;"><a data-toggle="modal" data-target="#myCard" style="cursor : pointer ;">
+                Click here to zoom </a></span>
+        </div>-->
+    </div>
+    </div>
+    <div class="col-md-9">
+        <h3><span class="collection-name">Collection Name</span></h3>
+        <hr class="hr">
+        <table id="collection" class="table table-bordered table-hover" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th width="50%">Name</th>
+                    <th width="20%">Language</th>
+                    <th width="10%">Edition</th>
+                    <th width="5%">Signed</th>
+                    <th width="5%">Foil</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td width="50%"><a class="btn" rel="popover" data-img="http://mtgjson.com/images/sentriplets.jpg">
+                        Image 1</a></td>
+                    <td width="20%">Engrishe</td>
+                    <td width="10%">EDT</td>
+                    <td class="text-center" width="5%"><i class="fa fa-check fa-success"></i></td>
+                    <td class="text-center" width="5%"><i class="fa fa-check fa-success"></i></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
-    <script type="text/javascript">
-        
-      function createNewCollection(){
-          
-            alert('1');
-          
-            dataString = "name="+$("input[name=collection-name]").val();
-          
-            alert(dataString);
 
-            $.ajax({
-            url: '/createNewCollection',
-            data: dataString,
-            dataType: 'json',
-            type: 'POST',
-            success: function (data, textStatus, jqXHR) {
-                   if ( $('#myCollections').children().length == 0 ) {
-                        $('#myCollections').empty();
-                        }
-                        if (!$('#myCollections li:contains('+$('#newCollection .collection-name').val()+')').length ) {
-                            $('#myCollections').prepend('<li><a href="#">'+$('#newCollection .collection-name').val()+'</a><a href="#" class="badge pull-right label-danger remove">X</a><a href="#" class="badge pull-right label-warning">Edit</a></li>');
-                            $('#newCollection .collection-name').val('');
-                            $('#newCollection').modal('hide');
-                        }else{
-                            alert('Essa já existe');
-                        }
-
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                alert(textStatus + ": " + errorThrown);
-            }
-        });
-      }
-    </script>
+    <div class="modal fade" id="newCollection" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">
+                        Close</span></button>
+                    <h4 class="modal-title">Create new collection</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input class="form-control collection-name" placeholder="Collection name" type="text" name="collection-name">
+                    </div>
+                    <div class="btn-group collection-privacy" datatoggle="buttons">
+                        <label>Who can see this collection?</label><br>
+                        <label class="btn btn-primary active">
+                            <input type="radio" name="options" id="option1" class="private" checked> Only me
+                        </label>
+                        <label class="btn btn-primary">
+                            <input type="radio" name="options" id="option2" class="friends"> Friends
+                        </label>
+                        <label class="btn btn-primary">
+                            <input type="radio" name="options" id="option3" class="public"> Public
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox"> Allow comments on this collection
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="createNewCollection ( )">Create</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div> <!-- /.modal -->
+    <!-- Modal -->
+    <div class="modal fade" id="myCard" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-body">
+                <img src="@routes.Assets.at("images/cardback.jpg")" alt="Card unavailable" class="img-responsive img-modal img-card" style="margin : 0 auto ;"/>
+            </div>
+        </div>
+    </div>
 }

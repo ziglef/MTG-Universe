@@ -2,14 +2,4 @@
 
 @import views.html.helper._
 
-<div class="form-group @if(elements.hasErrors) {error}">
-    <label for="@elements.id" class="col-lg-3 control-label text-left">@elements.label</label>
-<div class="col-lg-9">
     @elements.input
-    @if(elements.hasErrors){
-        <span class="help-inline">@elements.errors.mkString(", ")</span>
-    }else{
-        <span class="help-inline">@elements.infos.mkString(", ")</span>
-    }
-</div>
-    </div>

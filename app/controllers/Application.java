@@ -5,8 +5,7 @@ import com.avaje.ebean.Page;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import models.Card;
-import models.User;
+import models.*;
 import play.libs.Json;
 import play.twirl.api.Html;
 import utilities.AuthenticationSystem;
@@ -69,7 +68,7 @@ public class Application extends Controller {
     }
 
     public static Result createCollectionData(){
-        return ok(createCollection.render());
+        return ok(createCollection.render(Collections.getUserCollections()));
     }
 /*
     public static Result login() {

@@ -1,5 +1,65 @@
 var t;
 
+// jQuery to collapse the navbar on scroll
+$(window).scroll(function() {
+    if ($(".navbar").offset().top > 50) {
+        $(".navbar-fixed-top").addClass("top-nav-collapse");
+    } else {
+        $(".navbar-fixed-top").removeClass("top-nav-collapse");
+    }
+});
+
+// jQuerys for page scrolling feature - requires jQuery Easing plugin
+$(function() {
+    $('a.page-scroll').bind('click', function(event) {
+        var $anchor = $(this);
+        $('html, body').stop().animate({
+            scrollTop: $($anchor.attr('href')).offset().top
+        }, 1500, 'easeInOutExpo');
+        event.preventDefault();
+    });
+});
+
+
+$(function() {
+    $('.logo').bind('click', function(event) {
+        var $anchor = $(this);
+        $('html, body').stop().animate({
+            scrollTop: $($anchor.attr('href')).offset().top
+        }, 1500, 'easeInOutExpo');
+        event.preventDefault();
+    });
+});
+
+jQuery(document).ready(function($){
+    // browser window scroll (in pixels) after which the "back to top" link is shown
+    var offset = 300,
+    //browser window scroll (in pixels) after which the "back to top" link opacity is reduced
+        offset_opacity = 1200,
+    //duration of the top scrolling animation (in ms)
+        scroll_top_duration = 700,
+    //grab the "back to top" link
+        $back_to_top = $('.cd-top');
+
+    //hide or show the "back to top" link
+    $(window).scroll(function(){
+        ( $(this).scrollTop() > offset ) ? $back_to_top.addClass('cd-is-visible') : $back_to_top.removeClass('cd-is-visible cd-fade-out');
+        if( $(this).scrollTop() > offset_opacity ) {
+            $back_to_top.addClass('cd-fade-out');
+        }
+    });
+
+    //smooth scroll to top
+    $back_to_top.on('click', function(event){
+        event.preventDefault();
+        $('body,html').animate({
+                scrollTop: 0 ,
+            }, scroll_top_duration
+        );
+    });
+
+});
+
 $(document).ready(function () {
     $('[data-toggle=offcanvas]').click(function () {
         $('.row-offcanvas').toggleClass('active');
@@ -54,6 +114,23 @@ function removeFromCollection(elem){
     t.row('.select').remove().draw(false);
 }
 
+function removeCollection(id){
+
+    var str = '{"id": "'+id+'"}';
+    $.ajax ( {
+        url : '/deleteCollection',
+        dataType : 'json',
+        contentType : 'application/json; charset=utf-8',
+        data : str,
+        type : 'POST',
+        success : function ( data, textStatus, jqXHR ) {
+
+        },
+        error : function ( jqXHR, textStatus, errorThrown ) {
+            alert ( textStatus + ": " + errorThrown ) ;
+        }
+    } ) ;
+}
 
 //function createNewCollection(){
 function backup(){
@@ -67,6 +144,26 @@ function backup(){
     }else{
         alert('Essa já existe');
     }
+}
+
+function createNewCollection ( ) {
+
+    var str = '{"name": "'+$('input[name=collection-name]' ).val()+'", ' +
+              ' "visibility": "'+$('.collection-privacy input[type="radio"]:checked').attr('class')+'"}';
+
+    $.ajax ( {
+        url : '/createNewCollection',
+        dataType : 'json',
+        contentType : 'application/json; charset=utf-8',
+        data : str,
+        type : 'POST',
+        success : function ( data, textStatus, jqXHR ) {
+            alert(data["id"]);
+        },
+        error : function ( jqXHR, textStatus, errorThrown ) {
+            alert ( textStatus + ": " + errorThrown ) ;
+        }
+    } ) ;
 }
 
 var left_side_width = 220; //Sidebar width in pixels

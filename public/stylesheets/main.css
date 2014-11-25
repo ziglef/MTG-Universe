@@ -18,6 +18,93 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     background-color: #5CB85C;
     padding:3px;
 }
+
+.header_i{
+    background-image: linear-gradient(#6D94BF, #446E9B 50%, #3E648D);
+    background-repeat: no-repeat;
+    border-bottom: 4px solid #345578;
+    padding: 15px 0;
+    color: #fff;
+}
+
+header .checkbox {
+    margin: 0px;
+    padding-left: 20px;
+}
+
+.input-group-addon-xs{
+    padding: 6px 12px;
+}
+
+.form-control-xs{
+    height: 32px;
+    font-size: 11px;
+}
+
+.font-xs{
+    font-size: 11px;
+}
+
+.shadow-around{
+    -moz-box-shadow: 0 0 5px #ccc;
+    -webkit-box-shadow: 0 0 5px #ccc;
+    box-shadow: 0 0 5px #ccc;
+}
+
+.mg-top-lg{
+    margin-top: 20%;
+}
+
+.mg-top-6{
+    margin-top: 6px;
+}
+
+.forget-pass{
+    color: white;
+}
+.forget-pass:hover, .forget-pass:focus{
+    color: white;
+    text-decoration: underline;
+    cursor: pointer;
+}
+hr.double {
+    padding: 0;
+    border: none;
+    border-top: medium double #333;
+    color: #333;
+    text-align: center;
+}
+
+.functionalities{
+    background:rgba(160,160,160,0.3);
+    padding: 23px;
+    border-radius: 10px;
+}
+
+.functionalities h1{
+    text-align: center;
+}
+.functionalities h2{
+    margin-left: 15px;
+}
+
+.functionalities ul{
+    margin-left: 25px;
+}
+.functionalities ul li{
+    font-size: 20px;
+}
+
+.glyphicon-success {
+    padding: 8px;
+    font-size: 15px;
+    color: #FFF;
+    background-color: #5CB85C;
+    border-color: #4CAE4C;
+    border-radius: 50px;
+    margin: 5px;
+}
+
 /* Navbar, logo */
 body > .header .logo {
   float: left;
