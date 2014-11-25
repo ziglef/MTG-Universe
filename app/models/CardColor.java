@@ -22,12 +22,11 @@ public class CardColor extends Model implements Serializable {
         return cardColors.size() > 0 ? cardColors : null;
     }
 
-    // Card id on our database
+    // Cardcolor id on our database
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long cardcolorid;
 
-    //@Id
     public String colorname;
 
     public CardColor(String color){

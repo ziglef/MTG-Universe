@@ -26,15 +26,35 @@ public class Card extends Model implements Serializable, Comparable{
 
     @JsonCreator // constructor can be public, private, whatever
     private Card(@JsonProperty("colors") JsonNode colorsNode,
-                     @JsonProperty("names") JsonNode namesNode
+                     @JsonProperty("names") JsonNode namesNode,
+                     @JsonProperty("type") JsonNode typeNode,
+                     @JsonProperty("types") JsonNode typesNode,
+                     @JsonProperty("originalType") JsonNode otypeNode,
+                     @JsonProperty("subtypes") JsonNode subtypesNode,
+                     @JsonProperty("supertypes") JsonNode supertypesNode,
+                     @JsonProperty("foreignNames") JsonNode foreignNamesNode,
+                     @JsonProperty("legalities") JsonNode legalitiesNode,
+                     @JsonProperty("rulings") JsonNode rulingsNode
+
                      )
     {
         if(namesNode.isArray())
             this.other_names = StringUtils.join(JsonUtil.parseStringArray(namesNode), "/");
 
-            ArrayList<String> colornames = JsonUtil.parseStringArray(colorsNode);
-            for (String cname : colornames)
-               colors.add(CardColor.getCardColor(cname));
+        ArrayList<String> colornames = JsonUtil.parseStringArray(colorsNode);
+        for (String cname : colornames)
+            colors.add(CardColor.getCardColor(cname));
+
+        foreignNames = JsonUtil.parseForeignNames(foreignNamesNode);
+        legalities = JsonUtil.parseLegalities(legalitiesNode);
+        rulings = JsonUtil.parseRulings(rulingsNode);
+
+
+        type = typeNode.asText();
+        types = StringUtils.join(JsonUtil.parseStringArray(typesNode), "|");
+        subtypes = StringUtils.join(JsonUtil.parseStringArray(subtypesNode), "|");
+        supertypes = StringUtils.join(JsonUtil.parseStringArray(supertypesNode), "|");
+        originalType = otypeNode.asText();
 
     }
 
@@ -111,20 +131,16 @@ public class Card extends Model implements Serializable, Comparable{
     public List<CardColor> colors = new ArrayList<CardColor>();
 
     // Card type
-    @Column(name = "type")
     public String type;
 
     // Card supertype(s)
-    @Column(name = "supertypes")
-    public List<String> supertypes;
+    public String supertypes;
 
     // Card types
-    @Column(name = "types")
-    public List<String> types;
+    public String types;
 
     // Card subtypes
-    @Column(name = "subtypes")
-    public List<String> subtypes;
+    public String subtypes;
 
     // Card rarity
     @Column(name = "rarity")
@@ -164,7 +180,7 @@ public class Card extends Model implements Serializable, Comparable{
 
     // Card variations (doesnt include its own multiverseid)
     @Column(name = "variations")
-    public ArrayList<Integer> variations;
+    public List<Integer> variations;
 
     // Card image name (for use with mtgimage.com)
     @Column(name = "imageName")
@@ -201,29 +217,28 @@ public class Card extends Model implements Serializable, Comparable{
     // EXTRA FIELDS //
 
     // Card rulings
-    @Column(name = "rulings")
-    public ArrayList<HashMap<String, String>> rulings;
+    @OneToMany(cascade = CascadeType.ALL)
+    public List<Ruling> rulings = new ArrayList<Ruling>();
 
     // Card foreign names
-    @Column(name = "foreignNames")
-    public ArrayList<HashMap<String, String>> foreignNames;
+    @OneToMany(cascade = CascadeType.ALL)
+    public List<ForeignName> foreignNames = new ArrayList<ForeignName>();
 
     // Card printings (in which sets the card was print on)
     @Column(name = "printings")
-    public ArrayList<String> printings;
+    public List<String> printings;
 
     // Card original text
     @Column(name = "originalText", columnDefinition = "TEXT(1023)")
     public String originalText;
 
     // Card original type
-    @Column(name = "originalType")
     public String originalType;
 
-    // Will hash map work? //
+
     // Card legalities
-    @Column(name = "legalities")
-    public HashMap<String, String> legalities;
+    @OneToMany(cascade = CascadeType.ALL)
+    public List<Legality> legalities = new ArrayList<Legality>();
 
     // Card source (where promo cards could be obtained)
     @Column(name = "source")
