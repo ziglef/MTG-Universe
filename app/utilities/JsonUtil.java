@@ -48,6 +48,7 @@ public class JsonUtil {
 
         for(CardSet set : sets.values()){
             for(Card card : set.getCards()){
+                card.setPrinting(Printing.getPrinting(set.getName()));
                 allCards.add(card);
             }
         }

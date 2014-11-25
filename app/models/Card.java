@@ -130,6 +130,15 @@ public class Card extends Model implements Serializable, Comparable{
     @ManyToMany
     public List<CardColor> colors = new ArrayList<CardColor>();
 
+    // Card color(s)
+    @ManyToOne
+    public Printing printing;
+
+    public void setPrinting(Printing p) {
+        printing = p;
+        this.save();
+    }
+
     // Card type
     public String type;
 
