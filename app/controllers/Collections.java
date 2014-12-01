@@ -76,10 +76,10 @@ public class Collections extends Controller {
         JsonNode json = request().body().asJson();
 
         Integer collectionId = Integer.parseInt(json.findPath("colID").textValue());
-        //Integer cardId = Integer.parseInt(json.findPath("cardID").textValue());
+        Integer cardId = Integer.parseInt(json.findPath("cardID").textValue());
 
         AbstractSetofCards collection = Collection.find.ref(collectionId);
-        collection.removeCard(1);
+        collection.removeCard(cardId);
         collection.save();
         collection.saveManyToManyAssociations("cards");
 

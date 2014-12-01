@@ -13,6 +13,11 @@ public class WishList extends AbstractSetofCards {
         super(name, owner, vis);
     }
 
+    @Override
+    public void removeCard(Integer id) {
+
+    }
+
     public static WishList create(String name, Integer owner_id, Visibility vis) {
         WishList wlist = new WishList(name, User.find.byId(owner_id), vis);
         wlist.save();

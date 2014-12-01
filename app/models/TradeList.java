@@ -13,6 +13,11 @@ public class TradeList extends AbstractSetofCards {
         super(name, owner, vis);
     }
 
+    @Override
+    public void removeCard(Integer id) {
+
+    }
+
     public static TradeList create(String name, Integer owner_id, Visibility vis) {
         TradeList tlist = new TradeList(name, User.find.byId(owner_id), vis);
         tlist.save();

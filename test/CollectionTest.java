@@ -1,4 +1,5 @@
 import models.*;
+import models.enums.Visibility;
 import org.junit.*;
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertNotNull;
@@ -35,13 +36,19 @@ public class CollectionTest extends WithApplication {
         User u1 = new User("bob", "bobuser", "bob@email", "12345");
         u1.save();
 
-        Collection collection = Collection.create("CollectionTest", u1.id);
+        Collection collection = Collection.create("CollectionTest", u1.id, Visibility.PUBLIC_);
         List<Collection> collections = Collection.findUserCollections(u1.id);
         assertNotNull(collections);
 
         collection.addCard(Card.findCardsByName("").get(1));
         collection.addCard(Card.findCardsByName("").get(2));
+        collection.save();
 
         assertEquals(2, Collection.find.byId(collection.id).cards.size());
+
+        collection.removeCard(0);
+        collection.save();
+
+        assertEquals(1, Collection.find.byId(collection.id).cards.size());
     }
 }

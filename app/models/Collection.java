@@ -15,6 +15,11 @@ public class Collection extends AbstractSetofCards {
         super(name, owner, vis);
     }
 
+    @Override
+    public void removeCard(Integer id) {
+        this.cards.remove(Card.find.byId(Integer.toString(id)));
+    }
+
     public static Collection create(String name, Integer owner_id, Visibility vis) {
         Collection collection = new Collection(name, User.find.byId(owner_id), vis);
         collection.save();
@@ -34,7 +39,7 @@ public class Collection extends AbstractSetofCards {
 
     public static List<Card> findCollectionCards(Integer id){
         Collection c = find.where().eq("id", id).findUnique();
-        c.addCard(Card.findCardsByName("Lightning Bolt").get(0));
+        //c.addCard(Card.findCardsByName("Lightning Bolt").get(0));
         return c.cards;
     }
 

@@ -13,6 +13,11 @@ public class Deck extends AbstractSetofCards {
         super(name, owner, vis);
     }
 
+    @Override
+    public void removeCard(Integer id) {
+
+    }
+
     public static Deck create(String name, Integer owner_id, Visibility vis) {
         Deck deck = new Deck(name, User.find.byId(owner_id), vis);
         deck.save();

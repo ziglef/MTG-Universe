@@ -64,7 +64,5 @@ public abstract class AbstractSetofCards extends Model implements Serializable {
        // this.save();
     }
 
-    public void removeCard(Integer id){
-        cards.remove(id);
-    }
+    public abstract void removeCard(Integer id);
 }
