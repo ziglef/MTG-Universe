@@ -41,14 +41,8 @@ public class User extends Model implements Serializable{
     public void save() {
         // Hash password
         this.password = BCrypt.hashpw(this.password, BCrypt.gensalt());
-    
-        // a verificacao se ja existe vai ser implementado fora?
-        //User findUser = User.find.where().eq("username", this.username).findUnique();
-        
-        //if ( findUser == null )
-        //{
-            super.save();
-        //}
+
+        super.save();
     }
     
     public static User authenticate(String username, String password) {

@@ -1,0 +1,60 @@
+@()
+
+@dashboard("Create Collection") {
+
+	<script type="text/javascript">
+	$(document).ready(function () {
+
+		$('#example').DataTable({
+			"bProcessing": true,
+			"aaSorting": [[0, "asc"]],
+			"bServerSide": true,
+			"bJQueryUI":true,
+			"sPaginationType": "simple",
+			"sAjaxSource": "@routes.Application.sortCards()"
+		});
+
+	});
+	</script>
+
+	<div class="col-md-4">
+		<h3>Add cards</h3>
+		<hr class="hr">
+		<table id="example" class="table table-bordered table-hover" cellspacing="0" width="100%">
+			<thead>
+				<tr>
+					<th width="90%">Name</th>
+					<th width="10%">Action</th>
+				</tr>
+			</thead>
+		</table>
+	</div>
+	<div class="col-md-3">
+		<h3>Card Image</h3>
+		<hr class="hr">
+		<img src="@routes.Assets.at("images/cardback.jpg")" alt="Card unavailable" class="img-responsive img-card" style=" margin-top : 46 px"/>
+		<span style="text-align : center ;"><a data-toggle="modal" data-target="#myCard" style="cursor : pointer ;">
+			Click here to zoom </a></span>
+	</div>
+	<div class="col-md-5">
+		<h3>My collection</h3>
+		<hr class="hr">
+		<table id="example1" class="table table-bordered table-hover" cellspacing="0" width="100%">
+			<thead>
+				<tr>
+					<th width="90%">Name</th>
+					<th width="10%">Action</th>
+				</tr>
+			</thead>
+		</table>
+	</div>
+					
+	<!-- Modal -->
+	<div class="modal fade" id="myCard" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-body">
+				<img src="@routes.Assets.at("images/cardback.jpg")" alt="Card unavailable" class="img-responsive img-modal img-card" style="margin : 0 auto ;"/>
+			</div>
+		</div>
+	</div>		
+}

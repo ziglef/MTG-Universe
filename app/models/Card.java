@@ -14,12 +14,20 @@ import java.util.HashMap;
 
 @Entity
 @Table(name = "Cards")
-public class Card extends Model implements Serializable{
+public class Card extends Model implements Serializable, Comparable{
 
     // Finds all cards containing a given string
     public static ArrayList<Card> findCardsByName(String name){
 
         ArrayList<Card> cards = new ArrayList<>(find.where().icontains("name", name).findList());
+
+        return cards.size() > 0 ? cards : null;
+    }
+
+    // Finds all cards
+    public static ArrayList<Card> findAll(){
+
+        ArrayList<Card> cards = new ArrayList<>(find.all());
 
         return cards.size() > 0 ? cards : null;
     }
@@ -177,6 +185,24 @@ public class Card extends Model implements Serializable{
     @Column(name = "source")
     public String source;
 
+    @Override
+    public int hashCode(){
+        return 0;
+    }
 
+    @Override
+    public boolean equals(Object o){
+        if(o.getClass() != this.getClass())
+            return false;
 
+        return this.name.equalsIgnoreCase(((Card)o).name);
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        if(o.getClass() != this.getClass())
+            return -1;
+
+        return this.name.compareToIgnoreCase(((Card)o).name);
+    }
 }
