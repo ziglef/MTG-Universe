@@ -27,4 +27,15 @@ public class Collection extends AbstractSetofCards {
     public static List<Collection> findUserCollections(Integer userId) {
         return find.where().eq("owner.id", userId).findList();
     }
+
+    public static Collection findCollectionByID(Integer id){
+        return find.where().eq("id", id).findUnique();
+    }
+
+    public static List<Card> findCollectionCards(Integer id){
+        Collection c = find.where().eq("id", id).findUnique();
+        c.addCard(Card.findCardsByName("Lightning Bolt").get(0));
+        return c.cards;
+    }
+
 }

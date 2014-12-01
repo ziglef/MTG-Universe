@@ -1,8 +1,9 @@
-@()
+@(collectionInfo: models.Collection, listOfCards: com.fasterxml.jackson.databind.JsonNode)
 
 @dashboard("Create Collection") {
 
     <script type="text/javascript">
+        var table;
     $(document).ready(function () {
 
         $('#example').DataTable({
@@ -14,30 +15,13 @@
             "sAjaxSource": "@routes.Application.sortCards()"
         });
 
+        $('#example1').DataTable({
+            "pagingType": "simple",
+        });
+
     });
     </script>
-    <div class="col-md-2 content-sidebar">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <strong> My collections</strong>
-            </div>
-            <div class="panel-body">        
-                <li>Collection 1<i class="fa fa-clock-o"></i></li>      
-                <li>Collection 2<i class="fa fa-clock-o"></i></li>      
-                <li>Collection 3<i class="fa fa-clock-o"></i></li>      
-                <li>Collection 4<i class="fa fa-clock-o"></i></li>      
-                <li>Collection 5<i class="fa fa-clock-o"></i></li>
-            </div>
-            <div class="panel-footer">
-                <button class="btn btn-block btn-default">New Collection</button>
-            </div>
-        </div>
-        <!--<img src="@routes.Assets.at("images/cardback.jpg")" alt="Card unavailable" class="img-responsive img-card" style=" margin-top : 46 px"/>
-        <span style="text-align : center ;"><a data-toggle="modal" data-target="#myCard" style="cursor : pointer ;">
-            Click here to zoom </a></span>-->
-        
-    </div>
-    <div class="col-md-4">
+    <div class="col-md-6">
         <h3>Add cards</h3>
         <hr class="hr">
         <table id="example" class="table table-bordered table-hover" cellspacing="0" width="100%">
@@ -49,8 +33,8 @@
             </thead>
         </table>
     </div>
-    <div class="col-md-4">
-        <h3>My collection</h3>
+    <div class="col-md-6">
+        <h3 class="collection" collection="@collectionInfo.id">My collection : @collectionInfo.name</h3>
         <hr class="hr">
         <table id="example1" class="table table-bordered table-hover" cellspacing="0" width="100%">
             <thead>
@@ -59,8 +43,17 @@
                     <th width="10%">Action</th>
                 </tr>
             </thead>
+            <tbody>
+            @for(name <- listOfCards.elements()){
+                <tr>
+                    <td><a href="#" rel="popover" data-img="@name.findValuesAsText("imageName").get(0)">@name.findValuesAsText("name").get(0)</a></td>
+                    <td><button class="btn btn-sm btn-danger btn-block" onclick="removeFromCollection(this,@name.findValuesAsText("id").get(0))"> X </button></td>
+                </tr>
+            }
+            </tbody>
         </table>
     </div>
+    @listOfCards
                     
     <!-- Modal -->
     <div class="modal fade" id="myCard" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

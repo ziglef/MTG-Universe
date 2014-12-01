@@ -39,3 +39,9 @@ GET         /sortCards                  controllers.Application.sortCards()
 POST        /createNewCollection        controllers.Collections.addCollection()
 
 POST        /deleteCollection           controllers.Collections.deleteCollection()
+
+GET         /editCollection/:id         controllers.Collections.editCollection1(id: Integer)
+
+POST        /addCardToCollection        controllers.Collections.addCardtoCollection()
+
+POST        /deleteCardFromCollection     controllers.Collections.deleteCardFromCollection()

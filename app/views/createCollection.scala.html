@@ -2,19 +2,35 @@
 @import com.fasterxml.jackson.databind.JsonNode;
 
 @dashboard("Create Collection") {
-    <div class="col-md-3 content-sidebar">
-        <h3>My collections</h3>
-        <hr class="hr">
-        <button class="btn btn-block btn-default" data-toggle="modal" data-target="#newCollection" style="cursor : pointer ;">
+    <div class="col-md-4">
+        <button class="btn btn-block btn-primary" data-toggle="modal" data-target="#newCollection" style="cursor : pointer ;">
             New Collection</button>
-        <div class="alert-message alert-message-info">
-            <strong>Click on the collection name</strong> to view the content.</p>
         </div>
-        <div class="panel panel-default">
+    <div class="col-md-4">
+        <button class="btn btn-block btn-warning" data-toggle="modal" data-target="#newCollection" style="cursor : pointer ;">
+            Edit Collection</button>
+        </div>
+    <div class="col-md-4">
+        <button class="btn btn-block btn-danger" data-toggle="modal" data-target="#newCollection" style="cursor : pointer ;">
+            Delete Collection</button>
+        </div>
+    <p class="col-md-12" style="margin-top:10px">Collections</p>
+    <div class="col-md-12" style="margin-top:10px">
+        <select id="myCollections" data-width="100%">
+        @for(name <- userCollections.elements()){
+            <option class="col@name.findValuesAsText("id").get(0)">@name.findValuesAsText("name").get(0)</option>
+        }
+        </select>
+   </div>
+        <!--<div class="panel panel-default">
             <div class="panel-body">
                 <ul id="myCollections" class="list-unstyled">
                     @for(name <- userCollections.elements()){
-                        <li><a href="">@name.findValuesAsText("name").get(0)</a><button name="col@name.findValuesAsText("id").get(0)" onclick="removeCollection(this.name)" class="badge pull-right label-danger remove">X</button><a href="#" class="badge pull-right label-warning">Edit</a></li>
+                        <li>
+                            <a href="">@name.findValuesAsText("name").get(0)</a>
+                            <button name="col@name.findValuesAsText("id").get(0)" onclick="removeCollection(this.name)" class="badge pull-right label-danger remove">X</button>
+                            <button name="col@name.findValuesAsText("id").get(0)" onclick="editCollection(this.name)" class="badge pull-right label-warning">Edit</button>
+                        </li>
                     }
                 </ul>
             </div>
@@ -22,11 +38,8 @@
             <span style="text-align : center ;"><a data-toggle="modal" data-target="#myCard" style="cursor : pointer ;">
                 Click here to zoom </a></span>
         </div>-->
-    </div>
-    </div>
-    <div class="col-md-9">
-        <h3><span class="collection-name">Collection Name</span></h3>
-        <hr class="hr">
+    <hr class="hr-content">
+    <div class="col-md-12">
         <table id="collection" class="table table-bordered table-hover" cellspacing="0" width="100%">
             <thead>
                 <tr>

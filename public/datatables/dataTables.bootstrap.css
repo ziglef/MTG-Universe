@@ -15,6 +15,7 @@ div.dataTables_filter label {
 
 div.dataTables_filter input {
 	width: 16em;
+	height: 34px;
 }
 
 div.dataTables_info {

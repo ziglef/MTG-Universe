@@ -3,105 +3,150 @@
 @implicitField = @{
     FieldConstructor(horizontalForm.f)
 }
-
 @**
 User is not logged (checked on Application.java)
 **@
-
 @main("Home") {
     <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
-        <div id="banner" class="bg-blur">
-                <!-- Start Header -->
-                <!-- Navigation -->
-            <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
-                <div class="container-fluid">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
-                            <span class="glyphicon glyphicon-align-justify">
+        <section id="home" class="section">
+            <div id="banner" class="bg-blur">
+                    <!-- Start Header -->
+                    <!-- Navigation -->
+                <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                                <span class="glyphicon glyphicon-align-justify">
+                                </span>
+                            </button>
+                            <span class="navbar-brand page-scroll logo" href="#page-top">
+                                <img src="" alt=""/>
                             </span>
-                        </button>
-                        <span class="navbar-brand page-scroll logo" href="#page-top">
-                            <img src="img/.png" alt=""/>
-                        </span>
-                    </div>
+                        </div>
 
-                        <!-- Collect the nav links, forms, and other content for toggling -->
-                    <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
-                        <ul class="nav navbar-nav">
-                                <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
-                            <li>
-                                <a href="#">
-                                    HOME
-                                </a>
-                            </li>
-                            <li>
-                                <a class="page-scroll" href="#features">
-                                    FEATURES
-                                </a>
-                            </li>
-                            <li>
-                                <a class="page-scroll" href="#register">
-                                    REGISTER
-                                </a>
-                            </li>
-                            <li>
-                                <a class="page-scroll" href="#contacts">
-                                    CONTACT
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                        <!-- /.navbar-collapse -->
-                </div>
-                    <!-- /.container -->
-            </nav>
-                <!-- End Header -->
-            <div class="banner-content">
-                <div class="container">
-                    <div class="row">
-                            <!-- Start Header Text -->
-                        <div class="col-md-7 col-sm-7">
-                            <h1><strong>MTG</strong> Universe</h1>
-                            <p>Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Donec sollicitudin molestie malesuada. Nulla quis lorem ut libero malesuada feugiat. Sed porttitor lectus nibh. Praesent sapien massa.</p>
-                            <p>Donec sollicitudin molestie malesuada quis lorem ut libero malesuada feugiat.</p>
-                            <ul class="banner-list">
-                                <li><i class="fa fa-check"></i>Many addon features</li>
-                                <li><i class="fa fa-check"></i>Fully responsive &amp; adaptive</li>
-                                <li><i class="fa fa-check"></i>SEO optimized</li>
-                                <li><i class="fa fa-check"></i>Easy way to capture leads</li>
-                                <li><i class="fa fa-check"></i>Client oriented</li>
+                            <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+                            <ul class="nav navbar-nav">
+                                    <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+                                <li>
+                                    <a class="page-scroll" href="#home">
+                                        HOME
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="page-scroll" href="#register">
+                                        REGISTER
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="page-scroll" href="#features">
+                                        FEATURES
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="page-scroll" href="#contacts">
+                                        CONTACT
+                                    </a>
+                                </li>
                             </ul>
                         </div>
-                            <!-- End Header Text -->
-                            <!-- Start Banner Optin Form-->
-                        <div class="col-lg-4 col-md-4 col-md-offset-1 col-sm-5">
-                            <div class="banner-form">
-                                <div class="form-title">
-                                    <h2>Login now</h2>
+                            <!-- /.navbar-collapse -->
+                    </div>
+                        <!-- /.container -->
+                </nav>
+                    <!-- End Header -->
+                <div class="banner-content">
+                    <div class="container">
+                        <div class="row">
+
+                            <div class="col-md-7 col-sm-7">
+                                <h1><strong>MTG</strong> Universe</h1>
+                                <div class="video-container">
+                                    <iframe width="560" height="315" src="//www.youtube.com/embed/3YzEu6cpteY" frameborder="0" allowfullscreen></iframe>
                                 </div>
-                                @helper.form(routes.Application.authenticate) {
-                                <div class="form-body">
-                                    <div class="form-group">
-                                        <input name="username" class="form-control" required="" placeholder="Username" type="text" value="@userLogin("username").value">
-                                    </div>
-                                    <div class="form-group" style="margin-bottom : 0 ;">
-                                        <input name="password" class="form-control" required="" placeholder="Password" type="password" style="margin-bottom : 0 ;" value="@userLogin("password").value">
-                                    </div>
-                                    <div class="form-group">
-                                        <p> <input type="checkbox"> Remember me</p>
-                                    </div>
-                                    <button type="submit" class="btn btn-default btn-submit">Login</button>
-                                    <p> Not a member yet? Register <a href="#">here</a>!</p>
-                                    <p> Forget your password? Reset <a href="#">here</a>!</p>
-                                </div>
-                                }
                             </div>
+                                <!-- End Header Text -->
+                                <!-- Start Banner Optin Form-->
+                            <div class="col-lg-4 col-md-4 col-md-offset-1 col-sm-5">
+                                <h1>Go!</h1>
+                                <div class="banner-form">
+                                    <div class="form-title">
+                                        <h2>Login now</h2>
+                                    </div>
+                                    @helper.form(routes.Application.authenticate) {
+                                        <div class="form-body">
+                                            <div class="form-group">
+                                                <input name="username" class="form-control" required="" placeholder="Username" type="text" value="@userLogin("username").value">
+                                            </div>
+                                            <div class="form-group" style="margin-bottom : 0 ;">
+                                                <input name="password" class="form-control" required="" placeholder="Password" type="password" style="margin-bottom : 0 ;" value="@userLogin("password").value">
+                                            </div>
+                                            <div class="form-group">
+                                                <p> <input type="checkbox"> Remember me</p>
+                                            </div>
+                                            <button type="submit" class="btn btn-default btn-submit">Login</button>
+                                            <p> Not a member yet? Register <a href="#">here</a>!</p>
+                                            <p> Forget your password? Reset <a href="#">here</a>!</p>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                                <!-- End Banner Optin Form -->
                         </div>
-                            <!-- End Banner Optin Form -->
                     </div>
                 </div>
             </div>
-        </div>
+            <div class="clear"></div>
+        </section>
+        <section id="register" class="section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="headline">
+                            <h2>Join our universe now!</h2>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam aliquando posse.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="banner-form" style="padding-bottom : 20 px">
+                        <div class="form-title">
+                            <h2>Register now</h2>
+                        </div>
+                        @helper.form(action = routes.Application.addUser(), 'id -> "userRegister") {
+                            <div class="form-body">
+                                <div class="form-group col-md-6">
+                                @helper.inputText(userRegister("name"), 'id -> "nameReg", 'class -> "form-control", 'placeholder -> "Insert your name", 'required -> "")
+                                </div>
+                                <div class="form-group col-md-6">
+                                @helper.inputText(userRegister("surname"), 'id -> "surnameReg", 'class -> "form-control", 'placeholder -> "Insert your surname", 'required -> "")
+                                </div>
+                                <div class="form-group col-md-6">
+                                @helper.inputText(userRegister("username"), 'id -> "usernameReg", 'class -> "form-control", 'placeholder -> "Choose an username", 'required -> "")
+                                </div>
+                                <div class="form-group col-md-6">
+                                @helper.inputText(userRegister("email"), 'id -> "emailReg", 'class -> "form-control", 'placeholder -> "Insert your email", 'required -> "")
+                                </div>
+                                <div class="form-group col-md-6">
+                                @helper.inputPassword(userRegister("password"), 'id -> "passReg", 'class -> "form-control", 'placeholder -> "Choose a password", 'required -> "")
+                                </div>
+                                <div class="form-group col-md-6">
+                                @helper.inputPassword(userRegister("passwordConfirm"), 'id -> "passConfReg", 'class -> "form-control", 'placeholder -> "Choose the password", 'required -> "")
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <p> <input type="checkbox" name="vehicle" value="Bike">
+                                        I accept the <a href="#">Tearms and Conditions</a>.</p>
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <button type="submit" class="btn btn-default btn-submit btn-block">Register</button>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+            </div>
+        </section>
         <section id="features" class="section">
             <div class="container">
                 <div class="row">
@@ -109,34 +154,6 @@ User is not logged (checked on Application.java)
                         <div class="headline">
                             <h2>Features</h2>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam aliquando posse.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-5">
-                            <!-- How It Works List -->
-                        <ul class="steps-list">
-                            <li>
-                                <span>x</span><!-- Step Number -->
-                                <h4>Curabitur risus mi accumsan vitae</h4><!-- Step Title -->
-                                <p>Vestibulum ante ipsum primis in faucibus orci luctus etel ultrices posuere cubilia Curae.</p><!-- Step Description -->
-                            </li>
-                            <li>
-                                <span>x</span>
-                                <h4>Sed id dignissim lorem consequat</h4>
-                                <p>Nunc eu lacus massa, et accumsan erat. Phasellus auct malesuada odio, eu aliquet mi rhoncus quis.</p>
-                            </li>
-                            <li>
-                                <span>x</span>
-                                <h4>Nam at imperdiet quam aenean </h4>
-                                <p>Proin viverra, felis eget feugiat dignissim, ante ante odio pulvinar, sed blandit diam lectus a risus.</p>
-                            </li>
-                        </ul>
-                            <!-- End How It Works List -->
-                    </div>
-                    <div class="col-md-7">
-                        <div class="video-container">
-                            <iframe width="560" height="315" src="http://www.youtube.com/embed/ICj4y4hH6fk" frameborder="0" allowfullscreen></iframe>
                         </div>
                     </div>
                 </div>
@@ -182,62 +199,12 @@ User is not logged (checked on Application.java)
                         </ul>
                     </div>
                     <div class="col-md-12 center-image">
-                        <img src="img/responsive.png" class="img-responsive" alt="" title="">
+                        <img src="@routes.Assets.at("images/responsive.png")" class="img-responsive" alt="" title="">
                     </div>
                 </div>
-            </div>
-        </section>
-        <section id="register" class="section bg-orange-pattern white-text">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="headline">
-                            <h2>Join our universe now!</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam aliquando posse.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="banner-form" style="padding-bottom : 20 px">
-                        <div class="form-title">
-                            <h2>Register now</h2>
-                        </div>
-                        @helper.form(action = routes.Application.addUser(), 'id -> "userRegister") {
-                        <div class="form-body">
-                            <div class="form-group col-md-6">
-                                @helper.inputText(userRegister("name"), 'id -> "nameReg", 'class -> "form-control", 'placeholder -> "Insert your name", 'required -> "")
-                            </div>
-                            <div class="form-group col-md-6">
-                                @helper.inputText(userRegister("surname"), 'id -> "surnameReg", 'class -> "form-control", 'placeholder -> "Insert your surname", 'required -> "")
-                            </div>
-                            <div class="form-group col-md-6">
-                                @helper.inputText(userRegister("username"), 'id -> "usernameReg", 'class -> "form-control", 'placeholder -> "Choose an username", 'required -> "")
-                            </div>
-                            <div class="form-group col-md-6">
-                                @helper.inputText(userRegister("email"), 'id -> "emailReg", 'class -> "form-control", 'placeholder -> "Insert your email", 'required -> "")
-                            </div>
-                            <div class="form-group col-md-6">
-                                @helper.inputPassword(userRegister("password"), 'id -> "passReg", 'class -> "form-control", 'placeholder -> "Choose a password", 'required -> "")
-                            </div>
-                            <div class="form-group col-md-6">
-                                @helper.inputPassword(userRegister("passwordConfirm"), 'id -> "passConfReg", 'class -> "form-control", 'placeholder -> "Choose the password", 'required -> "")
-                            </div>
-                            <div class="form-group col-md-12">
-                                <p> <input type="checkbox" name="vehicle" value="Bike"> I accept the <a href="#">Tearms and Conditions</a>.</p>
-                            </div>
-                            <div class="form-group col-md-12">
-                                <button type="submit" class="btn btn-default btn-submit btn-block">Login</button>
-                            </div>
-                        </div>
-                        }
-                    </div>
-                </div>
-
             </div>
         </section>
         <section id="contacts" class="section">
-        </section>
-        <section id="how-it-works" class="section bg-orange-pattern white-text">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
@@ -275,121 +242,6 @@ User is not logged (checked on Application.java)
 
             </div>
         </section>
-
-            <!--<div class="wrapper">
-		<header class="header_i">
-			<div class="container topbar">
-				<div class="row">
-					<div class="col-md-4 logo">
-						<img class="img-responsive" src="@routes.Assets.at("images/logo.png")"/>
-        </div>
-         @helper.form(routes.Application.authenticate) {
-            <div class="col-md-3 col-md-offset-1 mg-top">
-                <div class="input-group">
-                    <span class="input-group-addon input-group-addon-xs">
-                        <span class="glyphicon glyphicon-user"></span>
-                    </span>
-                    <input type="text" name="username" class="form-control form-control-xs" placeholder="Insert your username" value="@userLogin("username").value">
-                </div>
-                <label class="checkbox inline">
-                    <input type="checkbox" id="inlineCheckbox1" value="option1">
-                    <span class="font-xs">Remember me</span>
-                </label>
-            </div>
-            <div class="col-md-3 mg-top">
-                <div class="input-group">
-                    <span class="input-group-addon input-group-addon-xs">
-                        <span class="glyphicon glyphicon-lock"></span>
-                    </span>
-                    <input type="password" name="password" class="form-control form-control-xs" placeholder="Insert your password" value="@userLogin("password").value">
-                </div>
-                <span class="font-xs"><a class="forget-pass" data-toggle="modal" data-target="#forgetPassword"><b>
-                    Forgot your password?</b></a></span>
-            </div>
-            <div class="col-md-1 mg-top">
-                <button type="submit" class="btn btn-primary btn-sm">Login</button>
-            </div>
-        }
-        </div>
-        </div>
-        <div class="header-search">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12 col-md-12">
-                        <div class="input-group">
-                            <div class="input-group-btn search-panel">
-                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" style="padding : 5 px 12 px ;">
-                                    <span id="search_concept">Filter by</span> <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a href="#contains">Cards</a></li>
-                                    <li><a href="#its_equal">Artist</a></li>
-                                    <li><a href="#greather_than">Articles</a></li>
-                                    <li><a href="#less_than">Events</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="#all">All</a></li>
-                                </ul>
-                            </div>
-                            <input type="text" class="form-control" name="x" placeholder="Type keywords here...">
-                            <span class="input-group-btn">
-                                <button class="btn btn-default" type="button" style="padding : 5 px 12 px ;"><span class="glyphicon glyphicon-search"></span></button>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        </header>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-6">
-                    <div class="well bs-component shadow-around">
-                    @helper.form(action = routes.Application.addUser(), 'id -> "userRegister", 'class -> "form-horizontal") {
-                        <fieldset>
-                            <h2 class="color-theme">Register</h2>
-                            <hr class="double color-theme"/>
-                            @helper.inputText(userRegister("name"), 'id -> "nameReg", '_label -> "Name *", 'class -> "form-control", 'placeholder -> "Insert your name")
-                            @helper.inputText(userRegister("username"), 'id -> "usernameReg", '_label -> "Username *", 'class -> "form-control", 'placeholder -> "Choose your username")
-                            @helper.inputText(userRegister("email"), 'id -> "emailReg", '_label -> "Email *", 'class -> "form-control", 'placeholder -> "Insert your name")
-                            @helper.inputPassword(userRegister("password"), 'id -> "passReg", '_label -> "Password *", 'class -> "form-control", 'placeholder -> "Choose your password")
-                            @helper.inputPassword(userRegister("passwordConfirm"), 'id -> "passConfReg", '_label -> "Confirm password *", 'class -> "form-control", 'placeholder -> "Confirm your password")
-                            <input type="submit" class="btn btn-success btn-block" value="Register">
-                        </fieldset>
-                    }
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-6">
-                    <div class="functionalities shadow-around">
-                        <h1>You are 30 seconds away from our world!</h1>
-                        <h2>What we have for you:</h2>
-                        <ul class="list-unstyled">
-                            <li><span class="glyphicon glyphicon-ok glyphicon-success"></span>Create a collection</li>
-                            <li><span class="glyphicon glyphicon-ok glyphicon-success"></span>Create a tradelist</li>
-                            <li><span class="glyphicon glyphicon-ok glyphicon-success"></span>Create a wantlist</li>
-                            <li><span class="glyphicon glyphicon-ok glyphicon-success"></span>Friends list</li>
-                            <li><span class="glyphicon glyphicon-ok glyphicon-success"></span>Chat with friends</li>
-                            <li><span class="glyphicon glyphicon-ok glyphicon-success"></span>Create Events</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-        </div>
-
-        @if(userLogin.hasErrors) {
-            @if(userLogin.errors.size() > 0) {
-                @for((key, value) <- userLogin.errors) {
-                    <p style="color : red ;">@key.toString() ->
-                        @for(err <- value) {
-                            @err.message().toString()
-                        }
-                    </p>
-                }
-            } else {
-                <p>No error returned</p>
-            }
-        }-->
-
             <!-- Modal -->
         <div class="modal fade" id="forgetPassword" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -416,4 +268,14 @@ User is not logged (checked on Application.java)
                 </div>
             </div>
         </div>
+        <script type="text/javascript">
+        // jQuery to collapse the navbar on scroll
+        $ ( window ).scroll ( function ( ) {
+         if ( $ ( ".navbar" ).offset ( ).top > 50 ) {
+            $ ( ".navbar-fixed-top" ).addClass ( "top-nav-collapse" ) ;
+         } else {
+            $ ( ".navbar-fixed-top" ).removeClass ( "top-nav-collapse" ) ;
+         }
+        } ) ;
+        </script>
 }
