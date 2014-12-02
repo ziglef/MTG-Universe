@@ -43,6 +43,13 @@ public class Article extends Model implements Serializable {
         this.imageUrl=imageUrl;
     }
 
+    public void edit(String title, String text, String imageUrl) {
+        this.title=title;
+        this.text=text;
+        this.imageUrl=imageUrl;
+        this.save();
+    }
+
     @ManyToOne
     public User writter;
 
