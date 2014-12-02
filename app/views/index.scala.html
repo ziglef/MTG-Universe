@@ -119,19 +119,19 @@ User is not logged (checked on Application.java)
                                 @helper.inputText(userRegister("name"), 'id -> "nameReg", 'class -> "form-control", 'placeholder -> "Insert your name", 'required -> "")
                                 </div>
                                 <div class="form-group col-md-6">
-                                @helper.inputText(userRegister("surname"), 'id -> "surnameReg", 'class -> "form-control", 'placeholder -> "Insert your surname", 'required -> "")
-                                </div>
-                                <div class="form-group col-md-6">
                                 @helper.inputText(userRegister("username"), 'id -> "usernameReg", 'class -> "form-control", 'placeholder -> "Choose an username", 'required -> "")
                                 </div>
                                 <div class="form-group col-md-6">
                                 @helper.inputText(userRegister("email"), 'id -> "emailReg", 'class -> "form-control", 'placeholder -> "Insert your email", 'required -> "")
                                 </div>
                                 <div class="form-group col-md-6">
+                                @helper.inputText(userRegister("emailConfirm"), 'id -> "emailRegConfirm", 'class -> "form-control", 'placeholder -> "Confirm your email", 'required -> "")
+                                </div>
+                                <div class="form-group col-md-6">
                                 @helper.inputPassword(userRegister("password"), 'id -> "passReg", 'class -> "form-control", 'placeholder -> "Choose a password", 'required -> "")
                                 </div>
                                 <div class="form-group col-md-6">
-                                @helper.inputPassword(userRegister("passwordConfirm"), 'id -> "passConfReg", 'class -> "form-control", 'placeholder -> "Choose the password", 'required -> "")
+                                @helper.inputPassword(userRegister("passwordConfirm"), 'id -> "passConfReg", 'class -> "form-control", 'placeholder -> "Confirm the password", 'required -> "")
                                 </div>
                                 <div class="form-group col-md-12">
                                     <p> <input type="checkbox" name="vehicle" value="Bike">
