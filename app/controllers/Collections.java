@@ -1,5 +1,6 @@
 package controllers;
 
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.common.collect.Lists;
 import models.AbstractSetofCards;
@@ -12,6 +13,7 @@ import play.mvc.Result;
 import com.fasterxml.jackson.databind.JsonNode;
 import play.mvc.BodyParser;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -54,14 +56,14 @@ public class Collections extends Controller {
 
     public static Result deleteCollection() {
 
-        Integer id;
-
         JsonNode json = request().body().asJson();
+
+        Integer id;
 
             if(json == null) {
                 return badRequest("Expecting Json data");
             } else {
-                id = Integer.parseInt(json.findPath("id").textValue().replace("col",""));
+                id = Integer.parseInt(json.findPath("colID").textValue());
                 if(id == null) {
                     return badRequest("Missing parameter [id]");
                 }
@@ -85,6 +87,7 @@ public class Collections extends Controller {
 
         String response = new String("ok");
         return ok(Json.toJson(response));
+        //TODO error response
     }
 
     public static Result renameCollection(Integer collectionId, String newName) {
@@ -124,5 +127,14 @@ public class Collections extends Controller {
         //TODO - Verificar se ID existe e Verificar se o ID coleção pertence ao user logado para verificar permissões
 
         return ok(views.html.editCollection.render(Collection.findCollectionByID(id),Json.toJson(Collection.findCollectionCards(id))));
+    }
+
+    public static Result getCollectionCards() {
+        JsonNode json = request().body().asJson();
+
+        Integer collectionId = Integer.parseInt(json.findPath("colID").textValue());
+        Collection col = Collection.find.byId(collectionId);
+
+        return ok(Json.toJson(col.cards));
     }
 }

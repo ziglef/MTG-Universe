@@ -1,4 +1,5 @@
 var t;
+var table;
 
 $(document).ready(function () {
     $('[data-toggle=offcanvas]').click(function () {
@@ -17,8 +18,48 @@ $(document).ready(function () {
     });
 
     t = $('#example1').DataTable();
+    table = $('#collection').DataTable();
+    fillCards();
+
+    $("#myCollections").change(function() {
+        //alert( $('option:selected', this).text() );
+        table.clear().draw();
+        fillCards();
+    });
 
 });
+
+function fillCards() {
+
+    var id = $("#myCollections option:selected").attr("class").replace("col","");
+
+    var str = '{"colID": "'+id+'"}';
+    $.ajax ( {
+        url : '/getCollectionCards',
+        dataType : 'json',
+        contentType : 'application/json; charset=utf-8',
+        data : str,
+        type : 'POST',
+        success : function ( data, textStatus, jqXHR ) {
+            data.forEach(function(obj) {
+
+                table.row.add( [
+                    "<tr><td width=\"50%\"><a class=\"btn\" rel=\"popover\" data-img=\"http://mtgjson.com/images/sentriplets.jpg\">"+obj.name+"</a></td>",
+                    "<td width=\"20%\">"+obj.type+"</td>",
+                    "<td width=\"10%\">EDT</td>",
+                    "<td class=\"text-center\" width=\"5%\"><i class=\"fa fa-check fa-success\"></i></td>",
+                    "<td class=\"text-center\" width=\"5%\"><i class=\"fa fa-check fa-success\"></i></td>",
+                    "</tr>",
+                ] ).draw();
+
+            });
+        },
+        error : function ( jqXHR, textStatus, errorThrown ) {
+            alert ( textStatus + ": " + errorThrown ) ;
+        }
+    } ) ;
+
+}
 
 $(document).on("click", "#myCollections li .remove", function(){
     $(this).closest("li").remove();
@@ -33,10 +74,9 @@ function changeImg(name) {
 
 function addToCollection(name, id) {
 
-
     t.row.add( [
        "<a href=\"#\" name=\""+name+"\" onclick=\"changeImg ( this.name ) ;\">"+name+"</a>" ,
-       "<button class=\"btn btn-sm btn-danger btn-block\" name=\""+name+"\" onclick=\"removeFromCollection(this,id)\"> X </button>",
+       "<button class=\"btn btn-sm btn-danger btn-block\" onclick=\"removeFromCollection(this,"+id+")\"> X </button>",
     ] ).draw();
 
     var str = '{"colID": "'+$("h3.collection").attr("collection")+'",' +
@@ -61,7 +101,7 @@ function removeFromCollection(elem, id){
     $(elem).closest("tr").addClass("select");
     t.row('.select').remove().draw(false);
 
-    alert(id);
+    //alert(id);
     var str = '{"colID": "'+$("h3.collection").attr("collection")+'",' +
               ' "cardID": "'+id+'"}';
     $.ajax ( {
@@ -80,10 +120,11 @@ function removeFromCollection(elem, id){
 
 }
 
-function removeCollection(id){
+function removeCollection(){
 
-    var str = '{"colID": "'+$("h3.collection").attr("collection")+'",' +
-              ' "cardID": "'+id+'"}';
+    var id = $("#myCollections option:selected").attr("class").replace("col","");
+
+    var str = '{"colID": "'+id+'"}';
     $.ajax ( {
         url : '/deleteCollection',
         dataType : 'json',
@@ -99,7 +140,8 @@ function removeCollection(id){
     } ) ;
 }
 
-function editCollection(id){
+function editCollection(){
+    var id = $("#myCollections option:selected").attr("class").replace("col","");
     window.location.replace("/editCollection/"+id);
 }
 
