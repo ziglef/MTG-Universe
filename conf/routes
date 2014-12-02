@@ -19,7 +19,9 @@ POST        /recover                    controllers.Application.recover()
 
 # Profile
 GET         /profile               controllers.Application.profile()
-POST        /profile               controllers.Application.editUser()
+POST        /profile/avatar        controllers.Application.editAvatar()
+POST        /profile/password      controllers.Application.editPassword()
+POST        /profile/about         controllers.Application.editAbout()
 
 # Card search form
 GET         /searchcard                 controllers.Application.searchCard()

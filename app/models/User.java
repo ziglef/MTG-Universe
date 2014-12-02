@@ -24,6 +24,10 @@ public class User extends Model implements Serializable{
     @Basic(optional = false)
     @Column(name = "name")
     public String name;
+    
+    @Basic(optional = false)
+    @Column(name = "city")
+    public String city;
 
     @Basic(optional = false)
     @Column(name ="username")
@@ -43,10 +47,10 @@ public class User extends Model implements Serializable{
     //public Collection collection;
 
     public User(String name, String username, String email, String password) {
-        this.name=name;
-        this.username=username;
-        this.email=email;
-        this.password=password;
+        this.name = name;
+        this.username = username;
+        this.email = email;
+        this.password = password;
     }
 
 

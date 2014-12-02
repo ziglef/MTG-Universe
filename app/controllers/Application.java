@@ -60,6 +60,9 @@ public class Application extends Controller {
             }
             else
             {
+            	// Defaults
+            	newUser.city = "City";
+            	
             	newUser.save();
 	            return redirect(routes.Application.index());
             }
@@ -68,15 +71,14 @@ public class Application extends Controller {
 	
     // Class de login
     public static class Profile {
-        //@Constraints.Required
-        public String name, username, email, actualPassword, newPassword, newPassword2;
+        public String name, username, email, actualPassword, newPassword, newPassword2, city;
     }
     
     public static Result profile() {
     	return ok(profile.render(Form.form(Profile.class)));
     }
     
-    public static Result editUser() {
+    public static Result editPassword() {
         Form<Profile> editForm = Form.form(Profile.class).bindFromRequest();
 
         if( editForm.hasErrors() ) {
@@ -87,29 +89,7 @@ public class Application extends Controller {
 
             // Password atual correta
             if ( user != null )
-            {
-                // Verifica se novo utilizador ja existe
-            	if ( !editForm.get().username.equals(session().get("username")) )
-            	{
-            		User findUsername = User.find.where().eq("username", editForm.get().username).findUnique();	
-            		
-                    if ( findUsername != null )
-                    {
-                    	return badRequest("New username already exists");
-                    }
-            	}
-            	
-            	// Verifica se novo email ja existe
-            	if ( !editForm.get().email.equals(session().get("email")) )
-            	{
-            		User findEmail = User.find.where().eq("email", editForm.get().email).findUnique();	
-            		
-                    if ( findEmail != null )
-                    {
-                    	return badRequest("New email already exists");
-                    }
-            	}
-            	
+            {            	
 	            // Verifica nova password
 	            if ( editForm.get().newPassword.length() >= 5 )
 	            {
@@ -126,30 +106,63 @@ public class Application extends Controller {
 	            {
 		            user.password = editForm.get().actualPassword;	
 	            }
+	            	            	            
+	        	user.save();
+	        	return redirect(routes.Application.profile());
+            }
+            else
+            {
+            	return badRequest("Actual password is wrong");
+            }
+        }
+    }
+    
+    public static Result editAbout() {
+        Form<Profile> editForm = Form.form(Profile.class).bindFromRequest();
+
+        if( editForm.hasErrors() ) {
+            return badRequest("Form with errors");
+        } else {
+            // Vai buscar utilizador
+            User user = User.authenticate(session().get("username"), editForm.get().actualPassword);
+
+            // Password atual correta
+            if ( user != null )
+            {
+                // Verifica se novo utilizador ja existe
+            	/*if ( !editForm.get().username.equals(session().get("username")) )
+            	{
+            		User findUsername = User.find.where().eq("username", editForm.get().username).findUnique();	
+            		
+                    if ( findUsername != null )
+                    {
+                    	return badRequest("New username already exists");
+                    }
+            	}*/
             	
-            	// Salva avatar
-            	MultipartFormData body = request().body().asMultipartFormData();
-				FilePart avatar = body.getFile("avatar");
-				
-				if ( avatar != null ) 
-				{
-					try {
-						ImageConverter.convertFormat(avatar.getFile(), "public/images/avatar/" + session().get("id") + ".png", "png");
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-            	
+            	// Verifica se novo email ja existe
+            	if ( !editForm.get().email.equals(session().get("email")) )
+            	{
+            		User findEmail = User.find.where().eq("email", editForm.get().email).findUnique();	
+            		
+                    if ( findEmail != null )
+                    {
+                    	return badRequest("New email already exists");
+                    }
+            	}
+            	           	
 	            // Altera campos
 	            user.name = editForm.get().name;
-	            user.username = editForm.get().username;
+	            //user.username = editForm.get().username;
 	            user.email = editForm.get().email;
+	            user.city = editForm.get().city;
+	            user.password = editForm.get().actualPassword;	
 	            	            
 	            // Set sessions
-	            session("username", user.username);
+	            //session("username", user.username);
 	            session("name", user.name);
 	            session("email", user.email);
+	            session("city", user.city);
 	            
 	        	user.save();
 	        	return redirect(routes.Application.profile());
@@ -159,6 +172,25 @@ public class Application extends Controller {
             	return badRequest("Actual password is wrong");
             }
         }
+    }
+    
+    public static Result editAvatar() {
+  
+		// Salva avatar
+		MultipartFormData body = request().body().asMultipartFormData();
+		FilePart avatar = body.getFile("avatar");
+		
+		if ( avatar != null ) 
+		{
+			try {
+				ImageConverter.convertFormat(avatar.getFile(), "public/images/avatar/" + session().get("id") + ".png", "png");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return redirect(routes.Application.profile());
     }
 
     public static Result getPersons() {
@@ -214,6 +246,7 @@ public class Application extends Controller {
                 session("username", logged.username);
                 session("name", logged.name);
 				session("email", logged.email);
+				session("city", logged.city);
                 session("islogged", "true");
 
                 return redirect(controllers.routes.Application.index());
