@@ -18,47 +18,51 @@ $(document).ready(function () {
     });
 
     t = $('#example1').DataTable();
-    table = $('#collection').DataTable();
-    fillCards();
-
-    $("#myCollections").change(function() {
-        //alert( $('option:selected', this).text() );
-        table.clear().draw();
+    if($("#myCollections")) {
+        table = $('#collection').DataTable();
         fillCards();
-    });
+
+
+        $("#myCollections").change(function () {
+            //alert( $('option:selected', this).text() );
+            table.clear().draw();
+            fillCards();
+        });
+    }
 
 });
 
 function fillCards() {
 
-    var id = $("#myCollections option:selected").attr("class").replace("col","");
+    if($("#myCollections option").children().length != 0) {
+        var id = $("#myCollections option:selected").attr("class").replace("col", "");
 
-    var str = '{"colID": "'+id+'"}';
-    $.ajax ( {
-        url : '/getCollectionCards',
-        dataType : 'json',
-        contentType : 'application/json; charset=utf-8',
-        data : str,
-        type : 'POST',
-        success : function ( data, textStatus, jqXHR ) {
-            data.forEach(function(obj) {
+        var str = '{"colID": "' + id + '"}';
+        $.ajax({
+            url: '/getCollectionCards',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: str,
+            type: 'POST',
+            success: function (data, textStatus, jqXHR) {
+                data.forEach(function (obj) {
 
-                table.row.add( [
-                    "<tr><td width=\"50%\"><a class=\"btn\" rel=\"popover\" data-img=\"http://mtgjson.com/images/sentriplets.jpg\">"+obj.name+"</a></td>",
-                    "<td width=\"20%\">"+obj.type+"</td>",
-                    "<td width=\"10%\">EDT</td>",
-                    "<td class=\"text-center\" width=\"5%\"><i class=\"fa fa-check fa-success\"></i></td>",
-                    "<td class=\"text-center\" width=\"5%\"><i class=\"fa fa-check fa-success\"></i></td>",
-                    "</tr>",
-                ] ).draw();
+                    table.row.add([
+                        "<tr><td width=\"50%\"><a class=\"btn\" rel=\"popover\" data-img=\"http://mtgjson.com/images/sentriplets.jpg\">" + obj.name + "</a></td>",
+                        "<td width=\"20%\">" + obj.type + "</td>",
+                        "<td width=\"10%\">EDT</td>",
+                        "<td class=\"text-center\" width=\"5%\"><i class=\"fa fa-check fa-success\"></i></td>",
+                        "<td class=\"text-center\" width=\"5%\"><i class=\"fa fa-check fa-success\"></i></td>",
+                        "</tr>",
+                    ]).draw();
 
-            });
-        },
-        error : function ( jqXHR, textStatus, errorThrown ) {
-            alert ( textStatus + ": " + errorThrown ) ;
-        }
-    } ) ;
-
+                });
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert(textStatus + ": " + errorThrown);
+            }
+        });
+    }
 }
 
 $(document).on("click", "#myCollections li .remove", function(){
