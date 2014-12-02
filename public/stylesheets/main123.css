@@ -797,6 +797,9 @@ li > a > .label {
     z-index: 16;
     height: 100%;
 }
+#content .color-white, #content .color-white:hover{
+    color: white;
+}
 aside .shadowed {
     padding: 12px;
 }
@@ -1033,6 +1036,8 @@ aside .shadowed {
     direction: ltr;
     cursor: pointer;
 }
+
+/*
 
 /* --------------------------------------------------------
     Media Queries

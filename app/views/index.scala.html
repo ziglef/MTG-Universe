@@ -115,7 +115,7 @@ User is not logged (checked on Application.java)
                         </div>
                         @helper.form(action = routes.Application.addUser(), 'id -> "userRegister") {
                             <div class="form-body">
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-12">
                                 @helper.inputText(userRegister("name"), 'id -> "nameReg", 'class -> "form-control", 'placeholder -> "Insert your name", 'required -> "")
                                 </div>
                                 <div class="form-group col-md-6">
@@ -123,9 +123,6 @@ User is not logged (checked on Application.java)
                                 </div>
                                 <div class="form-group col-md-6">
                                 @helper.inputText(userRegister("email"), 'id -> "emailReg", 'class -> "form-control", 'placeholder -> "Insert your email", 'required -> "")
-                                </div>
-                                <div class="form-group col-md-6">
-                                @helper.inputText(userRegister("emailConfirm"), 'id -> "emailRegConfirm", 'class -> "form-control", 'placeholder -> "Confirm your email", 'required -> "")
                                 </div>
                                 <div class="form-group col-md-6">
                                 @helper.inputPassword(userRegister("password"), 'id -> "passReg", 'class -> "form-control", 'placeholder -> "Choose a password", 'required -> "")

@@ -1,0 +1,23 @@
+@()
+
+@dashboard("Articles") {
+    <div class="col-md-4">
+        <a class="btn btn-block btn-primary color-white" href="@routes.Application.addArticle()" style="cursor : pointer ;">
+            New Article</a>
+    </div>
+    <div class="col-md-4">
+        <button class="btn btn-block btn-warning" style="cursor : pointer ;">
+            Edit Article</button>
+    </div>
+    <div class="col-md-4">
+        <button class="btn btn-block btn-danger" onclick="removeCollection()" style="cursor : pointer ;">
+            Delete Article</button>
+    </div>
+    <p class="col-md-12" style="margin-top:10px">My articles</p>
+    <div class="col-md-12" style="margin-top:10px">
+        <select id="myArticles" data-width="100%">
+        </select>
+    </div>
+
+
+}

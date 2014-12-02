@@ -77,6 +77,14 @@ public class Application extends Controller {
     public static Result profile() {
     	return ok(profile.render(Form.form(Profile.class)));
     }
+
+    public static Result articles() {
+        return ok(articles.render());
+    }
+
+    public static Result addArticle() {
+        return ok(createarticle.render());
+    }
     
     public static Result editPassword() {
         Form<Profile> editForm = Form.form(Profile.class).bindFromRequest();
