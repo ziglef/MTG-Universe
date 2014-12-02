@@ -7,11 +7,11 @@
             New Collection</button>
         </div>
     <div class="col-md-4">
-        <button class="btn btn-block btn-warning" data-toggle="modal" data-target="#newCollection" style="cursor : pointer ;">
+        <button class="btn btn-block btn-warning" onclick="editCollection()" style="cursor : pointer ;">
             Edit Collection</button>
         </div>
     <div class="col-md-4">
-        <button class="btn btn-block btn-danger" data-toggle="modal" data-target="#newCollection" style="cursor : pointer ;">
+        <button class="btn btn-block btn-danger" onclick="removeCollection()" style="cursor : pointer ;">
             Delete Collection</button>
         </div>
     <p class="col-md-12" style="margin-top:10px">Collections</p>
@@ -44,13 +44,13 @@
             <thead>
                 <tr>
                     <th width="50%">Name</th>
-                    <th width="20%">Language</th>
+                    <th width="20%">Type</th>
                     <th width="10%">Edition</th>
                     <th width="5%">Signed</th>
                     <th width="5%">Foil</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody><!--
                 <tr>
                     <td width="50%"><a class="btn" rel="popover" data-img="http://mtgjson.com/images/sentriplets.jpg">
                         Image 1</a></td>
@@ -58,7 +58,7 @@
                     <td width="10%">EDT</td>
                     <td class="text-center" width="5%"><i class="fa fa-check fa-success"></i></td>
                     <td class="text-center" width="5%"><i class="fa fa-check fa-success"></i></td>
-                </tr>
+                </tr>-->
             </tbody>
         </table>
     </div>
@@ -97,7 +97,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" onclick="createNewCollection ( )">Create</button>
+                    <button type="button" class="btn btn-primary" onclick="createNewCollection()">Create</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->

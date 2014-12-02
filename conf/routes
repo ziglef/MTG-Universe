@@ -48,4 +48,6 @@ GET         /editCollection/:id         controllers.Collections.editCollection1(
 
 POST        /addCardToCollection        controllers.Collections.addCardtoCollection()
 
-POST        /deleteCardFromCollection     controllers.Collections.deleteCardFromCollection()
+POST        /deleteCardFromCollection   controllers.Collections.deleteCardFromCollection()
+
+POST        /getCollectionCards         controllers.Collections.getCollectionCards()
