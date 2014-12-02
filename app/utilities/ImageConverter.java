@@ -26,7 +26,7 @@ public class ImageConverter {
         BufferedImage tmpImage = ImageIO.read(formImage);
         
         // Scale
-        BufferedImage inputImage = resize(tmpImage, 100, 100);
+        BufferedImage inputImage = resize(tmpImage, 350, 350);
         
         boolean result = ImageIO.write(inputImage, formatName, outputStream);
          
