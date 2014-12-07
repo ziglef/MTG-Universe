@@ -21,9 +21,9 @@ POST        /recover                         controllers.Application.recover()
 GET         /profile		                 controllers.Application.profile(name: String = "")
 GET         /profile/	                     controllers.Application.profile(name: String = "")
 GET         /profile/:name                   controllers.Application.profile(name: String)
-POST        /profile/avatar                  controllers.Application.editAvatar()
-POST        /profile/password                controllers.Application.editPassword()
-POST        /profile/about                   controllers.Application.editAbout()
+POST        /profile/edit/avatar             controllers.Application.editAvatar()
+POST        /profile/edit/password           controllers.Application.editPassword()
+POST        /profile/edit/about              controllers.Application.editAbout()
 
 # Card search form
 GET         /searchcard                      controllers.Application.searchCard()

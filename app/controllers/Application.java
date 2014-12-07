@@ -178,8 +178,7 @@ public class Application extends Controller {
 	            // Set sessions
 	            //session("username", user.username);
 	            session("name", user.name);
-	            //session("email", user.email);
-	            //session("city", user.city);
+	            session("email", user.email);
 	            
 	        	user.save();
 	        	return redirect(routes.Application.profile(""));
@@ -262,8 +261,7 @@ public class Application extends Controller {
                 session("id", logged.id.toString());
                 session("username", logged.username);
                 session("name", logged.name);
-				//session("email", logged.email);
-				//session("city", logged.city);
+				session("email", logged.email);
                 session("islogged", "true");
 
                 return redirect(controllers.routes.Application.index());
