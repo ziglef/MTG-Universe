@@ -12,13 +12,15 @@ POST        /user                            controllers.Application.addUser()
 GET         /users                           controllers.Application.getPersons()
 
 # Login/logout
-#GET        /login                   controllers.Application.login()
+#GET        /login                   		 controllers.Application.login()
 POST        /login                           controllers.Application.authenticate()
 GET         /logout                          controllers.Application.logout()
 POST        /recover                         controllers.Application.recover()
 
 # Profile
-GET         /profile                         controllers.Application.profile()
+GET         /profile		                 controllers.Application.profile(name: String = "")
+GET         /profile/	                     controllers.Application.profile(name: String = "")
+GET         /profile/:name                   controllers.Application.profile(name: String)
 POST        /profile/avatar                  controllers.Application.editAvatar()
 POST        /profile/password                controllers.Application.editPassword()
 POST        /profile/about                   controllers.Application.editAbout()
@@ -56,4 +58,4 @@ POST        /getCollectionCards              controllers.Collections.getCollecti
 
 GET         /articles                        controllers.Application.articles()
 
-GET         /createarticle                      controllers.Application.addArticle()
+GET         /createarticle                   controllers.Application.addArticle()

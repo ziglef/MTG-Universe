@@ -5,6 +5,7 @@ import com.avaje.ebean.Page;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+
 import models.*;
 import play.libs.Json;
 import play.twirl.api.Html;
@@ -74,8 +75,16 @@ public class Application extends Controller {
         public String name, username, email, actualPassword, newPassword, newPassword2, city;
     }
     
-    public static Result profile() {
-    	return ok(profile.render(Form.form(Profile.class)));
+    
+    public static Result profile(String name) {   	
+    	User user = null;
+    	
+    	// Vai buscar utilizador
+    	if ( name.length() > 0 ) user = User.find.where().eq("username", name).findUnique();
+    	else user = User.find.where().eq("username", session().get("username")).findUnique();
+    		
+    	
+    	return ok(profile.render(user, Form.form(Profile.class)));
     }
 
     public static Result articles() {
@@ -116,7 +125,7 @@ public class Application extends Controller {
 	            }
 	            	            	            
 	        	user.save();
-	        	return redirect(routes.Application.profile());
+	        	return redirect(routes.Application.profile(""));
             }
             else
             {
@@ -169,11 +178,11 @@ public class Application extends Controller {
 	            // Set sessions
 	            //session("username", user.username);
 	            session("name", user.name);
-	            session("email", user.email);
-	            session("city", user.city);
+	            //session("email", user.email);
+	            //session("city", user.city);
 	            
 	        	user.save();
-	        	return redirect(routes.Application.profile());
+	        	return redirect(routes.Application.profile(""));
             }
             else
             {
@@ -198,7 +207,7 @@ public class Application extends Controller {
 			}
 		}
 		
-		return redirect(routes.Application.profile());
+		return redirect(routes.Application.profile(""));
     }
 
     public static Result getPersons() {
@@ -253,8 +262,8 @@ public class Application extends Controller {
                 session("id", logged.id.toString());
                 session("username", logged.username);
                 session("name", logged.name);
-				session("email", logged.email);
-				session("city", logged.city);
+				//session("email", logged.email);
+				//session("city", logged.city);
                 session("islogged", "true");
 
                 return redirect(controllers.routes.Application.index());
@@ -268,8 +277,8 @@ public class Application extends Controller {
     }
 
     public static Result logout() {
-        session("islogged", "false");
         session().clear();
+        session("islogged", "false");
         return redirect(controllers.routes.Application.index());
     }
 

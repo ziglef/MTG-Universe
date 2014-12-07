@@ -39,7 +39,7 @@ public class User extends Model implements Serializable{
 
     @Basic(optional = false)
     @Column(name = "password")
-    public String password; // to be changed just for testing
+    public String password;
 
 
     //Collection of cards
