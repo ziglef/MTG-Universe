@@ -8,7 +8,6 @@ import javax.persistence.Table;
 import java.util.List;
 
 @Entity
-<<<<<<< HEAD
 public class Collection extends Model implements Serializable {
 
     @Id
@@ -33,13 +32,11 @@ public class Collection extends Model implements Serializable {
     public User owner;
 
     public Visibility visibility;
-=======
-@Table(name = "collection")
-public class Collection extends AbstractSetofCards {
->>>>>>> parent of 114eece... Merge branch 'develop' of https://bitbucket.org/Ziglef/ldso-turma-1-2014-2015 into develop
 
     public Collection(String name, User owner, Visibility vis) {
-        super(name, owner, vis);
+		this.name=name;
+		this.owner=owner;
+		this.visibility=vis;
     }
 
     @Override
