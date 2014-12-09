@@ -12,16 +12,18 @@ POST        /user                            controllers.Application.addUser()
 GET         /users                           controllers.Application.getPersons()
 
 # Login/logout
-#GET        /login                   controllers.Application.login()
+#GET        /login                   		 controllers.Application.login()
 POST        /login                           controllers.Application.authenticate()
 GET         /logout                          controllers.Application.logout()
 POST        /recover                         controllers.Application.recover()
 
 # Profile
-GET         /profile                         controllers.Application.profile()
-POST        /profile/avatar                  controllers.Application.editAvatar()
-POST        /profile/password                controllers.Application.editPassword()
-POST        /profile/about                   controllers.Application.editAbout()
+GET         /profile		                 controllers.Application.profile(name: String = "")
+GET         /profile/	                     controllers.Application.profile(name: String = "")
+GET         /profile/:name                   controllers.Application.profile(name: String)
+POST        /profile/edit/avatar             controllers.Application.editAvatar()
+POST        /profile/edit/password           controllers.Application.editPassword()
+POST        /profile/edit/about              controllers.Application.editAbout()
 
 # Card search form
 GET         /searchcard                      controllers.Application.searchCard()
@@ -56,6 +58,10 @@ POST        /getCollectionCards              controllers.Collections.getCollecti
 
 GET         /articles                        controllers.Articles.articles()
 
+<<<<<<< HEAD
 GET         /createarticle                   controllers.Articles.createArticle()
 
 POST        /addArticleToDB                 controllers.Articles.addArticleToDB()
+=======
+GET         /createarticle                   controllers.Application.addArticle()
+>>>>>>> d35d8fc70327d2cf6c63c64177c66814d00f5f28
