@@ -95,6 +95,44 @@ public class Application extends Controller {
         return ok(createarticle.render());
     }
     
+    // Class de message
+    public static class Msg {
+        public String messageTo, messageContent;
+    }
+    
+    public static Result listAllMessages() {
+    	return ok(messages.render( Message.findAllUserMessage(session().get("username")) ));
+    }
+    
+    public static Result conversation(String name) {
+    	if ( name.length() == 0 ) return listAllMessages();
+    	
+    	return ok(message.render(name, Message.findAUserMessage(session().get("username"), name)));
+    }
+    
+    public static Result saveMessage() {
+        Form<Msg> msgForm = Form.form(Msg.class).bindFromRequest();
+
+        if( msgForm.hasErrors() ) {
+            return badRequest("Form with errors");
+        } else {
+        	User from = User.find.where().eq("username", session().get("username")).findUnique();
+        	User to = User.find.where().eq("username", msgForm.get().messageTo).findUnique();
+        	
+        	if ( from != null && to != null && !from.username.equals(to.username) && msgForm.get().messageContent.length() > 1 )
+        	{
+            	Message tmp = new Message(from, to, msgForm.get().messageContent);            	
+            	tmp.save();
+            	
+            	return redirect("/messages/" + to.username);
+        	}
+        	else
+            {
+            	return badRequest("Invalid from/to (null) or content <= 1");            	
+            }
+        }
+    }
+    
     public static Result editPassword() {
         Form<Profile> editForm = Form.form(Profile.class).bindFromRequest();
 

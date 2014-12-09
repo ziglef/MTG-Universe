@@ -25,6 +25,12 @@ POST        /profile/edit/avatar             controllers.Application.editAvatar(
 POST        /profile/edit/password           controllers.Application.editPassword()
 POST        /profile/edit/about              controllers.Application.editAbout()
 
+# Mensagens
+GET         /messages		                 controllers.Application.listAllMessages()
+GET         /messages/		                 controllers.Application.conversation(name: String = "")
+GET         /messages/:name                  controllers.Application.conversation(name: String)
+POST        /messages		                 controllers.Application.saveMessage()
+
 # Card search form
 GET         /searchcard                      controllers.Application.searchCard()
 
