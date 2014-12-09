@@ -19,14 +19,12 @@ $(document).ready(function () {
 
     t = $('#example1').DataTable();
     if($("#myCollections")) {
-
         table = $('#collection').DataTable();
         fillCards();
 
 
         $("#myCollections").change(function () {
             //alert( $('option:selected', this).text() );
-
             table.clear().draw();
             fillCards();
         });
@@ -36,7 +34,7 @@ $(document).ready(function () {
 
 function fillCards() {
 
-    //if($("#myCollections option").children().length !== 0) {
+    if($("#myCollections option").children().length != 0) {
         var id = $("#myCollections option:selected").attr("class").replace("col", "");
 
         var str = '{"colID": "' + id + '"}';
@@ -47,7 +45,6 @@ function fillCards() {
             data: str,
             type: 'POST',
             success: function (data, textStatus, jqXHR) {
-
                 data.forEach(function (obj) {
 
                     table.row.add([
@@ -65,7 +62,7 @@ function fillCards() {
                 alert(textStatus + ": " + errorThrown);
             }
         });
-    //}
+    }
 }
 
 $(document).on("click", "#myCollections li .remove", function(){

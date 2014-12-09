@@ -3,12 +3,12 @@ package models;
 import models.enums.Visibility;
 import play.db.ebean.Model;
 
-import javax.persistence.*;
-import java.io.Serializable;
-import java.util.ArrayList;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.List;
 
 @Entity
+<<<<<<< HEAD
 public class Collection extends Model implements Serializable {
 
     @Id
@@ -33,30 +33,24 @@ public class Collection extends Model implements Serializable {
     public User owner;
 
     public Visibility visibility;
+=======
+@Table(name = "collection")
+public class Collection extends AbstractSetofCards {
+>>>>>>> parent of 114eece... Merge branch 'develop' of https://bitbucket.org/Ziglef/ldso-turma-1-2014-2015 into develop
 
     public Collection(String name, User owner, Visibility vis) {
-        this.name=name;
-        this.owner=owner;
-        this.visibility=vis;
+        super(name, owner, vis);
     }
 
+    @Override
     public void removeCard(Integer id) {
         this.cards.remove(Card.find.byId(Integer.toString(id)));
-    }
-
-    public void rename(String newName) {
-        this.name=newName;
-        this.save();
     }
 
     public static Collection create(String name, Integer owner_id, Visibility vis) {
         Collection collection = new Collection(name, User.find.byId(owner_id), vis);
         collection.save();
         return collection;
-    }
-
-    public void addCard(Card c) {
-        cards.add(c);
     }
 
     public static Finder<Integer, Collection> find = new Model.Finder<>(Integer.class, Collection.class);
@@ -72,6 +66,7 @@ public class Collection extends Model implements Serializable {
 
     public static List<Card> findCollectionCards(Integer id){
         Collection c = find.where().eq("id", id).findUnique();
+        //c.addCard(Card.findCardsByName("Lightning Bolt").get(0));
         return c.cards;
     }
 

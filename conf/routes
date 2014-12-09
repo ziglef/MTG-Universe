@@ -56,8 +56,12 @@ POST        /deleteCardFromCollection        controllers.Collections.deleteCardF
 
 POST        /getCollectionCards              controllers.Collections.getCollectionCards()
 
-GET         /articles                        controllers.Articles.articles()
+GET         /articles                        controllers.Application.articles()
 
+<<<<<<< HEAD
 GET         /createarticle                   controllers.Articles.createArticle()
 
 POST        /addArticleToDB                 controllers.Articles.addArticleToDB()
+=======
+GET         /createarticle                   controllers.Application.addArticle()
+>>>>>>> parent of 114eece... Merge branch 'develop' of https://bitbucket.org/Ziglef/ldso-turma-1-2014-2015 into develop

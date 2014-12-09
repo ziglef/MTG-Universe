@@ -1,16 +1,19 @@
 package controllers;
 
-import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.common.collect.Lists;
+import models.AbstractSetofCards;
 import models.Card;
 import models.Collection;
 import models.enums.Visibility;
 import play.libs.Json;
-import play.mvc.BodyParser;
 import play.mvc.Controller;
 import play.mvc.Result;
+import com.fasterxml.jackson.databind.JsonNode;
+import play.mvc.BodyParser;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -77,7 +80,7 @@ public class Collections extends Controller {
         Integer collectionId = Integer.parseInt(json.findPath("colID").textValue());
         Integer cardId = Integer.parseInt(json.findPath("cardID").textValue());
 
-        Collection collection = Collection.find.ref(collectionId);
+        AbstractSetofCards collection = Collection.find.ref(collectionId);
         collection.removeCard(cardId);
         collection.save();
         collection.saveManyToManyAssociations("cards");
@@ -99,7 +102,7 @@ public class Collections extends Controller {
         Integer collectionId = Integer.parseInt(json.findPath("colID").textValue());
         Integer cardId = Integer.parseInt(json.findPath("cardID").textValue());
 
-        Collection collection = Collection.find.ref(collectionId);
+        AbstractSetofCards collection = Collection.find.ref(collectionId);
         Card newcard = Card.find.byId(cardId.toString());
         collection.addCard(newcard);
         collection.save();
