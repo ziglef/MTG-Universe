@@ -1,12 +1,14 @@
-package models;
 
-import models.enums.Visibility;
-import play.db.ebean.Model;
 
-import javax.persistence.*;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+        package models;
+
+        import models.enums.Visibility;
+        import play.db.ebean.Model;
+
+        import javax.persistence.*;
+        import java.io.Serializable;
+        import java.util.ArrayList;
+        import java.util.List;
 
 @Entity
 public class Collection extends Model implements Serializable {
@@ -19,10 +21,10 @@ public class Collection extends Model implements Serializable {
     public String name;
 
     /* co - collection
-     * de - deck
-     * tl - tradelist
-     * wl - wantlist
-     */
+    * de - deck
+    * tl - tradelist
+    * wl - wantlist
+    */
     public String coltype;
 
     @ManyToMany(cascade=CascadeType.ALL)

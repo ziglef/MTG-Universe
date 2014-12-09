@@ -365,7 +365,7 @@ public class Application extends Controller {
         for(Card c: cardsPage.getList()){
             ObjectNode row = Json.newObject();
             row.put("0","<a href=\"#\" rel=\"popover\" data-img=\""+c.imageName+"\">"+c.name.replaceAll("\"","\\\"")+"</a>");
-            row.put("1","<button class=\"btn btn-sm btn-success btn-block\" name=\""+c.name.replaceAll("\"","\\\"")+"\" onclick=\"addToCollection(this.name,"+c.id+")\"> Add </button>");
+            row.put("1","<button class=\"btn btn-sm btn-success btn-block\" name=\""+c.name.replace("\"", "&quot;")+"\" onclick=\"addToCollection(this.name,"+c.id+")\"> Add </button>");
             an.add(row);
         }
 
