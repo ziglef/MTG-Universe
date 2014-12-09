@@ -58,10 +58,6 @@ POST        /getCollectionCards              controllers.Collections.getCollecti
 
 GET         /articles                        controllers.Articles.articles()
 
-<<<<<<< HEAD
 GET         /createarticle                   controllers.Articles.createArticle()
 
 POST        /addArticleToDB                 controllers.Articles.addArticleToDB()
-=======
-GET         /createarticle                   controllers.Application.addArticle()
->>>>>>> d35d8fc70327d2cf6c63c64177c66814d00f5f28

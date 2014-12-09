@@ -18,6 +18,13 @@ public class Collection extends Model implements Serializable {
 
     public String name;
 
+    /* co - collection
+     * de - deck
+     * tl - tradelist
+     * wl - wantlist
+     */
+    public String coltype;
+
     @ManyToMany(cascade=CascadeType.ALL)
     // @JoinTable(name="cards_collection")
     public List<Card> cards = new ArrayList<>();
