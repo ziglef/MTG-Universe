@@ -54,6 +54,8 @@ POST        /deleteCardFromCollection        controllers.Collections.deleteCardF
 
 POST        /getCollectionCards              controllers.Collections.getCollectionCards()
 
-GET         /articles                        controllers.Application.articles()
+GET         /articles                        controllers.Articles.articles()
 
-GET         /createarticle                      controllers.Application.addArticle()
+GET         /createarticle                   controllers.Articles.createArticle()
+
+POST        /addArticleToDB                 controllers.Articles.addArticleToDB()

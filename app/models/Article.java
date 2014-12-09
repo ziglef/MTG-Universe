@@ -28,14 +28,6 @@ public class Article extends Model implements Serializable {
     //https://www.playframework.com/documentation/2.0/api/java/play/data/format/Formats.DateTime.html
     public String date;
 
-    public static Article create(String title, String text, String imageUrl) {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-        Calendar cal = Calendar.getInstance();
-
-        Article article = new Article(title, text, imageUrl, dateFormat.format(cal.getTime()));
-        article.save();
-        return article;
-    }
 
     public Article(String title, String text, String imageUrl, String date) {
         this.title=title;
