@@ -87,14 +87,6 @@ public class Application extends Controller {
     	return ok(profile.render(user, Form.form(Profile.class)));
     }
 
-    public static Result articles() {
-        return ok(articles.render());
-    }
-
-    public static Result addArticle() {
-        return ok(createarticle.render());
-    }
-    
     public static Result editPassword() {
         Form<Profile> editForm = Form.form(Profile.class).bindFromRequest();
 
@@ -365,7 +357,7 @@ public class Application extends Controller {
         for(Card c: cardsPage.getList()){
             ObjectNode row = Json.newObject();
             row.put("0","<a href=\"#\" rel=\"popover\" data-img=\""+c.imageName+"\">"+c.name.replaceAll("\"","\\\"")+"</a>");
-            row.put("1","<button class=\"btn btn-sm btn-success btn-block\" name=\""+c.name.replaceAll("\"","\\\"")+"\" onclick=\"addToCollection(this.name,"+c.id+")\"> Add </button>");
+            row.put("1","<button class=\"btn btn-sm btn-success btn-block\" name=\""+c.name.replace("\"", "&quot;")+"\" onclick=\"addToCollection(this.name,"+c.id+")\"> Add </button>");
             an.add(row);
         }
 

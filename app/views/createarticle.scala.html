@@ -6,18 +6,18 @@
 @dashboard("Create new article") {
     <h3>Create a new article</h3>
     <div class="col-md-12">
-        <form id="quick-post" class="block-body form-validation">
+        <form id="quick-post" class="block-body form-validation" action="">
             <div class="form-group">
                 <label for="articleTitle">Article Title</label>
                 <input type="text" class="form-control input-sm validate[required] input-sm" id="articleTitle" placeholder="Title of the article">
             </div>
             <div class="form-group">
                 <label for="post">Post</label>
-                <textarea class="form-control input-sm validate[required] input-sm" id="post" placeholder="Text of the article..."></textarea>
+                <textarea class="form-control input-sm validate[required] input-sm" id="post" placeholder="Text of the article..." rows="15"></textarea>
             </div>
             <label>Featured Image</label><br>
             <div class="fileinput fileinput-new" data-provides="fileinput">
-                <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 150px; height: 150px;"></div>
+                <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 300px; height: 300px;"></div>
                 <div>
                     <span class="btn btn-default btn-file">
                         <span class="fileinput-new" data-trigger="fileinput">Select image</span>
@@ -28,11 +28,11 @@
                     <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
                 </div>
             </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <input type="submit" class="btn btn-primary" value="Publish">
+            </div>
         </form>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <input type="submit" class="btn btn-primary" value="Publish">
-        </div>
     </div>
 
 
