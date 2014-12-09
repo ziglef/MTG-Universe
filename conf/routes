@@ -60,4 +60,4 @@ GET         /articles                        controllers.Application.articles()
 
 GET         /createarticle                   controllers.Articles.createArticle()
 
-POST        /addArticleToDB                 controllers.Articles.addArticleToDB()
+POST        /addArticleToDB                  controllers.Articles.addArticleToDB()
