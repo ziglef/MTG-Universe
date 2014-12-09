@@ -17,6 +17,12 @@ import java.util.List;
 @Table(name = "Cards")
 public class Card extends Model implements Serializable, Comparable{
 
+
+    //TESTING
+    @OneToMany/*(cascade=CascadeType.ALL)*///(mappedBy = "card")
+    public List<CollectionCard> collections = new ArrayList<CollectionCard>();
+
+
     // Finds all cards containing a given string
     public static ArrayList<Card> findCardsByName(String name){
 
@@ -41,7 +47,7 @@ public class Card extends Model implements Serializable, Comparable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
-    public Integer id;
+    public long id;
 
     // Card layout
     @Column(name = "layout")

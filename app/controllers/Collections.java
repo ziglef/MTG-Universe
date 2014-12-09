@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.common.collect.Lists;
 import models.Card;
 import models.Collection;
+import models.CollectionCard;
+import models.User;
 import models.enums.Visibility;
 import play.libs.Json;
 import play.mvc.BodyParser;
@@ -12,6 +14,8 @@ import play.mvc.Controller;
 import play.mvc.Result;
 
 import java.util.List;
+
+import static play.libs.Json.toJson;
 
 
 public class Collections extends Controller {
@@ -102,8 +106,8 @@ public class Collections extends Controller {
         Collection collection = Collection.find.ref(collectionId);
         Card newcard = Card.find.byId(cardId.toString());
         collection.addCard(newcard);
-        collection.save();
-        collection.saveManyToManyAssociations("cards");
+        //collection.save();
+        //collection.saveManyToManyAssociations("collectioncards");
         String response = new String("ok");
         return ok(Json.toJson(response));
     }
@@ -132,6 +136,15 @@ public class Collections extends Controller {
         Integer collectionId = Integer.parseInt(json.findPath("colID").textValue());
         Collection col = Collection.find.byId(collectionId);
 
-        return ok(Json.toJson(col.cards));
+        return ok(Json.toJson(col.getCards()));
+    }
+
+
+    public static Result getcc2() {
+        return ok(toJson(CollectionCard.find.all()));
+    }
+
+    public static Result getcc(int i) {
+        return ok(toJson(Collection.find.byId(i).getCards()));
     }
 }

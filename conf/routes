@@ -3,51 +3,54 @@
 # ~~~~
 
 # Home page
-GET         /                           controllers.Application.index()
+GET         /                                controllers.Application.index()
 
 # Add a User to the system
-POST        /user                       controllers.Application.addUser()
+POST        /user                            controllers.Application.addUser()
 
 # Get a User from the system
-GET         /users                      controllers.Application.getPersons()
+GET         /users                           controllers.Application.getPersons()
 
 # Login/logout
 #GET        /login                   controllers.Application.login()
-POST        /login                      controllers.Application.authenticate()
-GET         /logout                     controllers.Application.logout()
-POST        /recover                    controllers.Application.recover()
+POST        /login                           controllers.Application.authenticate()
+GET         /logout                          controllers.Application.logout()
+POST        /recover                         controllers.Application.recover()
 
 # Profile
-GET         /profile               controllers.Application.profile()
-POST        /profile               controllers.Application.editUser()
+GET         /profile                         controllers.Application.profile()
+POST        /profile                         controllers.Application.editUser()
 
 # Card search form
-GET         /searchcard                 controllers.Application.searchCard()
+GET         /searchcard                      controllers.Application.searchCard()
 
 # Simple card search - checks if a certain card exists
-POST        /checkcard                  controllers.Application.checkCard()
+POST        /checkcard                       controllers.Application.checkCard()
 
 # Map static resources from the /public folder to the /assets URL path
-GET         /assets/*file               controllers.Assets.at(path="/public", file)
+GET         /assets/*file                    controllers.Assets.at(path="/public", file)
 
 # Create card database (needs to run one time, alternatives?)
-GET         /loadCards                  utilities.JsonUtil.loadCardsDB(s: String = "app/assets/json/AllCards-x.json")
+GET         /loadCards                       utilities.JsonUtil.loadCardsDB(s: String = "app/assets/json/AllCards-x.json")
 
 # Create a list (collection) of cards
-GET         /createCollection           controllers.Application.createCollectionData()
+GET         /createCollection                controllers.Application.createCollectionData()
 
 # Sort all cards
-GET         /sortCards                  controllers.Application.sortCards()
+GET         /sortCards                       controllers.Application.sortCards()
 
 # Create collection
-POST        /createNewCollection        controllers.Collections.addCollection()
+POST        /createNewCollection             controllers.Collections.addCollection()
 
-POST        /deleteCollection           controllers.Collections.deleteCollection()
+POST        /deleteCollection                controllers.Collections.deleteCollection()
 
-GET         /editCollection/:id         controllers.Collections.editCollection1(id: Integer)
+GET         /editCollection/:id              controllers.Collections.editCollection1(id: Integer)
 
-POST        /addCardToCollection        controllers.Collections.addCardtoCollection()
+POST        /addCardToCollection             controllers.Collections.addCardtoCollection()
 
-POST        /deleteCardFromCollection   controllers.Collections.deleteCardFromCollection()
+POST        /deleteCardFromCollection        controllers.Collections.deleteCardFromCollection()
 
-POST        /getCollectionCards         controllers.Collections.getCollectionCards()
+POST        /getCollectionCards              controllers.Collections.getCollectionCards()
+
+GET         /cc                              controllers.Collections.getcc2()
+GET         /cc/:id                          controllers.Collections.getcc(id: Integer)

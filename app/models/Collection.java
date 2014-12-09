@@ -14,13 +14,18 @@ public class Collection extends Model implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    public Integer id;
+    public long id;
 
     public String name;
 
-    @ManyToMany(cascade=CascadeType.ALL)
+    //references:
+    //http://en.wikibooks.org/wiki/Java_Persistence/ManyToMany
+    //https://giannigar.wordpress.com/2009/09/04/mapping-a-many-to-many-join-table-with-extra-column-using-jpa/
+
+    //@ManyToMany(cascade=CascadeType.ALL)
     // @JoinTable(name="cards_collection")
-    public List<Card> cards = new ArrayList<>();
+    @OneToMany//(mappedBy="collection", cascade=CascadeType.ALL)  //@OneToMany(cascade=CascadeType.PERSIST) //(mappedBy="collection")
+    public List<CollectionCard> collectionCards = new ArrayList<CollectionCard>();
 
     @ManyToOne
     public User owner;
@@ -33,8 +38,16 @@ public class Collection extends Model implements Serializable {
         this.visibility=vis;
     }
 
+    public List<Card> getCards() {
+        ArrayList<Card> result = new ArrayList<>();
+        for(CollectionCard cc: collectionCards)
+            result.add(cc.getCard());
+        return result;
+    }
+
     public void removeCard(Integer id) {
-        this.cards.remove(Card.find.byId(Integer.toString(id)));
+        //TODO decrement unity - if 1, remove connection
+        this.collectionCards.remove(Card.find.byId(Integer.toString(id)));
     }
 
     public void rename(String newName) {
@@ -46,10 +59,6 @@ public class Collection extends Model implements Serializable {
         Collection collection = new Collection(name, User.find.byId(owner_id), vis);
         collection.save();
         return collection;
-    }
-
-    public void addCard(Card c) {
-        cards.add(c);
     }
 
     public static Finder<Integer, Collection> find = new Model.Finder<>(Integer.class, Collection.class);
@@ -65,7 +74,35 @@ public class Collection extends Model implements Serializable {
 
     public static List<Card> findCollectionCards(Integer id){
         Collection c = find.where().eq("id", id).findUnique();
-        return c.cards;
-    }
+        List<Card> cards = new ArrayList<>();
 
+        for(CollectionCard cc: c.collectionCards)
+            cards.add(cc.getCard());
+        return cards;
+    }
+/*
+    public void addEmployee(Employee employee, boolean teamLead) {
+        ProjectAssociation association =new ProjectAssociation();
+        association.setEmployee(employee);
+        association.setProject(this);
+        association.setEmployeeId(employee.getId());
+        association.setProjectId(this.getId());
+        association.setIsTeamLead(teamLead);
+        employees.add(association);
+    }
+*/
+    public void addCard(Card c) {
+        //TODO verify if connection exists, if so add 1
+        CollectionCard cc = new CollectionCard();
+        cc.setCard(c);
+        cc.setCollection(this);
+        //cc.setCardId(c.id);
+        //cc.setCollectionId(this.id);
+        int q = 1;
+        cc.setQuantity(q);
+        //verificar quantidade
+        cc.save();
+        collectionCards.add(cc);
+        this.save();
+    }
 }
