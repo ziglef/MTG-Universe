@@ -64,7 +64,7 @@ public class Application extends Controller {
             	// Defaults
             	newUser.city = "City";
             	
-            	newUser.save();
+            	newUser.save(true);
 	            return redirect(routes.Application.index());
             }
         }
@@ -124,7 +124,7 @@ public class Application extends Controller {
 		            user.password = editForm.get().actualPassword;	
 	            }
 	            	            	            
-	        	user.save();
+	        	user.save(true);
 	        	return redirect(routes.Application.profile(""));
             }
             else
@@ -180,7 +180,7 @@ public class Application extends Controller {
 	            session("name", user.name);
 	            session("email", user.email);
 	            
-	        	user.save();
+	        	user.save(true);
 	        	return redirect(routes.Application.profile(""));
             }
             else
@@ -307,7 +307,7 @@ public class Application extends Controller {
             {
                 String newPassword = PasswordGenerator.random(6);
                 user.password = newPassword;
-                user.save();
+                user.save(true);
                 
                 // Send email (funciona so no servidor ldso02.fe.up.pt)
                 MailerAPI mail = play.Play.application().plugin(MailerPlugin.class).email();

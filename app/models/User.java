@@ -56,10 +56,15 @@ public class User extends Model implements Serializable{
 
     @Override
     public void save() {
-        // Hash password
-        this.password = BCrypt.hashpw(this.password, BCrypt.gensalt());
-
+    	// Call super save() method
         super.save();
+    }
+    
+    public void save(boolean save) {
+    	// Hash password
+        if ( save ) this.password = BCrypt.hashpw(this.password, BCrypt.gensalt());
+
+        this.save();
     }
     
     public static User authenticate(String username, String password) {
