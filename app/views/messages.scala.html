@@ -1,0 +1,25 @@
+@(list: List[Message.MessageArray])
+
+@dashboard("Messages") {
+
+    @if( list.size == 0 ) {
+        <div class="alert alert-warning" role="alert">No conversations, start a new one going to a user profile.</div>
+    } else {
+        <div class="list-group">
+
+            @for(index <- 0 until list.size) {
+
+                @if( !list(index).read ) {
+                <a href="@routes.Application.conversation("" + list(index).name + "")" class="list-group-item list-group-item-info">
+                } else {
+                <a href="@routes.Application.conversation("" + list(index).name + "")" class="list-group-item">
+                }
+                    <h4 class="list-group-item-heading">@list(index).name <small>@list(index).dateStr</small></h4>
+                    <p class="list-group-item-text" style="word-wrap: break-word;">@list(index).list.get(0).content</p>
+                </a>
+
+            }
+
+        </div>
+    }
+}
