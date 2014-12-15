@@ -91,7 +91,7 @@ function fillArticle() {
 
 function fillCards() {
 
-    if($("#myCollections option").children().length != 0) {
+    //if($("#myCollections option").children().length != 0) {
         var id = $("#myCollections option:selected").attr("class").replace("col", "");
 
         var str = '{"colID": "' + id + '"}';
@@ -119,7 +119,7 @@ function fillCards() {
                 alert(textStatus + ": " + errorThrown);
             }
         });
-    }
+    //}
 }
 
 $(document).on("click", "#myCollections li .remove", function(){

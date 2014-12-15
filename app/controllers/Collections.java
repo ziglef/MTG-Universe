@@ -1,19 +1,16 @@
 package controllers;
 
-import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.common.collect.Lists;
-import models.AbstractSetofCards;
 import models.Card;
 import models.Collection;
 import models.enums.Visibility;
 import play.libs.Json;
+import play.mvc.BodyParser;
 import play.mvc.Controller;
 import play.mvc.Result;
-import com.fasterxml.jackson.databind.JsonNode;
-import play.mvc.BodyParser;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -27,15 +24,15 @@ public class Collections extends Controller {
 
         JsonNode json = request().body().asJson();
 
-          if(json == null) {
+        if(json == null) {
             return badRequest("Expecting Json data");
-          } else {
+        } else {
             name = json.findPath("name").textValue();
             visibility = json.findPath("visibility").textValue();
             if(name == null) {
-              return badRequest("Missing parameter [name]");
+                return badRequest("Missing parameter [name]");
             }
-          }
+        }
 
         Collection collection;
         if(visibility.equals("public"))
@@ -46,7 +43,7 @@ public class Collections extends Controller {
             collection =  Collection.create(name, Integer.parseInt(session().get("id")), Visibility.PRIVATE);
 
 
-       // String response = new String("<li><a href=\"#\" id=\"col"+collection.id+"\">" + name + "</a><a href=\"#\" name=\""+collection.id+"\" onclick=\"removeCollection(this.name)\" class=\"badge pull-right label-danger remove\">X</a><a href=\"#\" class=\"badge pull-right label-warning\">Edit</a></li>");
+        // String response = new String("<li><a href=\"#\" id=\"col"+collection.id+"\">" + name + "</a><a href=\"#\" name=\""+collection.id+"\" onclick=\"removeCollection(this.name)\" class=\"badge pull-right label-danger remove\">X</a><a href=\"#\" class=\"badge pull-right label-warning\">Edit</a></li>");
         ObjectNode result = Json.newObject();
         result.put("url", "/editCollection/"+collection.id);
 
@@ -60,13 +57,13 @@ public class Collections extends Controller {
 
         Integer id;
 
-            if(json == null) {
-                return badRequest("Expecting Json data");
-            } else {
-                id = Integer.parseInt(json.findPath("colID").textValue());
-                if(id == null) {
-                    return badRequest("Missing parameter [id]");
-                }
+        if(json == null) {
+            return badRequest("Expecting Json data");
+        } else {
+            id = Integer.parseInt(json.findPath("colID").textValue());
+            if(id == null) {
+                return badRequest("Missing parameter [id]");
+            }
         }
 
         Collection.find.ref(id).delete();
@@ -80,7 +77,7 @@ public class Collections extends Controller {
         Integer collectionId = Integer.parseInt(json.findPath("colID").textValue());
         Integer cardId = Integer.parseInt(json.findPath("cardID").textValue());
 
-        AbstractSetofCards collection = Collection.find.ref(collectionId);
+        Collection collection = Collection.find.ref(collectionId);
         collection.removeCard(cardId);
         collection.save();
         collection.saveManyToManyAssociations("cards");
@@ -102,7 +99,7 @@ public class Collections extends Controller {
         Integer collectionId = Integer.parseInt(json.findPath("colID").textValue());
         Integer cardId = Integer.parseInt(json.findPath("cardID").textValue());
 
-        AbstractSetofCards collection = Collection.find.ref(collectionId);
+        Collection collection = Collection.find.ref(collectionId);
         Card newcard = Card.find.byId(cardId.toString());
         collection.addCard(newcard);
         collection.save();

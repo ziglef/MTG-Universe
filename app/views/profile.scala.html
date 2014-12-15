@@ -89,6 +89,12 @@
                     <button class="btn btn-block btn-primary" data-toggle="modal" data-target="#editSettings" style="cursor : pointer ;">
                         Edit Settings</button>
                 </div>
+            } else {
+                <div class="col-md-4">
+                    <a href="@routes.Application.conversation("" + user.username + "")" class="btn btn-primary" style="color: #FFFFFF;">
+                        Send message
+                    </a>
+                </div>
             }
         </div>
 

@@ -25,6 +25,12 @@ POST        /profile/edit/avatar             controllers.Application.editAvatar(
 POST        /profile/edit/password           controllers.Application.editPassword()
 POST        /profile/edit/about              controllers.Application.editAbout()
 
+# Mensagens
+GET         /messages		                 controllers.Application.listAllMessages()
+GET         /messages/		                 controllers.Application.conversation(name: String = "")
+GET         /messages/:name                  controllers.Application.conversation(name: String)
+POST        /messages		                 controllers.Application.saveMessage()
+
 # Card search form
 GET         /searchcard                      controllers.Application.searchCard()
 
@@ -56,11 +62,12 @@ POST        /deleteCardFromCollection        controllers.Collections.deleteCardF
 
 POST        /getCollectionCards              controllers.Collections.getCollectionCards()
 
-GET         /articles                        controllers.Articles.articles()
+GET         /articles                        controllers.Application.articles()
 
 GET         /createarticle                   controllers.Articles.createArticle()
 
 POST        /addArticleToDB                  controllers.Articles.addArticleToDB()
+<<<<<<< HEAD
 
 GET         /viewarticles                    controllers.Articles.viewArticles()
 
@@ -68,3 +75,5 @@ POST        /getArticle                      controllers.Articles.getArticle()
 
 # jenkins a funcionar , fazer testes de automitização e unitários.
 # vamos definir a data de fim de projeto hoje
+=======
+>>>>>>> 8a8027e6958e0f985457696ba652496fb4ad4ffd

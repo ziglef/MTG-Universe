@@ -64,7 +64,7 @@ public class Application extends Controller {
             	// Defaults
             	newUser.city = "City";
             	
-            	newUser.save();
+            	newUser.save(true);
 	            return redirect(routes.Application.index());
             }
         }
@@ -87,6 +87,52 @@ public class Application extends Controller {
     	return ok(profile.render(user, Form.form(Profile.class)));
     }
 
+    public static Result articles() {
+        return ok(articles.render());
+    }
+
+    public static Result addArticle() {
+        return ok(createarticle.render());
+    }
+    
+    // Class de message
+    public static class Msg {
+        public String messageTo, messageContent;
+    }
+    
+    public static Result listAllMessages() {
+    	return ok(messages.render( Message.findAllUserMessage(session().get("username")) ));
+    }
+    
+    public static Result conversation(String name) {
+    	if ( name.length() == 0 ) return listAllMessages();
+    	
+    	return ok(message.render(name, Message.findAUserMessage(session().get("username"), name)));
+    }
+    
+    public static Result saveMessage() {
+        Form<Msg> msgForm = Form.form(Msg.class).bindFromRequest();
+
+        if( msgForm.hasErrors() ) {
+            return badRequest("Form with errors");
+        } else {
+        	User from = User.find.where().eq("username", session().get("username")).findUnique();
+        	User to = User.find.where().eq("username", msgForm.get().messageTo).findUnique();
+        	
+        	if ( from != null && to != null && !from.username.equals(to.username) && msgForm.get().messageContent.length() > 1 )
+        	{
+            	Message tmp = new Message(from, to, msgForm.get().messageContent);            	
+            	tmp.save();
+            	
+            	return redirect("/messages/" + to.username);
+        	}
+        	else
+            {
+            	return badRequest("Invalid from/to (null) or content <= 1");            	
+            }
+        }
+    }
+    
     public static Result editPassword() {
         Form<Profile> editForm = Form.form(Profile.class).bindFromRequest();
 
@@ -116,7 +162,7 @@ public class Application extends Controller {
 		            user.password = editForm.get().actualPassword;	
 	            }
 	            	            	            
-	        	user.save();
+	        	user.save(true);
 	        	return redirect(routes.Application.profile(""));
             }
             else
@@ -172,7 +218,7 @@ public class Application extends Controller {
 	            session("name", user.name);
 	            session("email", user.email);
 	            
-	        	user.save();
+	        	user.save(true);
 	        	return redirect(routes.Application.profile(""));
             }
             else
@@ -299,7 +345,7 @@ public class Application extends Controller {
             {
                 String newPassword = PasswordGenerator.random(6);
                 user.password = newPassword;
-                user.save();
+                user.save(true);
                 
                 // Send email (funciona so no servidor ldso02.fe.up.pt)
                 MailerAPI mail = play.Play.application().plugin(MailerPlugin.class).email();
@@ -357,7 +403,7 @@ public class Application extends Controller {
         for(Card c: cardsPage.getList()){
             ObjectNode row = Json.newObject();
             row.put("0","<a href=\"#\" rel=\"popover\" data-img=\""+c.imageName+"\">"+c.name.replaceAll("\"","\\\"")+"</a>");
-            row.put("1","<button class=\"btn btn-sm btn-success btn-block\" name=\""+c.name.replaceAll("\"","\\\"")+"\" onclick=\"addToCollection(this.name,"+c.id+")\"> Add </button>");
+            row.put("1","<button class=\"btn btn-sm btn-success btn-block\" name=\""+c.name.replace("\"", "&quot;")+"\" onclick=\"addToCollection(this.name,"+c.id+")\"> Add </button>");
             an.add(row);
         }
 
