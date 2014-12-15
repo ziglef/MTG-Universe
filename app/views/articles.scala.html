@@ -1,4 +1,7 @@
-@()
+@(userArticles: com.fasterxml.jackson.databind.JsonNode)
+@import com.fasterxml.jackson.databind.JsonNode;
+@import play.api.Play.resource
+@import play.api.Play.current
 
 @dashboard("Articles") {
     <div class="col-md-4">
@@ -16,7 +19,26 @@
     <p class="col-md-12" style="margin-top:10px">My articles</p>
     <div class="col-md-12" style="margin-top:10px">
         <select id="myArticles" data-width="100%">
+        @for(name <- userArticles.elements()){
+            <option class="col@name.findValuesAsText("id").get(0)">@name.findValuesAsText("title").get(0)</option>
+        }
         </select>
+    </div>
+    <div>
+        <div class="col-md-3">
+            @if(resource("public/images/articles/"+userArticles.get(0).get("id")+".png").isDefined) {
+            <img src="@routes.Assets.at("images/articles/"+userArticles.get(0).get("id")+".png")" class="profile-pic img-responsive" alt="avatar" />
+        } else {
+            <img src="@routes.Assets.at("images/avatar/default-avatar.png")" class="profile-pic img-responsive" alt="avatar" />
+        }
+            <i class="fa fa-user"></i> @userArticles.get(0).get("writter").get("username").asText()<br>
+            <i class="fa fa-calendar"></i> @userArticles.get(0).get("date").asText()
+        </div>
+        <div class="col-md-9">
+        <h1>@userArticles.get(0).get("title").asText()</h1>
+        <p>@userArticles.get(0).get("text").asText()</p>
+        </div>
+
     </div>
 
 

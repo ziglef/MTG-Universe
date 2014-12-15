@@ -30,7 +30,64 @@ $(document).ready(function () {
         });
     }
 
+    if($("#myArticles")) {
+
+        fillArticle();
+
+        $("#myArticles").change(function () {
+            fillArticle();
+        });
+    }
+
+    $("#createArticle").on("submit", (function(e){
+
+        alert('criar article');
+
+        $.ajax ( {
+            url : '/addArticleToDB',
+            contentType : false,
+            data : new FormData(this),
+            type : 'POST',
+            processData: false,
+            success : function ( data, textStatus, jqXHR ) {
+                alert("sucesso");
+            },
+            error : function ( jqXHR, textStatus, errorThrown ) {
+                alert ( textStatus + ": " + errorThrown ) ;
+            }
+        } ) ;
+
+        return false;
+
+    }));
+
 });
+
+function fillArticle() {
+
+
+   if($("#myArticles option:selected").children().length != 0) {
+
+    alert("Tou aqui");
+
+    var id = $("#myArticles option:selected").attr("class").replace("col", "");
+
+    var str = '{"colID": "' + id + '"}';
+    $.ajax({
+        url: '/getArticle',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: str,
+        type: 'POST',
+        success: function (data, textStatus, jqXHR) {
+
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert(textStatus + ": " + errorThrown);
+        }
+    });
+   }
+}
 
 function fillCards() {
 
@@ -170,7 +227,6 @@ function createNewCollection ( ) {
     } ) ;
 }
 
-
 // jQuerys for page scrolling feature - requires jQuery Easing plugin
 $(function() {
     $('a.page-scroll').on('click', function(event) {
@@ -182,3 +238,7 @@ $(function() {
     });
 });
 
+function create_new_article(){
+
+
+}

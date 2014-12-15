@@ -21,6 +21,7 @@ public class Article extends Model implements Serializable {
 
     public String title;
 
+    @Column(columnDefinition = "TEXT(20000)")
     public String text;
 
     public String imageUrl;
@@ -29,10 +30,11 @@ public class Article extends Model implements Serializable {
     public String date;
 
 
-    public Article(String title, String text, String imageUrl, String date) {
+    public Article(String title, String text, String date, String username) {
         this.title=title;
         this.text=text;
-        this.imageUrl=imageUrl;
+        this.date = date;
+        this.writter = User.find.where().eq("username", username).findUnique();
     }
 
     public void edit(String title, String text, String imageUrl) {
