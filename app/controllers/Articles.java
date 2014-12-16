@@ -87,7 +87,7 @@ public class Articles extends Controller {
             }
         }
 
-        return ok(createarticle.render());
+        return ok(articles.render(getUserArticles()));
     }
 
     public static Result getArticle() {

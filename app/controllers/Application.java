@@ -87,9 +87,9 @@ public class Application extends Controller {
     	return ok(profile.render(user, Form.form(Profile.class)));
     }
 
-    public static Result articles() {
+    /*public static Result articles() {
         return ok(articles.render());
-    }
+    }*/
 
     public static Result addArticle() {
         return ok(createarticle.render());

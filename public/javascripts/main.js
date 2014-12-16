@@ -2,6 +2,7 @@ var t;
 var table;
 
 $(document).ready(function () {
+
     $('[data-toggle=offcanvas]').click(function () {
         $('.row-offcanvas').toggleClass('active');
     });
@@ -31,44 +32,52 @@ $(document).ready(function () {
     }
 
     if($("#myArticles")) {
+        fillArticle()
 
-        fillArticle();
 
         $("#myArticles").change(function () {
             fillArticle();
         });
     }
 
-    $("#createArticle").on("submit", (function(e){
+});
 
-        alert('criar article');
 
-        $.ajax ( {
-            url : '/addArticleToDB',
-            contentType : false,
-            data : new FormData(this),
-            type : 'POST',
-            processData: false,
-            success : function ( data, textStatus, jqXHR ) {
-                alert("sucesso");
-            },
-            error : function ( jqXHR, textStatus, errorThrown ) {
-                alert ( textStatus + ": " + errorThrown ) ;
-            }
-        } ) ;
+$(document).on("submit", "#createArticle", function(){
 
-        return false;
+    $.ajax ( {
+        url : '/addArticleToDB',
+        contentType : false,
+        data : new FormData(this),
+        type : 'POST',
+        processData: false,
+        success : function ( data, textStatus, jqXHR ) {
+            window.location.replace("/articles");
+        },
+        error : function ( jqXHR, textStatus, errorThrown ) {
+            alert ( textStatus + ": " + errorThrown ) ;
+        }
+    } ) ;
 
-    }));
+    return false;
+});
 
+$(document).on("click", "#leftbar-toggle", function(){
+    if( $("#leftbar .sidebar-container").hasClass("hidebar") )
+        $("#leftbar .sidebar-container").removeClass("hidebar");
+    else
+        $("#leftbar .sidebar-container").addClass("hidebar");
+});
+
+$(document).on("click", "#rightbar-toggle", function(){
+
+    if( $("#rightbar .sidebar-container").hasClass("hidebar") )
+        $("#rightbar .sidebar-container").removeClass("hidebar");
+    else
+        $("#rightbar .sidebar-container").addClass("hidebar");
 });
 
 function fillArticle() {
-
-
-   if($("#myArticles option:selected").children().length != 0) {
-
-    alert("Tou aqui");
 
     var id = $("#myArticles option:selected").attr("class").replace("col", "");
 
@@ -86,7 +95,7 @@ function fillArticle() {
             alert(textStatus + ": " + errorThrown);
         }
     });
-   }
+
 }
 
 function fillCards() {

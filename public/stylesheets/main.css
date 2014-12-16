@@ -830,3 +830,21 @@ footer .list-inline{
     color: #444;
 }
 /*ALERTS END*/
+
+/* Left and Right bar */
+#rightbar-toggle {
+    right: 100%;
+    box-shadow: -2px 0px 2px rgba(0, 0, 0, 0.3);
+    top: 11px;
+    padding: 1px 0px 0px 7px;
+    border-radius: 50px 0px 0px 50px;
+}
+#leftbar-toggle, #rightbar-toggle {
+    background: url("../img/body-bg/cloth.png") repeat scroll 0% 0% transparent;
+    color: #EEE;
+    width: 15px;
+    height: 30px;
+    position: absolute;
+    font-size: 20px;
+    cursor: pointer;
+}

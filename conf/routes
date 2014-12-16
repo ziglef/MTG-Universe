@@ -62,18 +62,12 @@ POST        /deleteCardFromCollection        controllers.Collections.deleteCardF
 
 POST        /getCollectionCards              controllers.Collections.getCollectionCards()
 
-GET         /articles                        controllers.Application.articles()
+GET         /articles                        controllers.Articles.articles()
 
 GET         /createarticle                   controllers.Articles.createArticle()
 
 POST        /addArticleToDB                  controllers.Articles.addArticleToDB()
-<<<<<<< HEAD
 
 GET         /viewarticles                    controllers.Articles.viewArticles()
 
 POST        /getArticle                      controllers.Articles.getArticle()
-
-# jenkins a funcionar , fazer testes de automitização e unitários.
-# vamos definir a data de fim de projeto hoje
-=======
->>>>>>> 8a8027e6958e0f985457696ba652496fb4ad4ffd
