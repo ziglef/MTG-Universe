@@ -5,22 +5,28 @@ import play.db.ebean.Model;
 import javax.persistence.*;
 import java.io.Serializable;
 
-/**
- * Created by jorgemiguel on 03-12-2014.
- */
+
 @Entity
+@Table(name="COLLECTION_CARDS")
 @IdClass(CollectionCardId.class)
-public class CollectionCard extends Model implements Serializable {
+public class CollectionCard extends Model {
 
-    public static Finder<String, CollectionCard> find = new Model.Finder<>(String.class, CollectionCard.class);
+   // public static Finder<String, CollectionCard> find = new Model.Finder<>(String.class, CollectionCard.class);
 
     @Id
-    public long collectionId;
-    @Id
-    public long cardId;
+    @ManyToOne
+    @JoinColumn(name="COLLECTION_PK1")
+    public Collection collection;
 
+    @Id
+    @ManyToOne
+    @JoinColumn(name="CARD_PK1")
+    public Card card;
+
+    @Column(name="QUANTITY")
     public int quantity;
 
+    /*
     @ManyToOne
     //@JoinColumn(name="collection_id")
     @PrimaryKeyJoinColumn(name="COLLECTIONID", referencedColumnName="ID")
@@ -30,6 +36,7 @@ public class CollectionCard extends Model implements Serializable {
    // @JoinColumn(name="card_id")
     @PrimaryKeyJoinColumn(name="CARDID", referencedColumnName="ID")
     public Card card;
+    */
 
     //public CollectionCard() {
       //  this.collection=col;
@@ -37,7 +44,7 @@ public class CollectionCard extends Model implements Serializable {
       //  this.quantity=1;
       //  this.save();
     //}
-
+/*
     public void setCollection(Collection c) {
         collection = c;
     }
@@ -61,4 +68,5 @@ public class CollectionCard extends Model implements Serializable {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+    */
 }

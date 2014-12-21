@@ -105,7 +105,7 @@ public class Collections extends Controller {
 
         Collection collection = Collection.find.ref(collectionId);
         Card newcard = Card.find.byId(cardId.toString());
-        collection.addCard(newcard);
+//        collection.addCard(newcard);                              !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         //collection.save();
         //collection.saveManyToManyAssociations("collectioncards");
         String response = new String("ok");
@@ -127,7 +127,7 @@ public class Collections extends Controller {
 
         //TODO - Verificar se ID existe e Verificar se o ID coleção pertence ao user logado para verificar permissões
 
-        return ok(views.html.editCollection.render(Collection.findCollectionByID(id),Json.toJson(Collection.findCollectionCards(id))));
+        return ok();//ok(views.html.editCollection.render(Collection.findCollectionByID(id),Json.toJson(Collection.findCollectionCards(id))));
     }
 
     public static Result getCollectionCards() {
@@ -136,15 +136,15 @@ public class Collections extends Controller {
         Integer collectionId = Integer.parseInt(json.findPath("colID").textValue());
         Collection col = Collection.find.byId(collectionId);
 
-        return ok(Json.toJson(col.getCards()));
+        return ok();//(Json.toJson(col.getCards()));
     }
 
 
-    public static Result getcc2() {
+   /* public static Result getcc2() {
         return ok(toJson(CollectionCard.find.all()));
     }
 
     public static Result getcc(int i) {
         return ok(toJson(Collection.find.byId(i).getCards()));
-    }
+    }*/
 }

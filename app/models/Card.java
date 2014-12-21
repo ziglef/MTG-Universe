@@ -1,8 +1,5 @@
 package models;
 
-import com.avaje.ebean.Ebean;
-import models.enums.Layout;
-
 import play.db.ebean.Model;
 
 import javax.persistence.*;
@@ -14,12 +11,12 @@ import java.util.List;
 // The model for a single card (current version uses the simple .json file)
 
 @Entity
-@Table(name = "Cards")
-public class Card extends Model implements Serializable, Comparable{
+public class Card extends Model implements Comparable{
 
 
     //TESTING
-    @OneToMany/*(cascade=CascadeType.ALL)*///(mappedBy = "card")
+    @OneToMany(mappedBy = "card")//, cascade=CascadeType.ALL)
+    @JoinColumn(name="COLLECTION_PK1")
     public List<CollectionCard> collections = new ArrayList<CollectionCard>();
 
 

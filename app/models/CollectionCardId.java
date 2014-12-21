@@ -1,11 +1,16 @@
 package models;
 
-/**
- * Created by jorgemiguel on 08-12-2014.
- */
-public class CollectionCardId {
+import play.db.ebean.Model;
 
-    private long cardid;
+import javax.persistence.*;
+import java.io.Serializable;
 
-    private long collectionid;
+@Embeddable
+public class CollectionCardId extends Model implements Serializable {
+
+    @Column(name="COLLECTION_PK1")
+    public Long collectionId;
+
+    @Column(name="CARD_PK1")
+    public Long cardId;
 }

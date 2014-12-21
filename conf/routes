@@ -52,5 +52,5 @@ POST        /deleteCardFromCollection        controllers.Collections.deleteCardF
 
 POST        /getCollectionCards              controllers.Collections.getCollectionCards()
 
-GET         /cc                              controllers.Collections.getcc2()
-GET         /cc/:id                          controllers.Collections.getcc(id: Integer)
+#GET         /cc                              controllers.Collections.getcc2()
+#GET         /cc/:id                          controllers.Collections.getcc(id: Integer)

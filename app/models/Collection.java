@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Collection extends Model implements Serializable {
+public class Collection extends Model {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,9 +22,12 @@ public class Collection extends Model implements Serializable {
     //http://en.wikibooks.org/wiki/Java_Persistence/ManyToMany
     //https://giannigar.wordpress.com/2009/09/04/mapping-a-many-to-many-join-table-with-extra-column-using-jpa/
 
+    //http://stackoverflow.com/questions/7602386/mapping-value-in-junction-table-to-entity/7603036#7603036
+
     //@ManyToMany(cascade=CascadeType.ALL)
     // @JoinTable(name="cards_collection")
-    @OneToMany//(mappedBy="collection", cascade=CascadeType.ALL)  //@OneToMany(cascade=CascadeType.PERSIST) //(mappedBy="collection")
+    @OneToMany(mappedBy="collection")//, cascade=CascadeType.ALL)  //@OneToMany(cascade=CascadeType.PERSIST) //(mappedBy="collection")
+    @JoinColumn(name="CARD_PK1")
     public List<CollectionCard> collectionCards = new ArrayList<CollectionCard>();
 
     @ManyToOne
@@ -37,14 +40,14 @@ public class Collection extends Model implements Serializable {
         this.owner=owner;
         this.visibility=vis;
     }
-
+/*
     public List<Card> getCards() {
         ArrayList<Card> result = new ArrayList<>();
         for(CollectionCard cc: collectionCards)
             result.add(cc.getCard());
         return result;
     }
-
+*/
     public void removeCard(Integer id) {
         //TODO decrement unity - if 1, remove connection
         this.collectionCards.remove(Card.find.byId(Integer.toString(id)));
@@ -72,6 +75,7 @@ public class Collection extends Model implements Serializable {
         return find.where().eq("id", id).findUnique();
     }
 
+    /*
     public static List<Card> findCollectionCards(Integer id){
         Collection c = find.where().eq("id", id).findUnique();
         List<Card> cards = new ArrayList<>();
@@ -80,6 +84,7 @@ public class Collection extends Model implements Serializable {
             cards.add(cc.getCard());
         return cards;
     }
+    */
 /*
     public void addEmployee(Employee employee, boolean teamLead) {
         ProjectAssociation association =new ProjectAssociation();
@@ -91,6 +96,7 @@ public class Collection extends Model implements Serializable {
         employees.add(association);
     }
 */
+    /*
     public void addCard(Card c) {
         //TODO verify if connection exists, if so add 1
         CollectionCard cc = new CollectionCard();
@@ -105,4 +111,5 @@ public class Collection extends Model implements Serializable {
         collectionCards.add(cc);
         this.save();
     }
+    */
 }
