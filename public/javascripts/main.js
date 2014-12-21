@@ -45,6 +45,11 @@ $(document).ready(function () {
 
 $(document).on("submit", "#createArticle", function(){
 
+    content = document.createTextNode($('.Editor-editor' ).html());
+    $("#atc").append(content);
+    console.log(content);
+    alert(content);
+
     $.ajax ( {
         url : '/addArticleToDB',
         contentType : false,

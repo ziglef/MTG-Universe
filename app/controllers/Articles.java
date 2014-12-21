@@ -27,9 +27,6 @@ import java.util.List;
 import static play.libs.Json.toJson;
 
 
-/**
- * Created by Tiago on 02/12/2014.
- */
 public class Articles extends Controller {
 
 
@@ -55,7 +52,7 @@ public class Articles extends Controller {
 
     public static class ArticleFields {
         //@Constraints.Required
-        public String articleTitle, articlePost;
+        public String articleTitle, atc;
     }
 
     public static Result addArticleToDB() {
@@ -73,7 +70,7 @@ public class Articles extends Controller {
             return badRequest("Form with errors");
         } else {
             title =  articleForm.get().articleTitle;
-            post =  articleForm.get().articlePost;
+            post =  articleForm.get().atc;
         }
 
         Article article = new Article(title, post, dateFormat.format(cal.getTime()), session().get("username").toString());

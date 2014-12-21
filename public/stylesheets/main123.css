@@ -881,7 +881,7 @@ aside .shadowed {
     border-bottom: 1px solid #292929;
 }
 .media, .media-body {
-    height: 28px;
+    min-height: 28px;
     margin-top: 5px;
 }
 .media-body .label-status{
@@ -1433,4 +1433,54 @@ body::-webkit-scrollbar-thumb {
 
 #leftbar, #rightbar, body {
     background: url("../images/pattern.png") repeat scroll 0% 0% transparent;
+}
+
+/** ARTICLE **/
+.article-text{
+    border: 1px solid #ccc;
+    border-radius: 0;
+    padding: 1%;
+    background-color: #fff;
+}
+
+/** COMMENTS */
+
+ul.comment-menu {
+    margin: 15px 0px 10px;
+}
+
+.comment-menu i, .comment-menu span, ul.comment-menu li a.active, ul.comment-menu li a:hover {
+    color: #333;
+}
+
+.commenting textarea{
+    padding: 1%;
+    border: 1px solid #ccc;
+    border-radius: 0;
+    background-color: #fff;
+    color: #000;
+}
+
+.listview .media-object {
+    width: 40px;
+}
+.media-object, .poster-pic {
+    width: 45px;
+    padding: 3px;
+    background: none repeat scroll 0% 0% #FFF;
+    box-sizing: content-box;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.article-comments{
+    overflow: hidden;
+}
+
+.listview .media:not(.listview-header) {
+    padding: 12px 0px;
+}
+.listview .media {
+    margin-top: 0px;
+    border-bottom: 1px solid #CCC;
+    position: relative;
 }
