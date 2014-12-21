@@ -119,17 +119,30 @@ public class Application extends Controller {
         	User from = User.find.where().eq("username", session().get("username")).findUnique();
         	User to = User.find.where().eq("username", msgForm.get().messageTo).findUnique();
         	
-        	if ( from != null && to != null && !from.username.equals(to.username) && msgForm.get().messageContent.length() > 1 )
+        	if ( from == null )
+        	{
+        		return badRequest("Invalid from user (null): " + session().get("username"));  
+        	}
+        	else if ( to == null )
+        	{
+        		return badRequest("Invalid to user (null): " + msgForm.get().messageTo);
+        	}
+        	else if ( from.username.equals(to.username) )
+        	{
+        		return badRequest("You can't send messages to yourself");
+        	}
+        	else if ( msgForm.get().messageContent.length() < 2 )
+        	{
+        		return badRequest("Contet length < 2: " + msgForm.get().messageContent);
+        	}
+        	// Passed verifications
+        	else
         	{
             	Message tmp = new Message(from, to, msgForm.get().messageContent);            	
             	tmp.save();
             	
             	return redirect("/messages/" + to.username);
         	}
-        	else
-            {
-            	return badRequest("Invalid from/to (null) or content <= 1");            	
-            }
         }
     }
     
