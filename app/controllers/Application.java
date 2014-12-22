@@ -97,7 +97,7 @@ public class Application extends Controller {
     
     // Class de message
     public static class Msg {
-        public String messageTo, messageContent;
+        public String messageTo, messageContent, messageSubject;
     }
     
     public static Result listAllMessages() {
@@ -131,14 +131,14 @@ public class Application extends Controller {
         	{
         		return badRequest("You can't send messages to yourself");
         	}
-        	else if ( msgForm.get().messageContent.length() < 2 )
+        	else if ( msgForm.get().messageContent.length() < 2 || msgForm.get().messageContent.length() > 3000 )
         	{
-        		return badRequest("Contet length < 2: " + msgForm.get().messageContent);
+        		return badRequest("Contet length < 2 or > 3000: " + msgForm.get().messageContent);
         	}
         	// Passed verifications
         	else
-        	{
-            	Message tmp = new Message(from, to, msgForm.get().messageContent);            	
+        	{        		
+            	Message tmp = new Message(from, to, msgForm.get().messageContent, msgForm.get().messageSubject);            	
             	tmp.save();
             	
             	return redirect("/messages/" + to.username);
