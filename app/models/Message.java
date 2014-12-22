@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,7 +28,11 @@ public class Message extends Model implements Serializable {
 	@Basic(optional = false)
 	public Integer id;
 	public boolean read;
+	
+	@Column(columnDefinition = "TEXT(3000)")
 	public String content;
+	
+	public String subject;
 	public long date;
 	public String dateStr;
 	
@@ -37,10 +42,11 @@ public class Message extends Model implements Serializable {
 	@ManyToOne
 	public User to;
    
-	public Message(User from, User to, String content) {
+	public Message(User from, User to, String content, String subject) {
 		this.from = from;
 		this.to = to;
 		this.content = content;
+		this.subject = subject;
 		this.read = false;
 		this.date = System.currentTimeMillis();
 		
