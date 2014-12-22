@@ -20,7 +20,8 @@ public class Card extends Model implements Serializable, Comparable{
     // Finds all cards containing a given string
     public static ArrayList<Card> findCardsByName(String name){
 
-        ArrayList<Card> cards = new ArrayList<>(find.where().icontains("name", name).findList());
+        ArrayList<Card> cards = new ArrayList<>(find.where().icontains("name", name).findPagingList(200).getAsList());
+
 
         return cards.size() > 0 ? cards : null;
     }
