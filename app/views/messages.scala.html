@@ -2,40 +2,61 @@
 
 @dashboard("Messages") {
 
-    <h3>New message</h3>
-    <form role="form" action="/messages" method="POST">
+    <div class="col-md-2" style="margin-bottom : 20px">
+        <button class="btn btn-block btn-danger" data-toggle="modal" data-target="#newMessage" style="cursor : pointer ;">
+            Compose</button>
+    </div>
 
-        <div class="form-group">
-            <input type="text" class="form-control" name="messageTo" id="messageTo" placeholder="Username of the user to send message">
-        </div>
-
-        <div class="form-group">
-            <textarea class="form-control" name="messageContent" rows="3" placeholder="Content of message"></textarea>
-        </div>
-
-        <input type="submit" class="btn btn-primary" value="Send">
-    </form>
 
     <br>
 
-    @if( list.size == 0 ) {
+    <div class="col-md-12">
+    @if(list.size == 0) {
         <div class="alert alert-warning" role="alert">No conversations.</div>
     } else {
         <div class="list-group">
 
-            @for(index <- 0 until list.size) {
+        @for(index <- 0 until list.size) {
 
-                @if( !list(index).read ) {
+            @if(!list(index).read) {
                 <a href="@routes.Application.conversation("" + list(index).name + "")" class="list-group-item list-group-item-info">
                 } else {
                 <a href="@routes.Application.conversation("" + list(index).name + "")" class="list-group-item">
                 }
-                    <h4 class="list-group-item-heading">@list(index).name <small>@list(index).dateStr</small></h4>
-                    <p class="list-group-item-text" style="word-wrap: break-word;">@list(index).list.get(0).content</p>
-                </a>
+            <h4 class="list-group-item-heading">@list(index).name <small>@list(index).dateStr</small></h4>
+            <p class="list-group-item-text" style="word-wrap : break-word ;">@list(index).list.get(0).content</p>
+        </a>
 
-            }
+        }
 
         </div>
     }
+    </div>
+
+    <div class="modal fade" id="newMessage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">
+                        Close</span></button>
+                    <h4 class="modal-title">Create new collection</h4>
+                </div>
+                <div class="modal-body">
+                    <form role="form" action="/messages" method="POST">
+
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="messageTo" id="messageTo" placeholder="Username of the user to send message">
+                        </div>
+
+                        <div class="form-group">
+                            <textarea class="form-control" name="messageContent" rows="3" placeholder="Content of message"></textarea>
+                        </div>
+
+                        <input type="submit" class="btn btn-primary" value="Send">
+                    </form>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div> <!-- /.modal -->
+    <!-- Modal -->
 }

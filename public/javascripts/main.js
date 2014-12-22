@@ -30,11 +30,8 @@ $(document).ready(function () {
             table.clear().draw();
             fillCards();
         });
-    }
+    }else if($("#articleSelect")) {
 
-    if($("#articleSelect")) {
-
-        alert('here');
         fillArticle();
 
 
@@ -86,8 +83,6 @@ $(document).on("click", "#rightbar-toggle", function(){
 });
 
 function fillArticle() {
-
-    alert('here');
 
     var id = $("#myArticles option:selected").attr("class").replace("col", "");
 
