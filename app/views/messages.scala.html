@@ -2,8 +2,24 @@
 
 @dashboard("Messages") {
 
+    <h3>New message</h3>
+    <form role="form" action="/messages" method="POST">
+
+        <div class="form-group">
+            <input type="text" class="form-control" name="messageTo" id="messageTo" placeholder="Username of the user to send message">
+        </div>
+
+        <div class="form-group">
+            <textarea class="form-control" name="messageContent" rows="3" placeholder="Content of message"></textarea>
+        </div>
+
+        <input type="submit" class="btn btn-primary" value="Send">
+    </form>
+
+    <br>
+
     @if( list.size == 0 ) {
-        <div class="alert alert-warning" role="alert">No conversations, start a new one going to a user profile.</div>
+        <div class="alert alert-warning" role="alert">No conversations.</div>
     } else {
         <div class="list-group">
 
