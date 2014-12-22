@@ -19,6 +19,7 @@ $(document).ready(function () {
     });
 
     t = $('#example1').DataTable();
+
     if($("#myCollections")) {
         table = $('#collection').DataTable();
         fillCards();
@@ -31,11 +32,13 @@ $(document).ready(function () {
         });
     }
 
-    if($("#myArticles")) {
-        fillArticle()
+    if($("#articleSelect")) {
+
+        alert('here');
+        fillArticle();
 
 
-        $("#myArticles").change(function () {
+        $("#articleSelect").change(function () {
             fillArticle();
         });
     }
@@ -83,6 +86,8 @@ $(document).on("click", "#rightbar-toggle", function(){
 });
 
 function fillArticle() {
+
+    alert('here');
 
     var id = $("#myArticles option:selected").attr("class").replace("col", "");
 

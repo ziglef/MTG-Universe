@@ -910,7 +910,7 @@ aside .shadowed {
 #content a:hover,
 #content a:focus,
 #content a:active{
-    color: #1E66A5;
+    color: #fff;
 }
 
 
@@ -1483,4 +1483,21 @@ ul.comment-menu {
     margin-top: 0px;
     border-bottom: 1px solid #CCC;
     position: relative;
+}
+
+#article-com{
+    border-bottom: none;
+}
+
+#article-com_wrapper thead tr th{
+    border-bottom: none;
+    padding-left: 6px;
+}
+
+.comment-username{
+    margin-right: 10px;
+}
+
+.commenting .Editor-editor{
+    height: 120px;
 }
