@@ -71,3 +71,5 @@ POST        /addArticleToDB                  controllers.Articles.addArticleToDB
 GET         /viewarticles                    controllers.Articles.viewArticles()
 
 POST        /getArticle                      controllers.Articles.getArticle()
+
+POST        /addComment                      controllers.Articles.addComment()

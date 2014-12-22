@@ -1,21 +1,17 @@
 package controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.common.collect.Lists;
 import models.Article;
-import models.Collection;
 import models.User;
-import play.api.mvc.MultipartFormData;
-import play.api.mvc.MultipartFormData.FilePart;
 import play.data.Form;
 import play.libs.Json;
-import play.mvc.BodyParser;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
 import utilities.ImageConverter;
 import views.html.articles;
-import views.html.createCollection;
 import views.html.createarticle;
 
 import java.io.IOException;
@@ -46,8 +42,19 @@ public class Articles extends Controller {
     }
 
     public static JsonNode getUserArticles() {
+
         List<Article> articles = Article.findUserArticles(Integer.parseInt(session().get("id")));
-        return Json.toJson(Lists.reverse(articles));
+        JsonNode arraynode = Json.toJson(Lists.reverse(articles));
+
+        for(JsonNode node : arraynode) {
+            JsonNode nodeWriter = node.get("writer");
+            ((ObjectNode) nodeWriter).remove("email");
+            ((ObjectNode) nodeWriter).remove("name");
+            ((ObjectNode) nodeWriter).remove("city");
+            ((ObjectNode) nodeWriter).remove("password");
+        }
+
+        return Json.toJson(arraynode);
     }
 
     public static class ArticleFields {
@@ -90,10 +97,32 @@ public class Articles extends Controller {
     public static Result getArticle() {
         JsonNode json = request().body().asJson();
 
-        Integer articleID = Integer.parseInt(json.findPath("colID").textValue());
+        Integer articleID = Integer.parseInt(json.findPath("artID").textValue());
         Article article = Article.find.byId(articleID);
 
         return ok(Json.toJson(article));
+    }
+
+    public static Result getArticleComments() {
+        JsonNode json = request().body().asJson();
+        Integer articleID = Integer.parseInt(json.findPath("artID").textValue());
+        Article article = Article.find.byId(articleID);
+        return ok(Json.toJson(article.comments));
+    }
+
+    public static Result addComment() {
+        JsonNode json = request().body().asJson();
+        Integer articleID = Integer.parseInt(json.findPath("artID").textValue());
+        Integer userID = Integer.parseInt(json.findPath("writerID").textValue());
+        String text = json.findPath("text").textValue();
+        String date = json.findPath("date").textValue();
+
+        Article article = Article.find.byId(articleID);
+        User writer = User.find.byId(userID);
+        article.addComment(writer, text, date);
+        article.save();
+
+        return ok();
     }
 
 }
