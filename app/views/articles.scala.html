@@ -4,7 +4,16 @@
 @import play.api.Play.current
 
 @dashboard("Articles") {
-    @userArticles
+
+    <div>
+        TODO NESTA PAGINA:<br>
+            - Colocar em baixo o número de comentários total a apararecer<br>
+            - Ligar com o backend os comentarios<br>
+            - fazer botao de editar artigo e apagar artigo funcionar<br>
+            - nos comentarios, colocar o nome da pessoa que comentou com um link para o seu perfil
+            - mostrar o avatar da pessoa que comentou (para ja está sempre o default)
+    </div>
+
     <div class="col-md-4">
         <a class="btn btn-block btn-primary color-white" href="@routes.Articles.createArticle()" style="cursor : pointer ;">
             New Article</a>
@@ -19,7 +28,7 @@
     </div>
     <p class="col-md-12" style="margin-top : 10 px">My articles</p>
     <div class="col-md-12" style="margin-top : 10 px">
-        <select id="myArticles" data-width="100%">
+        <select id="articleSelect" data-width="100%">
         @for(name <- userArticles.elements()) {
             <option class="col@name.findValuesAsText("id").get(0)">@name.findValuesAsText("title").get(0)</option>
         }
@@ -28,7 +37,7 @@
     <div>
     @if(userArticles.size() > 0) {
         <div class="col-md-12" >
-            <h1 style="border-bottom : 1 px solid #333">@userArticles.get(0).get("title").asText()</h1>
+            <h1 style="border-bottom: 1px solid #333;padding-bottom: 10px;">@userArticles.get(0).get("title").asText()</h1>
         </div>
 
         <div class="col-md-3">
@@ -52,113 +61,132 @@
         <div class="col-md-12">
             <div class="comment-area">
                 <ul class="comment-menu list-inline">
-                    <li><i class="fa fa-comment"></i> <span>Comment</span></li>
+                    <li><i class="fa fa-comment"></i> <span>Write a comment here down below</span></li>
                 </ul>
                 <div class="commenting">
-                    <textarea class="text-comment" placeholder="Write your comment here"></textarea>
+                    <div id="commentEditor"></div>
                 </div>
-                <button class="btn btn-primary pull-right" style="cursor : pointer ;">Post comment</button>
+                <button id="send-comment" value="@session.get("username")" class="btn btn-primary pull-right" style="cursor : pointer ;margin-top: 5px;">
+                    Post comment</button>
             </div>
         </div>
         <div class="col-md-12">
-            <div class="article-comments listview">
-                <ul class="comment-menu list-inline">
-                    <li><i class="fa fa-comments"></i> <span> 10 Comments</span></li>
-                </ul>
-                <div class="media">
-                    <a class="pull-left" href="#">
-                        <img class="media-object" src="@routes.Assets.at("images/avatar/default-avatar.png")" alt="">
-                    </a>
-                    <div class="media-body">
-                        Nulla vel metus scelerisque ante sollicitudin commodo purus odio.<br>
-                        <small>Lorem ipsum dolor sit amet, per cu solet docendi</small>
-                    </div>
-                </div>
-                <div class="media">
-                    <a class="pull-left" href="#">
-                        <img class="media-object" src="@routes.Assets.at("images/avatar/default-avatar.png")" alt="">
-                    </a>
-                    <div class="media-body">
-                        Nulla vel metus scelerisque ante sollicitudin commodo purus odio.<br>
-                        <small>Lorem ipsum dolor sit amet, per cu solet docendi</small>
-                    </div>
-                </div>
-                <div class="media">
-                    <a class="pull-left" href="#">
-                        <img class="media-object" src="@routes.Assets.at("images/avatar/default-avatar.png")" alt="">
-                    </a>
-                    <div class="media-body">
-                        Nulla vel metus scelerisque ante sollicitudin commodo purus odio.<br>
-                        <small>Lorem ipsum dolor sit amet, per cu solet docendi</small>
-                    </div>
-                </div>
-                <div class="media">
-                    <a class="pull-left" href="#">
-                        <img class="media-object" src="@routes.Assets.at("images/avatar/default-avatar.png")" alt="">
-                    </a>
-                    <div class="media-body">
-                        Nulla vel metus scelerisque ante sollicitudin commodo purus odio.<br>
-                        <small>Lorem ipsum dolor sit amet, per cu solet docendi</small>
-                    </div>
-                </div>
-                <div class="media">
-                    <a class="pull-left" href="#">
-                        <img class="media-object" src="@routes.Assets.at("images/avatar/default-avatar.png")" alt="">
-                    </a>
-                    <div class="media-body">
-                        Nulla vel metus scelerisque ante sollicitudin commodo purus odio.<br>
-                        <small>Lorem ipsum dolor sit amet, per cu solet docendi</small>
-                    </div>
-                </div>
-                <div class="media">
-                    <a class="pull-left" href="#">
-                        <img class="media-object" src="@routes.Assets.at("images/avatar/default-avatar.png")" alt="">
-                    </a>
-                    <div class="media-body">
-                        Nulla vel metus scelerisque ante sollicitudin commodo purus odio.<br>
-                        <small>Lorem ipsum dolor sit amet, per cu solet docendi</small>
-                    </div>
-                </div>
-                <div class="media">
-                    <a class="pull-left" href="#">
-                        <img class="media-object" src="@routes.Assets.at("images/avatar/default-avatar.png")" alt="">
-                    </a>
-                    <div class="media-body">
-                        Nulla vel metus scelerisque ante sollicitudin commodo purus odio.<br>
-                        <small>Lorem ipsum dolor sit amet, per cu solet docendi</small>
-                    </div>
-                </div>
-                <div class="media">
-                    <a class="pull-left" href="#">
-                        <img class="media-object" src="@routes.Assets.at("images/avatar/default-avatar.png")" alt="">
-                    </a>
-                    <div class="media-body">
-                        Nulla vel metus scelerisque ante sollicitudin commodo purus odio.<br>
-                        <small>Lorem ipsum dolor sit amet, per cu solet docendi</small>
-                    </div>
-                </div>
-                <div class="media">
-                    <a class="pull-left" href="#">
-                        <img class="media-object" src="@routes.Assets.at("images/avatar/default-avatar.png")" alt="">
-                    </a>
-                    <div class="media-body">
-                        Nulla vel metus scelerisque ante sollicitudin commodo purus odio.<br>
-                        <small>Lorem ipsum dolor sit amet, per cu solet docendi</small>
-                    </div>
-                </div>
-                <div class="media">
-                    <a class="pull-left" href="#">
-                        <img class="media-object" src="@routes.Assets.at("images/avatar/default-avatar.png")" alt="">
-                    </a>
-                    <div class="media-body">
-                        Nulla vel metus scelerisque ante sollicitudin commodo purus odio.<br>
-                        <small>Lorem ipsum dolor sit amet, per cu solet docendi</small>
-                    </div>
-                </div>
-            </div>
+            <table id="article-com" class="display" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th><i class="fa fa-comments"></i> <span class="nr-total-comments">TODO: TOTAL DE COMENTÁRIOS AQUI </span>Comments</th>
+                    </tr>
+                </thead>
+
+            </table>
         </div>
-    }
     </div>
 
 
+    <script>
+
+
+    $ ( document ).ready ( function ( ) {
+
+    $("#commentEditor").Editor();
+
+
+    var t = $ ( '#article-com' ).DataTable ( {
+    bFilter : false,
+    bInfo : false,
+    aaSorting :[[ 0, 'desc' ] ],
+    bLengthChange: false,
+    oLanguage: {
+    sEmptyTable: "Be the first one to comment.."
+    },
+    }
+    ) ;
+
+    $ ( '#send-comment' ).on ( 'click', function ( ) {
+
+    var d = new Date ( ) ;
+
+    var month = d.getMonth ( ) + 1 ;
+    var day = d.getDate ( ) ;
+    var hour = d.getHours ( ) ;
+    var minute = d.getMinutes ( ) ;
+    var second = d.getSeconds ( ) ;
+
+    var date = d.getFullYear ( ) + '-' +
+    ( ( '' + month ).length < 2 ? '0' : '' ) + month + '-' +
+    ( ( '' + day ).length < 2 ? '0' : '' ) + day + ' ' +
+    ( ( '' + hour ).length < 2 ? '0' : '' ) + hour + ':' +
+    ( ( '' + minute ).length < 2 ? '0' : '' ) + minute + ':' +
+    ( ( '' + second ).length < 2 ? '0' : '' ) + second ;
+
+    t.row.add ([
+    '<div class="media"> <a class="pull-left" href="#"><img class="media-object" src=" @routes.Assets.at("images/avatar/default-avatar.png") " alt=" "> </a> <div class=" media - body "> <span class=" comment - username "><i class=" fa fa - user "></i><a href=" # "> '+this.value+'</a></span><span class=" comment - data "><i class=" fa fa - calendar "></i> '+date+'</span><br>'+$(".commenting .Editor-editor").html()+'</div>'
+    ] ).draw ( ) ;
+
+    } ) ;
+
+    } ) ;
+
+
+
+    function addComment ( username ) {
+    /*console.log("Adicionar um novo comentário");
+    console.log("Username: " + username);
+
+    var d = new Date();
+
+    var month = d.getMonth()+1;
+    var day = d.getDate();
+    var hour = d.getHours();
+    var minute = d.getMinutes();
+    var second = d.getSeconds();
+
+    var date = d.getFullYear() + '-' +
+    ((''+month).length<2 ? '0' : '') + month + '-' +
+    ((''+day).length<2 ? '0' : '') + day + ' ' +
+    ((''+hour).length<2 ? '0' :'') + hour + ':' +
+    ((''+minute).length<2 ? '0' :'') + minute + ':' +
+    ((''+second).length<2 ? '0' :'') + second;
+
+    console.log("Data: " + date);
+
+    console.log("Comment: " + $(".commenting .text-comment" ).val());*/
+
+
+
+    var d = new Date ( ) ;
+
+    var month = d.getMonth ( ) + 1 ;
+    var day = d.getDate ( ) ;
+    var hour = d.getHours ( ) ;
+    var minute = d.getMinutes ( ) ;
+    var second = d.getSeconds ( ) ;
+
+    var date = d.getFullYear ( ) + '-' +
+    ( ( '' + month ).length < 2 ? '0' : '' ) + month + '-' +
+    ( ( '' + day ).length < 2 ? '0' : '' ) + day + ' ' +
+    ( ( '' + hour ).length < 2 ? '0' : '' ) + hour + ':' +
+    ( ( '' + minute ).length < 2 ? '0' : '' ) + minute + ':' +
+    ( ( '' + second ).length < 2 ? '0' : '' ) + second ;
+
+
+    /* $('#article-com tbody' ).prepend('<tr><td><div class="media">'+
+     '<a class="pull-left" href="#">'+
+     '<img class="media-object" src="" >' +
+     '</a>'+
+     '<div class="media-body">'+
+     '<span class="comment-username"><i class="fa fa-user"></i><a href="#">'+username+'</a></span><span class="comment-data"><i class="fa fa-calendar"></i>'+date+'</span><br>'+
+     $(".commenting .text-comment" ).val()+
+     '</div>'+
+     '</div></td></tr>');*/
+
+
+
+    }
+
+
+    </script>
+
+
+}
 }

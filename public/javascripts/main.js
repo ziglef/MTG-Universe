@@ -19,6 +19,7 @@ $(document).ready(function () {
     });
 
     t = $('#example1').DataTable();
+
     if($("#myCollections")) {
         table = $('#collection').DataTable();
         fillCards();
@@ -29,13 +30,12 @@ $(document).ready(function () {
             table.clear().draw();
             fillCards();
         });
-    }
+    }else if($("#articleSelect")) {
 
-    if($("#myArticles")) {
-        fillArticle()
+        fillArticle();
 
 
-        $("#myArticles").change(function () {
+        $("#articleSelect").change(function () {
             fillArticle();
         });
     }
