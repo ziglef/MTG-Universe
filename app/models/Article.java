@@ -35,7 +35,12 @@ public class Article extends Model implements Serializable {
         this.title=title;
         this.text=text;
         this.date = date;
+        this.imageUrl="default.png";
         this.writer = User.find.where().eq("username", username).findUnique();
+    }
+
+    public void setImageUrl() {
+        this.imageUrl=id+".png";
     }
 
     public void edit(String title, String text, String imageUrl) {
@@ -48,8 +53,8 @@ public class Article extends Model implements Serializable {
     @ManyToOne
     public User writer;
 
-    @OneToMany
-    public List<ArticleComment> comments = new ArrayList<>();
+    //@OneToMany
+    //public List<ArticleComment> comments = new ArrayList<>();
 
     // find all articles of some user
     public static List<Article> findUserArticles(Integer userId) {
@@ -59,7 +64,16 @@ public class Article extends Model implements Serializable {
     public void addComment(User user, String text, String date) {
         ArticleComment comment = new ArticleComment(this, user, text, date);
         comment.save();
-        comments.add(comment);
+        //comments.add(comment);
+        //this.save();
     }
 
+
+    public void setTitle(String title) {
+        this.title=title;
+    }
+
+    public void setPost(String post) {
+        this.text=post;
+    }
 }

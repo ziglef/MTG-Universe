@@ -26,10 +26,10 @@ POST        /profile/edit/password           controllers.Application.editPasswor
 POST        /profile/edit/about              controllers.Application.editAbout()
 
 # Mensagens
-GET         /messages		                 controllers.Application.listAllMessages()
-GET         /messages/		                 controllers.Application.conversation(name: String = "")
+GET         /messages                        controllers.Application.listAllMessages()
+GET         /messages/                       controllers.Application.conversation(name: String = "")
 GET         /messages/:name                  controllers.Application.conversation(name: String)
-POST        /messages		                 controllers.Application.saveMessage()
+POST        /messages                        controllers.Application.saveMessage()
 
 # Card search form
 GET         /searchcard                      controllers.Application.searchCard()
@@ -73,3 +73,10 @@ GET         /viewarticles                    controllers.Articles.viewArticles()
 POST        /getArticle                      controllers.Articles.getArticle()
 
 POST        /addComment                      controllers.Articles.addComment()
+
+POST        /getArticleComments              controllers.Articles.getArticleComments()
+
+POST        /deleteArticle                   controllers.Articles.deleteArticle()
+
+GET         /editArticle/:id                 controllers.Articles.editArticle(id: Integer)
+POST        /addEditedArticleToDB            controllers.Articles.addEditedArticleToDB()

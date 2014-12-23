@@ -8,7 +8,6 @@
     <div>
         TODO NESTA PAGINA:<br>
             - Colocar em baixo o número de comentários total a apararecer<br>
-            - Ligar com o backend os comentarios<br>
             - fazer botao de editar artigo e apagar artigo funcionar<br>
             - nos comentarios, colocar o nome da pessoa que comentou com um link para o seu perfil
             - mostrar o avatar da pessoa que comentou (para ja está sempre o default)
@@ -19,45 +18,27 @@
             New Article</a>
     </div>
     <div class="col-md-4">
-        <button class="btn btn-block btn-warning" style="cursor : pointer ;">
+        <button class="btn btn-block btn-warning" onclick="editArticle()" style="cursor : pointer ;">
             Edit Article</button>
     </div>
     <div class="col-md-4">
-        <button class="btn btn-block btn-danger" onclick="removeCollection ( )" style="cursor : pointer ;">
+        <button class="btn btn-block btn-danger" onclick="removeArticle( )" style="cursor : pointer ;">
             Delete Article</button>
     </div>
     <p class="col-md-12" style="margin-top : 10 px">My articles</p>
     <div class="col-md-12" style="margin-top : 10 px">
         <select id="articleSelect" data-width="100%">
         @for(name <- userArticles.elements()) {
-            <option class="col@name.findValuesAsText("id").get(0)">@name.findValuesAsText("title").get(0)</option>
+            <option class="art@name.findValuesAsText("id").get(0)">@name.findValuesAsText("title").get(0)</option>
         }
         </select>
     </div>
     <div>
-    @if(userArticles.size() > 0) {
-        <div class="col-md-12" >
-            <h1 style="border-bottom: 1px solid #333;padding-bottom: 10px;">@userArticles.get(0).get("title").asText()</h1>
-        </div>
+     <div id="fillarticle">
 
-        <div class="col-md-3">
-            @if(resource("public/images/articles/" + userArticles.get(0).get("id") + ".png").isDefined) {
-                <img src="@routes.Assets.at("images/articles/" + userArticles.get(0).get("id") + ".png")" class="profile-pic img-responsive" alt="avatar" />
-            } else {
-                <img src="@routes.Assets.at("images/avatar/default-avatar.png")" class="profile-pic img-responsive" alt="avatar" />
-            }
-            <div class="col-md-6 text-center">
-                <i class="fa fa-user"></i> @userArticles.get(0).get("writer").get("username").asText()<br>
-            </div>
-            <div class="col-md-6 text-center">
-                <i class="fa fa-calendar"></i> @userArticles.get(0).get("date").asText()
-            </div>
-        </div>
-        <div class="col-md-9">
-            <p class="text-justify article-text"></p>
-        </div>
-        <span style="display : none" id="cheat" value='@userArticles.get(0).get("text").asText()'></span>
-        <script>$ ( document ).ready ( function ( ) { $ ( ".article-text" ).append ( $ ( "#cheat" ).attr ( "value" ) ) ; } ) ;</script>
+    </div>
+
+    <div id="commentArea" style="display : none">
         <div class="col-md-12">
             <div class="comment-area">
                 <ul class="comment-menu list-inline">
@@ -66,7 +47,7 @@
                 <div class="commenting">
                     <div id="commentEditor"></div>
                 </div>
-                <button id="send-comment" value="@session.get("username")" class="btn btn-primary pull-right" style="cursor : pointer ;margin-top: 5px;">
+                <button id="send-comment" value="@session.get("username")|@session.get("id")|@session.get("imageurl")"  class="btn btn-primary pull-right" style="cursor : pointer ;margin-top: 5px;">
                     Post comment</button>
             </div>
         </div>
@@ -80,113 +61,10 @@
 
             </table>
         </div>
+
     </div>
-
-
-    <script>
-
-
-    $ ( document ).ready ( function ( ) {
-
-    $("#commentEditor").Editor();
-
-
-    var t = $ ( '#article-com' ).DataTable ( {
-    bFilter : false,
-    bInfo : false,
-    aaSorting :[[ 0, 'desc' ] ],
-    bLengthChange: false,
-    oLanguage: {
-    sEmptyTable: "Be the first one to comment.."
-    },
-    }
-    ) ;
-
-    $ ( '#send-comment' ).on ( 'click', function ( ) {
-
-    var d = new Date ( ) ;
-
-    var month = d.getMonth ( ) + 1 ;
-    var day = d.getDate ( ) ;
-    var hour = d.getHours ( ) ;
-    var minute = d.getMinutes ( ) ;
-    var second = d.getSeconds ( ) ;
-
-    var date = d.getFullYear ( ) + '-' +
-    ( ( '' + month ).length < 2 ? '0' : '' ) + month + '-' +
-    ( ( '' + day ).length < 2 ? '0' : '' ) + day + ' ' +
-    ( ( '' + hour ).length < 2 ? '0' : '' ) + hour + ':' +
-    ( ( '' + minute ).length < 2 ? '0' : '' ) + minute + ':' +
-    ( ( '' + second ).length < 2 ? '0' : '' ) + second ;
-
-    t.row.add ([
-    '<div class="media"> <a class="pull-left" href="#"><img class="media-object" src=" @routes.Assets.at("images/avatar/default-avatar.png") " alt=" "> </a> <div class=" media - body "> <span class=" comment - username "><i class=" fa fa - user "></i><a href=" # "> '+this.value+'</a></span><span class=" comment - data "><i class=" fa fa - calendar "></i> '+date+'</span><br>'+$(".commenting .Editor-editor").html()+'</div>'
-    ] ).draw ( ) ;
-
-    } ) ;
-
-    } ) ;
-
-
-
-    function addComment ( username ) {
-    /*console.log("Adicionar um novo comentário");
-    console.log("Username: " + username);
-
-    var d = new Date();
-
-    var month = d.getMonth()+1;
-    var day = d.getDate();
-    var hour = d.getHours();
-    var minute = d.getMinutes();
-    var second = d.getSeconds();
-
-    var date = d.getFullYear() + '-' +
-    ((''+month).length<2 ? '0' : '') + month + '-' +
-    ((''+day).length<2 ? '0' : '') + day + ' ' +
-    ((''+hour).length<2 ? '0' :'') + hour + ':' +
-    ((''+minute).length<2 ? '0' :'') + minute + ':' +
-    ((''+second).length<2 ? '0' :'') + second;
-
-    console.log("Data: " + date);
-
-    console.log("Comment: " + $(".commenting .text-comment" ).val());*/
-
-
-
-    var d = new Date ( ) ;
-
-    var month = d.getMonth ( ) + 1 ;
-    var day = d.getDate ( ) ;
-    var hour = d.getHours ( ) ;
-    var minute = d.getMinutes ( ) ;
-    var second = d.getSeconds ( ) ;
-
-    var date = d.getFullYear ( ) + '-' +
-    ( ( '' + month ).length < 2 ? '0' : '' ) + month + '-' +
-    ( ( '' + day ).length < 2 ? '0' : '' ) + day + ' ' +
-    ( ( '' + hour ).length < 2 ? '0' : '' ) + hour + ':' +
-    ( ( '' + minute ).length < 2 ? '0' : '' ) + minute + ':' +
-    ( ( '' + second ).length < 2 ? '0' : '' ) + second ;
-
-
-    /* $('#article-com tbody' ).prepend('<tr><td><div class="media">'+
-     '<a class="pull-left" href="#">'+
-     '<img class="media-object" src="" >' +
-     '</a>'+
-     '<div class="media-body">'+
-     '<span class="comment-username"><i class="fa fa-user"></i><a href="#">'+username+'</a></span><span class="comment-data"><i class="fa fa-calendar"></i>'+date+'</span><br>'+
-     $(".commenting .text-comment" ).val()+
-     '</div>'+
-     '</div></td></tr>');*/
-
-
-
-    }
-
-
-    </script>
-
+</div>
 
 }
-}
+
+
