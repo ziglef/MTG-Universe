@@ -70,7 +70,7 @@ public class Application extends Controller {
             }
         }
     }
-	
+
     // Class de login
     public static class Profile {
         public String name, username, email, actualPassword, newPassword, newPassword2, city;
@@ -301,9 +301,6 @@ public class Application extends Controller {
         }
     }
 
-    public static Result createCollectionData(){
-        return ok(createCollection.render(Collections.getUserCollections()));
-    }
 /*
     public static Result login() {
         if(!session("islogged").equalsIgnoreCase("true"))
@@ -476,6 +473,12 @@ public class Application extends Controller {
         }
 
         return ok(result);
+    }
+
+
+    //Coming Soon
+    public static Result advancedSearch() {
+        return ok(comingsoon.render("Advanced Search"));
     }
 
 }

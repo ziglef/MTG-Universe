@@ -47,19 +47,24 @@ GET         /assets/*file                    controllers.Assets.at(path="/public
 # Create card database (needs to run one time, alternatives?)
 GET         /loadCards                       utilities.JsonUtil.loadCardsDB(s: String = "app/assets/json/AllCards-x.json")
 
-# Create a list (collection) of cards
-GET         /createCollection                controllers.Application.createCollectionData()
-
 # Sort all cards
 GET         /sortCards                       controllers.Application.sortCards()
 
 # Collections
+# Collections MainPages
+GET         /collections                     controllers.Collections.createCollectionData()
+GET         /decks                           controllers.Collections.decks()
+GET         /wantlists                       controllers.Collections.wantlists()
+GET         /tradelists                      controllers.Collections.tradelists()
+# Create a list (collection) of cards
 POST        /createNewCollection             controllers.Collections.addCollection()
 POST        /deleteCollection                controllers.Collections.deleteCollection()
 GET         /editCollection/:id              controllers.Collections.editCollection1(id: Integer)
 POST        /addCardToCollection             controllers.Collections.addCardtoCollection()
 POST        /deleteCardFromCollection        controllers.Collections.deleteCardFromCollection()
 POST        /getCollectionCards              controllers.Collections.getCollectionCards()
+
+
 
 # Articles
 GET         /articles                        controllers.Articles.articles()
@@ -73,6 +78,9 @@ POST        /addEditedArticleToDB            controllers.Articles.addEditedArtic
 #Article Comments
 POST        /addComment                      controllers.Articles.addComment()
 POST        /getArticleComments              controllers.Articles.getArticleComments()
+
+GET         /events                          controllers.Events.events()
+GET         /search                          controllers.Application.advancedSearch()
 
 
 

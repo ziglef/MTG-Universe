@@ -10,45 +10,68 @@ import java.util.List;
 
 public class CollectionTest extends WithApplication {
 
-    @Test //add users
+    @Test //create collection
     public void test1() {
-        User u1 = new User("bob1", "bobuser1", "bob1@email", "12345");
-        u1.save();
-        User u2 = new User("bob2", "bobuser2", "bob2@email", "54321");
-        u2.save();
-
-        assertEquals(2, User.find.all().size());
-
-    }
-
-    @Test //search user
-    public void test2() {
-        User u1 = new User("bob1", "bobuser1", "bob1@email", "12345");
-        u1.save();
-
-        User u2 = User.findUserByUsername("bobuser1");
-        assertNotNull(u2);
-        assertEquals("bob1@email", u2.email);
-    }
-
-    @Test //add collection
-    public void test3() {
         User u1 = new User("bob", "bobuser", "bob@email", "12345");
+        u1.setCity("Porto");
+        u1.save();
+
+        Collection.create("CollectionTest", u1.id, Visibility.PUBLIC_);
+        List<Collection> collections = Collection.findUserCollections(u1.id);
+        assertNotNull(collections);
+    }
+
+    @Test //add cards to collection
+    public void test2() {
+        User u1 = new User("bob", "bobuser", "bob@email", "12345");
+        u1.setCity("Porto");
         u1.save();
 
         Collection collection = Collection.create("CollectionTest", u1.id, Visibility.PUBLIC_);
-        List<Collection> collections = Collection.findUserCollections(u1.id);
-        assertNotNull(collections);
 
-        collection.addCard(Card.findCardsByName("").get(1));
-        collection.addCard(Card.findCardsByName("").get(2));
+        Card c1 = Card.findCardsByName("").get(1);
+        Card c2 = Card.findCardsByName("").get(2);
+
+        collection.addCard(c1);
+        collection.addCard(c2);
         collection.save();
 
         assertEquals(2, Collection.find.byId(collection.id).cards.size());
+    }
 
-        collection.removeCard(0);
+    @Test //remove cards from collection
+    public void test3() {
+        User u1 = new User("bob", "bobuser", "bob@email", "12345");
+        u1.setCity("Porto");
+        u1.save();
+
+        Collection collection = Collection.create("CollectionTest", u1.id, Visibility.PUBLIC_);
+
+        Card c1 = Card.findCardsByName("").get(1);
+        Card c2 = Card.findCardsByName("").get(2);
+
+        collection.addCard(c1);
+        collection.addCard(c2);
+        collection.save();
+
+        collection.removeCard(c1.id);
         collection.save();
 
         assertEquals(1, Collection.find.byId(collection.id).cards.size());
     }
+
+
+    @Test //delete collection
+    public void test4() {
+        User u1 = new User("bob", "bobuser", "bob@email", "12345");
+        u1.setCity("Porto");
+        u1.save();
+
+        Collection collection = Collection.create("CollectionTest", u1.id, Visibility.PUBLIC_);
+
+        collection.delete();
+
+        assertEquals(0, Collection.findUserCollections(u1.id).size());
+    }
+
 }

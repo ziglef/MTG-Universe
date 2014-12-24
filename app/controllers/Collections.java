@@ -10,11 +10,17 @@ import play.libs.Json;
 import play.mvc.BodyParser;
 import play.mvc.Controller;
 import play.mvc.Result;
+import views.html.collections;
+import views.html.comingsoon;
 
 import java.util.List;
 
 
 public class Collections extends Controller {
+
+    public static Result createCollectionData(){
+        return ok(collections.render(Collections.getUserCollections()));
+    }
 
     @BodyParser.Of(BodyParser.Json.class)
     public static Result addCollection() {
@@ -139,6 +145,19 @@ public class Collections extends Controller {
         Collection col = Collection.find.byId(collectionId);
 
         return ok(Json.toJson(col.cards));
+    }
+
+
+    //Coming Soon
+
+    public static Result decks() {
+        return ok(comingsoon.render("Decks"));
+    }
+    public static Result wantlists() {
+        return ok(comingsoon.render("Want Lists"));
+    }
+    public static Result tradelists() {
+        return ok(comingsoon.render("Trade Lists"));
     }
 
 }

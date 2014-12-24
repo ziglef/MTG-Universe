@@ -56,6 +56,9 @@ public class User extends Model implements Serializable{
         this.imageurl = "default-avatar.png";
     }
 
+    public void setCity(String city) {
+        this.city=city;
+    }
 
     @Override
     public void save() {
