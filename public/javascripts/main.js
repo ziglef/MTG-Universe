@@ -147,7 +147,7 @@ $(document).on("submit", "#editArticle", function(){
     //console.log(content);
 
     $.ajax ( {
-        url : '/addArticleToDB',
+        url : '/addEditedArticleToDB',
         contentType : false,
         data : new FormData(this),
         type : 'POST',
