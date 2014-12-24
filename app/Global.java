@@ -1,4 +1,5 @@
 import models.Card;
+import models.User;
 import play.Application;
 import play.GlobalSettings;
 import utilities.JsonUtil;
@@ -16,5 +17,11 @@ public class Global extends GlobalSettings {
                 e.printStackTrace();
             }
         }
+        /*
+        /*
+        User admin = new User("admin", "admin", "admin@admin.pt", "admin");
+        admin.city = "Porto";
+        admin.save(true);
+        */
     }
 }

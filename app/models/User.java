@@ -41,6 +41,8 @@ public class User extends Model implements Serializable{
     @Column(name = "password")
     public String password;
 
+    public String imageurl = "default-avatar.png";
+
 
     //Collection of cards
     //@OneToMany
@@ -51,6 +53,7 @@ public class User extends Model implements Serializable{
         this.username = username;
         this.email = email;
         this.password = password;
+        this.imageurl = "default-avatar.png";
     }
 
 
@@ -82,5 +85,9 @@ public class User extends Model implements Serializable{
         User user = null;
         user = find.where().eq("username", username).findUnique();
         return user;
+    }
+
+    public void setImageUrl() {
+        this.imageurl =id+".png";
     }
 }

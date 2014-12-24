@@ -121,7 +121,13 @@ public class Collections extends Controller {
 
     public static Result editCollection1(Integer id){
 
-        //TODO - Verificar se ID existe e Verificar se o ID coleção pertence ao user logado para verificar permissões
+        //TODO - Páginas de erro / forbidden
+        Collection col = Collection.find.byId(id);
+        if(col == null)
+            return ok("COLECÇÃO NÃO EXISTENTE");
+
+        if(Integer.parseInt(session().get("id")) != col.owner.id)
+            return ok("COLECÇÃO NÃO PERTENCENTE A ESTE UTILIZADOR");
 
         return ok(views.html.editCollection.render(Collection.findCollectionByID(id),Json.toJson(Collection.findCollectionCards(id))));
     }
@@ -134,4 +140,5 @@ public class Collections extends Controller {
 
         return ok(Json.toJson(col.cards));
     }
+
 }

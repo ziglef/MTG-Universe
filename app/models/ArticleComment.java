@@ -3,6 +3,7 @@ package models;
 import play.db.ebean.Model;
 
 import javax.persistence.*;
+import java.util.List;
 
 
 @Entity
@@ -31,5 +32,9 @@ public class ArticleComment extends Model {
         this.text=text;
         this.commentWriter=user;
         this.date=date;
+    }
+
+    public static List<ArticleComment> getCommentsbyArticle(Article article) {
+        return find.where().eq("article.id",article.id).findList();
     }
 }

@@ -46,7 +46,7 @@ public class Application extends Controller {
             return badRequest("Form with errors");
         } else {
         	User newUser = regForm.get();   // Same as calling the constructor
-        	
+            newUser.imageurl = "default-avatar.png";
             // Verifica se ja existe
             User findUsername = User.find.where().eq("username", newUser.username).findUnique();
             User findEmail = User.find.where().eq("email", newUser.email).findUnique();
@@ -231,6 +231,8 @@ public class Application extends Controller {
 	            //session("username", user.username);
 	            session("name", user.name);
 	            session("email", user.email);
+                session("imageurl", user.imageurl);
+
 	            
 	        	user.save(true);
 	        	return redirect(routes.Application.profile(""));
@@ -257,6 +259,10 @@ public class Application extends Controller {
 				e.printStackTrace();
 			}
 		}
+
+        User user = User.find.byId(Integer.parseInt(session().get("id")));
+        user.setImageUrl();
+        user.save();
 		
 		return redirect(routes.Application.profile(""));
     }
@@ -324,6 +330,7 @@ public class Application extends Controller {
                 session("name", logged.name);
 				session("email", logged.email);
                 session("islogged", "true");
+                session("imageurl", logged.imageurl);
 
                 return redirect(controllers.routes.Application.index());
             }
