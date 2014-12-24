@@ -403,6 +403,9 @@ textarea {
     width: 230px;
 }
 
+.top-search input{
+    margin-bottom: 0;
+}
 /* END INDEX */
 
 
@@ -580,7 +583,7 @@ textarea {
     background: transparent;
 }
 
-.top-search button[type="submit"] {
+.top-search button[type="button"] {
     background: none;
     border: none;
     color: #797979;
@@ -907,9 +910,9 @@ aside .shadowed {
     color: #428BCA;
     text-decoration: none;
 }
-#content a:hover,
-#content a:focus,
-#content a:active{
+#content .bootstrap-select a:hover,
+#content .bootstrap-select a:focus,
+#content .bootstrap-select a:active{
     color: #fff;
 }
 

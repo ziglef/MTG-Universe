@@ -26,16 +26,18 @@ POST        /profile/edit/password           controllers.Application.editPasswor
 POST        /profile/edit/about              controllers.Application.editAbout()
 
 # Mensagens
-GET         /messages		                 controllers.Application.listAllMessages()
-GET         /messages/		                 controllers.Application.conversation(name: String = "")
+GET         /messages                        controllers.Application.listAllMessages()
+GET         /messages/                       controllers.Application.conversation(name: String = "")
 GET         /messages/:name                  controllers.Application.conversation(name: String)
-POST        /messages		                 controllers.Application.saveMessage()
+POST        /messages                        controllers.Application.saveMessage()
 
 # Card search form
 GET         /searchcard                      controllers.Application.searchCard()
 
 # Simple card search - checks if a certain card exists
 POST        /checkcard                       controllers.Application.checkCard()
+
+GET         /searchResult/:string            controllers.Application.searchResult(string : String)
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file                    controllers.Assets.at(path="/public", file)
@@ -73,3 +75,6 @@ GET         /viewarticles                    controllers.Articles.viewArticles()
 POST        /getArticle                      controllers.Articles.getArticle()
 
 POST        /addComment                      controllers.Articles.addComment()
+
+# Charge messages
+GET         /chargeMessages                  controllers.Application.chargeMessages()

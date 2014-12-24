@@ -1,0 +1,44 @@
+@(string: String, results: com.fasterxml.jackson.databind.JsonNode)
+
+@dashboard("Results") {
+
+  <h3>Search Results for: @string</h3>
+
+<script>
+  $ ( document ).ready ( function ( ) {
+
+  var t = $ ( '#searchResults' ).DataTable ( {responsive: true}) ;
+
+  });
+
+</script>
+
+  <table id="searchResults" class="display" cellspacing="0" width="100%">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Mana Cost</th>
+        <th>CMC</th>
+        <th>Type</th>
+        <th>Rarity</th>
+        <th>Artist</th>
+        <th>Flavor</th>
+        <th>See More</th>
+      </tr>
+    </thead>
+    @for(name <- results.elements()) {
+      <tr>
+        <td>@name.findValuesAsText("name")</td>
+        <td>@name.findValuesAsText("manaCost")</td>
+        <td>@name.findValuesAsText("cmc")</td>
+        <td>@name.findValuesAsText("type")</td>
+        <td>@name.findValuesAsText("rarity")</td>
+        <td>@name.findValuesAsText("artist")</td>
+        <td>@name.findValuesAsText("flavor")</td>
+        <td><i class="fa fa-plus-circle"></i></td>
+      </tr>
+    }
+
+  </table>
+
+}

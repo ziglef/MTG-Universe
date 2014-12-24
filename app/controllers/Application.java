@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import com.google.common.collect.Lists;
 import models.*;
 import play.libs.Json;
 import play.twirl.api.Html;
@@ -101,7 +102,7 @@ public class Application extends Controller {
     }
     
     public static Result listAllMessages() {
-    	return ok(messages.render( Message.findAllUserMessage(session().get("username")) ));
+    	return ok(messages.render());
     }
     
     public static Result conversation(String name) {
@@ -268,6 +269,15 @@ public class Application extends Controller {
         return ok(searchSimple.render(Form.form(String.class)));
     }
 
+    public static Result searchResult(String string) {
+
+        ArrayList<Card> results = Card.findCardsByName(string);
+        JsonNode arraynode = Json.toJson(results);
+
+        return ok(searchResult.render(string,Json.toJson(arraynode)));
+
+    }
+
     public static Result checkCard(){
 
         Form<String> cardSearchForm = Form.form(String.class).bindFromRequest();
@@ -376,6 +386,44 @@ public class Application extends Controller {
             
             return redirect(controllers.routes.Application.index());
         }
+    }
+
+    public static Result chargeMessages(){
+
+        Map<String, String[]> params = request().queryString();
+        Integer iTotalRecords = Message.findAllUserMessage(session().get("username")).size();
+        Integer pageSize = Integer.valueOf(params.get("iDisplayLength")[0]);
+        Integer page = Integer.valueOf(params.get("iDisplayStart")[0]);
+
+        /*Page<Message> messagePage = Message.find.where().or(
+                com.avaje.ebean.Expr.eq("from.username", session().get("username")),
+                com.avaje.ebean.Expr.eq("to.username",  session().get("username"))
+        ).findPagingList(pageSize)
+                .setFetchAhead(false)
+                .getPage(page);
+
+        Integer iTotalDisplayRecords = messagePage.getTotalRowCount();*/
+
+        List<Message.MessageArray> messages = Message.findAllUserMessage(session().get("username"));
+
+        Integer iTotalDisplayRecords = messages.size();
+
+        ObjectNode result = Json.newObject();
+
+        result.put("sEcho", Integer.valueOf(params.get("sEcho")[0]));
+        result.put("iTotalRecords", iTotalRecords);
+        result.put("iTotalDisplayRecords", iTotalDisplayRecords);
+
+        ArrayNode an = result.putArray("aaData");
+
+        for(int i = 0 ; i < messages.size(); i++){
+            ObjectNode row = Json.newObject();
+            row.put("0", "<tr><td><div style=\"cursor:pointer;\" class=\"media\" onclick=\"window.location='messages/"+ messages.get(i).name +"';\"> <a class=\"pull-left\" href=\"#\"><img class=\"media-object\" src=\"images/avatar/default-avatar.png\")\" alt=\"\"> </a> <div class=\"media-body\"> <span class=\"comment-username\"><i class=\"fa fa-user\"></i><a href=\"profile/"+messages.get(i).name+"\"\"\"> "+messages.get(i).name+"</a></span><span class=\"comment-data\"><i class=\"fa fa-calendar\"></i> "+messages.get(i).dateStr+"</span> "+messages.get(i).list.get(0).subject+"<br>"+messages.get(i).list.get(0).content.substring(0, Math.min(messages.get(i).list.get(0).content.length(), 250))+"</div> </td> </tr>");
+
+            an.add(row);
+        }
+
+        return ok(result);
     }
 
     public static Result sortCards(){

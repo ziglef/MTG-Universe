@@ -56,7 +56,7 @@
         <div class="col-md-9">
             <p class="text-justify article-text"></p>
         </div>
-        <span style="display : none" id="cheat" value='@userArticles.get(0).get("text").asText()'></span>
+        <span style="" id="cheat" value='@userArticles.get(0).get("text").asText()'></span>
         <script>$ ( document ).ready ( function ( ) { $ ( ".article-text" ).append ( $ ( "#cheat" ).attr ( "value" ) ) ; } ) ;</script>
         <div class="col-md-12">
             <div class="comment-area">
@@ -74,7 +74,7 @@
             <table id="article-com" class="display" cellspacing="0" width="100%">
                 <thead>
                     <tr>
-                        <th><i class="fa fa-comments"></i> <span class="nr-total-comments">TODO: TOTAL DE COMENTÁRIOS AQUI </span>Comments</th>
+                        <th><i class="fa fa-comments"></i> <span class="nr-total-comments"> </span>Comments</th>
                     </tr>
                 </thead>
 
@@ -93,11 +93,11 @@
 
     var t = $ ( '#article-com' ).DataTable ( {
     bFilter : false,
-    bInfo : false,
+    bInfo : true,
     aaSorting :[[ 0, 'desc' ] ],
     bLengthChange: false,
     oLanguage: {
-    sEmptyTable: "Be the first one to comment.."
+    sEmptyTable: "Be the first one to comment..",
     },
     }
     ) ;

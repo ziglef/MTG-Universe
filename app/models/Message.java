@@ -141,5 +141,4 @@ public class Message extends Model implements Serializable {
     	.findList(); 
     }
    
-   
 }

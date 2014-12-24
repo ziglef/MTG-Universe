@@ -7,7 +7,6 @@ $(document).ready(function () {
         $('.row-offcanvas').toggleClass('active');
     });
 
-
     $.expr[":"].contains = $.expr.createPseudo(function(arg) {
     return function( elem ) {
         return $(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0;
@@ -21,7 +20,9 @@ $(document).ready(function () {
     t = $('#example1').DataTable();
 
     if($("#myCollections")) {
-        table = $('#collection').DataTable();
+        table = $('#collection').DataTable({
+            responsive: true
+        });
         fillCards();
 
 
@@ -39,6 +40,18 @@ $(document).ready(function () {
             fillArticle();
         });
     }
+
+
+    /*$( "#blob" ).hover(
+        function() {
+            $("#blob img" ).css( "display", "block");
+        }, function() {
+            $( "#blob img" ).css( "display", "none");
+        }
+    );*/
+
+
+    $('[rel="popover"]').popover();
 
 });
 
@@ -116,18 +129,23 @@ function fillCards() {
             data: str,
             type: 'POST',
             success: function (data, textStatus, jqXHR) {
+
+                console.log(data);
                 data.forEach(function (obj) {
 
                     table.row.add([
-                        "<tr><td width=\"50%\"><a class=\"btn\" rel=\"popover\" data-img=\"http://mtgjson.com/images/sentriplets.jpg\">" + obj.name + "</a></td>",
+                        "<tr><td width=\"50%\"><a href=\"#\" data-trigger=\"click\"  rel=\"popover\" data-container=\"body\" data-html=\"true\" data-content='<img class=\"img-responsive\" src=\"http://mtgimage.com/multiverseid/"+obj.multiverseid+".jpg\"/>' >" + obj.name + "</a></td>",
                         "<td width=\"20%\">" + obj.type + "</td>",
-                        "<td width=\"10%\">EDT</td>",
+                        "<td width=\"10%\">" + obj.releaseDate + "</td>",
                         "<td class=\"text-center\" width=\"5%\"><i class=\"fa fa-check fa-success\"></i></td>",
                         "<td class=\"text-center\" width=\"5%\"><i class=\"fa fa-check fa-success\"></i></td>",
                         "</tr>",
                     ]).draw();
 
                 });
+
+                $('[rel="popover"]').popover();
+
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 alert(textStatus + ": " + errorThrown);
@@ -252,7 +270,8 @@ $(function() {
     });
 });
 
-function create_new_article(){
+$(document).on("click", "#makeSearch", function(){
 
+    window.location.replace("searchResult/"+ $("#text2Search").val());
 
-}
+});
