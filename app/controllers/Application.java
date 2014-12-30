@@ -96,6 +96,42 @@ public class Application extends Controller {
         return ok(createarticle.render());
     }
     
+    // Class de search
+    public static class SearchBar {
+        public String text2Search;
+    }
+   
+    public static Result searchBar() {
+        Form<SearchBar> searchForm = Form.form(SearchBar.class).bindFromRequest();
+
+        if ( searchForm.hasErrors() ) {
+            return badRequest("/");
+        }
+        else {
+        	
+            if ( searchForm.get().text2Search == null || searchForm.get().text2Search.length() < 2 )
+            {
+            	return badRequest("Text length < 2 : " + searchForm.get().text2Search.length());
+            }
+            else
+            {
+                // Vai buscar utilizadores pelo termo
+            	List<User> users = User.find.where().or(
+    	    	        com.avaje.ebean.Expr.ilike("username", "%" + searchForm.get().text2Search + "%"),
+    	    	        com.avaje.ebean.Expr.ilike("name", "%" + searchForm.get().text2Search + "%")
+    		    	)
+    				.orderBy("id ASC")
+    				.findList();
+            	
+            	
+            	// Procura mais coisas e adiciona outra lista ao resultado para apresentar na pagina
+            	// ....
+                                    	
+            	return ok(searchBar.render(users));	
+            }
+        }
+    }
+    
     // Class de message
     public static class Msg {
         public String messageTo, messageContent, messageSubject;
@@ -422,7 +458,7 @@ public class Application extends Controller {
 
         for(int i = 0 ; i < messages.size(); i++){
             ObjectNode row = Json.newObject();
-            row.put("0", "<tr><td><div style=\"cursor:pointer;\" class=\"media\" onclick=\"window.location='messages/"+ messages.get(i).name +"';\"> <a class=\"pull-left\" href=\"#\"><img class=\"media-object\" src=\"images/avatar/default-avatar.png\")\" alt=\"\"> </a> <div class=\"media-body\"> <span class=\"comment-username\"><i class=\"fa fa-user\"></i><a href=\"profile/"+messages.get(i).name+"\"\"\"> "+messages.get(i).name+"</a></span><span class=\"comment-data\"><i class=\"fa fa-calendar\"></i> "+messages.get(i).dateStr+"</span> "+messages.get(i).list.get(0).subject+"<br>"+messages.get(i).list.get(0).content.substring(0, Math.min(messages.get(i).list.get(0).content.length(), 250))+"</div> </td> </tr>");
+            row.put("0", "<tr><td><div style=\"cursor:pointer;\" class=\"media\" onclick=\"window.location='messages/"+ messages.get(i).name +"';\"> <a class=\"pull-left\" href=\"#\"><img class=\"media-object\" src=\"/assets/images/avatar/default-avatar.png\" alt=\"\"> </a> <div class=\"media-body\"> <span class=\"comment-username\"><i class=\"fa fa-user\"></i><a href=\"profile/"+messages.get(i).name+"\"\"\"> "+messages.get(i).name+"</a></span><span class=\"comment-data\"><i class=\"fa fa-calendar\"></i> "+messages.get(i).dateStr+"</span> "+messages.get(i).list.get(0).subject+"<br>"+messages.get(i).list.get(0).content.substring(0, Math.min(messages.get(i).list.get(0).content.length(), 250))+"</div> </td> </tr>");
 
             an.add(row);
         }
@@ -480,5 +516,6 @@ public class Application extends Controller {
     public static Result advancedSearch() {
         return ok(comingsoon.render("Advanced Search"));
     }
+    
 
 }

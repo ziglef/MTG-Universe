@@ -30,8 +30,12 @@ GET         /messages                        controllers.Application.listAllMess
 GET         /messages/                       controllers.Application.conversation(name: String = "")
 GET         /messages/:name                  controllers.Application.conversation(name: String)
 POST        /messages                        controllers.Application.saveMessage()
+
 # Charge messages
 GET         /chargeMessages                  controllers.Application.chargeMessages()
+
+# Search bar
+POST        /searchBar		                 controllers.Application.searchBar()
 
 # Card search form
 GET         /searchcard                      controllers.Application.searchCard()
