@@ -46,7 +46,7 @@ public class Application extends Controller {
             return badRequest("Form with errors");
         } else {
         	User newUser = regForm.get();   // Same as calling the constructor
-            newUser.imageurl = "default-avatar.png";
+            
             // Verifica se ja existe
             User findUsername = User.find.where().eq("username", newUser.username).findUnique();
             User findEmail = User.find.where().eq("email", newUser.email).findUnique();
@@ -64,6 +64,7 @@ public class Application extends Controller {
             {
             	// Defaults
             	newUser.city = "City";
+            	newUser.imageurl = "default-avatar.png";
             	
             	newUser.save(true);
 	            return redirect(routes.Application.index());
@@ -233,18 +234,7 @@ public class Application extends Controller {
 
             // Password atual correta
             if ( user != null )
-            {
-                // Verifica se novo utilizador ja existe
-            	/*if ( !editForm.get().username.equals(session().get("username")) )
-            	{
-            		User findUsername = User.find.where().eq("username", editForm.get().username).findUnique();	
-            		
-                    if ( findUsername != null )
-                    {
-                    	return badRequest("New username already exists");
-                    }
-            	}*/
-            	
+            {            	
             	// Verifica se novo email ja existe
             	if ( !editForm.get().email.equals(session().get("email")) )
             	{
@@ -258,19 +248,16 @@ public class Application extends Controller {
             	           	
 	            // Altera campos
 	            user.name = editForm.get().name;
-	            //user.username = editForm.get().username;
 	            user.email = editForm.get().email;
-	            user.city = editForm.get().city;
-	            user.password = editForm.get().actualPassword;	
+	            user.city = editForm.get().city;	
 	            	            
 	            // Set sessions
-	            //session("username", user.username);
 	            session("name", user.name);
 	            session("email", user.email);
-                session("imageurl", user.imageurl);
 
-	            
-	        	user.save(true);
+	            // Save
+	        	user.save(false);
+	        	
 	        	return redirect(routes.Application.profile(""));
             }
             else
@@ -297,8 +284,7 @@ public class Application extends Controller {
 		}
 
         User user = User.find.byId(Integer.parseInt(session().get("id")));
-        user.setImageUrl();
-        user.save();
+        user.save(false);
 		
 		return redirect(routes.Application.profile(""));
     }
