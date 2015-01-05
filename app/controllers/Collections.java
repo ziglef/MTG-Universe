@@ -107,6 +107,12 @@ public class Collections extends Controller {
 
         Collection collection = Collection.find.ref(collectionId);
         Card newcard = Card.find.byId(cardId.toString());
+
+        if(collection.containsCard(newcard)) {
+            String response = new String("repeated");
+            return ok(Json.toJson(response));
+        }
+
         collection.addCard(newcard);
         collection.save();
         collection.saveManyToManyAssociations("cards");

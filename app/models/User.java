@@ -55,6 +55,7 @@ public class User extends Model implements Serializable{
         this.username = username;
         this.email = email;
         this.password = password;
+        this.imageurl="default-avatar.png";
     }
 
     @Override

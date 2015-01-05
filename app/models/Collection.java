@@ -75,4 +75,7 @@ public class Collection extends Model implements Serializable {
         return c.cards;
     }
 
+    public boolean containsCard(Card newcard) {
+        return cards.contains(newcard);
+    }
 }

@@ -191,6 +191,11 @@ public class Card extends Model implements Serializable, Comparable{
     @Column(name = "source")
     public String source;
 
+    public String edition;
+
+    public void setEdition(String ed) {
+        this.edition=ed;
+    }
 
     // not necessary
     // Collections on which the card is

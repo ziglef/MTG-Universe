@@ -303,9 +303,9 @@ function fillCards() {
                 data.forEach(function (obj) {
 
                     table.row.add([
-                        "<tr><td width=\"50%\"><a href=\"card/" +obj.multiverseid+ "\" data-trigger=\"click\"  rel=\"popover\" data-container=\"body\" data-html=\"true\" data-content='<img class=\"img-responsive\" src=\"http://mtgimage.com/multiverseid/"+obj.multiverseid+".jpg\"/>' >" + obj.name + "</a></td>",
+                        "<tr><td width=\"35%\"><a href=\"card/" +obj.multiverseid+ "\" data-trigger=\"click\"  rel=\"popover\" data-container=\"body\" data-html=\"true\" data-content='<img class=\"img-responsive\" src=\"http://mtgimage.com/multiverseid/"+obj.multiverseid+".jpg\"/>' >" + obj.name + "</a></td>",
                         "<td width=\"20%\">" + obj.type + "</td>",
-                        "<td width=\"10%\">" + obj.releaseDate + "</td>",
+                        "<td width=\"25%\">" + obj.edition + "</td>",
                         "<td class=\"text-center\" width=\"5%\"><i class=\"fa fa-check fa-success\"></i></td>",
                         "<td class=\"text-center\" width=\"5%\"><i class=\"fa fa-check fa-success\"></i></td>",
                         "</tr>",
@@ -336,11 +336,6 @@ function changeImg(name) {
 
 function addToCollection(name, id) {
 
-    t.row.add( [
-       "<a href=\"#\" name=\""+name+"\" onclick=\"changeImg ( this.name ) ;\">"+name+"</a>" ,
-       "<button class=\"btn btn-sm btn-danger btn-block\" onclick=\"removeFromCollection(this,"+id+")\"> X </button>",
-    ] ).draw();
-
     var str = '{"colID": "'+$("h3.collection").attr("collection")+'",' +
               ' "cardID": "'+id+'"}';
     $.ajax ( {
@@ -350,7 +345,12 @@ function addToCollection(name, id) {
         data : str,
         type : 'POST',
         success : function ( data, textStatus, jqXHR ) {
-
+            if (data.toString() == "ok") {
+                t.row.add([
+                    "<a href=\"#\" name=\"" + name + "\" onclick=\"changeImg ( this.name ) ;\">" + name + "</a>",
+                    "<button class=\"btn btn-sm btn-danger btn-block\" onclick=\"removeFromCollection(this," + id + ")\"> X </button>",
+                ]).draw();
+            }
         },
         error : function ( jqXHR, textStatus, errorThrown ) {
             alert ( textStatus + ": " + errorThrown ) ;
