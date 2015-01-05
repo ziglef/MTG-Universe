@@ -34,6 +34,10 @@ public class Card extends Model implements Serializable, Comparable{
         return cards.size() > 0 ? cards : null;
     }
 
+    public static Card findbyMultiverseId(long mid) {
+        return find.where().eq("multiverseid", mid).findUnique();
+    }
+
     // Finds all the cards in the database
     public static Finder<String, Card> find = new Model.Finder<>(String.class, Card.class);
 
@@ -118,7 +122,7 @@ public class Card extends Model implements Serializable, Comparable{
 
     // Card multiverseid
     @Column(name = "multiverseid")
-    public Integer multiverseid;
+    public long multiverseid;
 
     // Card variations (doesnt include its own multiverseid)
     @Column(name = "variations")

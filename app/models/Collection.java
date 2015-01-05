@@ -1,14 +1,12 @@
+package models;
 
+import models.enums.Visibility;
+import play.db.ebean.Model;
 
-        package models;
-
-        import models.enums.Visibility;
-        import play.db.ebean.Model;
-
-        import javax.persistence.*;
-        import java.io.Serializable;
-        import java.util.ArrayList;
-        import java.util.List;
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Collection extends Model implements Serializable {

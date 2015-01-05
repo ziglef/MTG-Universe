@@ -35,7 +35,7 @@ POST        /messages                        controllers.Application.saveMessage
 GET         /chargeMessages                  controllers.Application.chargeMessages()
 
 # Search bar
-POST        /searchBar		                 controllers.Application.searchBar()
+POST        /searchBar                       controllers.Application.searchBar()
 
 # Card search form
 GET         /searchcard                      controllers.Application.searchCard()
@@ -69,7 +69,6 @@ POST        /deleteCardFromCollection        controllers.Collections.deleteCardF
 POST        /getCollectionCards              controllers.Collections.getCollectionCards()
 
 
-
 # Articles
 GET         /articles                        controllers.Articles.articles()
 GET         /createarticle                   controllers.Articles.createArticle()
@@ -85,6 +84,8 @@ POST        /getArticleComments              controllers.Articles.getArticleComm
 
 GET         /events                          controllers.Events.events()
 GET         /search                          controllers.Application.advancedSearch()
+
+
 
 
 
