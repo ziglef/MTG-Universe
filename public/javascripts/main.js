@@ -303,7 +303,7 @@ function fillCards() {
                 data.forEach(function (obj) {
 
                     table.row.add([
-                        "<tr><td width=\"50%\"><a href=\"#\" data-trigger=\"click\"  rel=\"popover\" data-container=\"body\" data-html=\"true\" data-content='<img class=\"img-responsive\" src=\"http://mtgimage.com/multiverseid/"+obj.multiverseid+".jpg\"/>' >" + obj.name + "</a></td>",
+                        "<tr><td width=\"50%\"><a href=\"card/" +obj.multiverseid+ "\" data-trigger=\"click\"  rel=\"popover\" data-container=\"body\" data-html=\"true\" data-content='<img class=\"img-responsive\" src=\"http://mtgimage.com/multiverseid/"+obj.multiverseid+".jpg\"/>' >" + obj.name + "</a></td>",
                         "<td width=\"20%\">" + obj.type + "</td>",
                         "<td width=\"10%\">" + obj.releaseDate + "</td>",
                         "<td class=\"text-center\" width=\"5%\"><i class=\"fa fa-check fa-success\"></i></td>",
