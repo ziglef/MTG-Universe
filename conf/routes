@@ -37,13 +37,17 @@ GET         /chargeMessages                  controllers.Application.chargeMessa
 # Search bar
 POST        /searchBar                       controllers.Application.searchBar()
 
+# Followers
+GET         /follow/:name                  	 controllers.Application.follow(name: String)
+GET         /unfollow/:name                	 controllers.Application.unfollow(name: String)
+GET         /followers		               	 controllers.Application.followers()
+GET         /following	                	 controllers.Application.following()
+
 # Card search form
 GET         /searchcard                      controllers.Application.searchCard()
 
 # Simple card search - checks if a certain card exists
 POST        /checkcard                       controllers.Application.checkCard()
-
-#GET         /searchResult/:string            controllers.Application.searchResult(string : String)
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file                    controllers.Assets.at(path="/public", file)

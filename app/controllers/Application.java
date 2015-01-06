@@ -5,8 +5,8 @@ import com.avaje.ebean.Page;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-
 import com.google.common.collect.Lists;
+
 import models.*;
 import play.libs.Json;
 import play.twirl.api.Html;
@@ -80,13 +80,24 @@ public class Application extends Controller {
     
     public static Result profile(String name) {   	
     	User user = null;
+    	boolean following = false;
     	
-    	// Vai buscar utilizador
-    	if ( name.length() > 0 ) user = User.find.where().eq("username", name).findUnique();
-    	else user = User.find.where().eq("username", session().get("username")).findUnique();
+    	// Other user
+    	if ( name.length() > 0 )
+		{
+    		user = User.find.where().eq("username", name).findUnique();
     		
-    	
-    	return ok(profile.render(user, Form.form(Profile.class)));
+    		// Check if following
+    		Followers conn = Followers.findConnection(session().get("username"), user.username);
+    		following = conn == null ? false : true;
+		}
+    	// Own user
+    	else 
+		{
+    		user = User.find.where().eq("username", session().get("username")).findUnique();
+		}
+    		
+    	return ok(profile.render(user, following, Form.form(Profile.class)));
     }
 
     /*public static Result articles() {
@@ -132,6 +143,80 @@ public class Application extends Controller {
             	return ok(searchBar.render(searchForm.get().text2Search, users, Json.toJson(arraynode)));	
             }
         }
+    }
+    
+    // Followers
+    public static Result follow(String name) {
+    	
+    	User from = User.find.where().eq("username", session().get("username")).findUnique();
+    	User to = User.find.where().eq("username", name).findUnique();
+    	
+    	if ( from == null || to == null )
+    	{
+    		return badRequest("From/to user null");
+    	}
+
+    	Followers conn = Followers.findConnection(from.username, to.username);
+    	
+    	// Ja segue utilizador
+    	if ( conn != null )
+    	{
+    		return badRequest("Already following that user");
+    	}
+    	
+    	// Grava
+    	conn = new Followers(from, to);
+    	conn.save();
+    	
+    	return redirect(routes.Application.profile(to.username));
+    }
+    
+    // Followers
+    public static Result unfollow(String name) {
+    	
+    	User to = User.find.where().eq("username", name).findUnique();
+    	
+    	if ( to == null )
+    	{
+    		return badRequest("From/to user null");
+    	}
+
+    	Followers conn = Followers.findConnection(session().get("username"), to.username);
+    	
+    	// Ja segue utilizador
+    	if ( conn == null )
+    	{
+    		return badRequest("Not following that user");
+    	}
+    	
+    	// Apaga
+    	conn.delete();
+    	
+    	return redirect(routes.Application.profile(to.username));
+    }
+    
+    public static Result followers() {
+    	
+    	List<Followers> list = Followers.getFollowers(session().get("username"));
+    	List<User> users = new ArrayList<>();
+    	
+    	for( Followers f : list ) {
+    		users.add(f.from);
+    	}
+    	
+    	return ok(followers.render(users));
+    }
+    
+    public static Result following() {
+    	
+    	List<Followers> list = Followers.getFollowing(session().get("username"));
+    	List<User> users = new ArrayList<>();
+    	
+    	for( Followers f : list ) {
+    		users.add(f.to);
+    	}
+    	
+    	return ok(followers.render(users));
     }
     
     // Class de message
@@ -297,15 +382,6 @@ public class Application extends Controller {
     public static Result searchCard() {
         return ok(searchSimple.render(Form.form(String.class)));
     }
-
-    /*public static Result searchResult(String string) {
-
-        ArrayList<Card> results = Card.findCardsByName(string);
-        JsonNode arraynode = Json.toJson(results);
-
-        return ok(searchResult.render(string,Json.toJson(arraynode)));
-
-    }*/
 
     public static Result checkCard(){
 
