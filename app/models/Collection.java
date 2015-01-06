@@ -37,11 +37,12 @@ public class Collection extends Model implements Serializable {
     
     public long dateMs;
 
-    public Collection(String name, User owner, Visibility vis) {
+    public Collection(String name, User owner, Visibility vis, String type) {
         this.name=name;
         this.owner=owner;
         this.visibility=vis;
         this.dateMs = System.currentTimeMillis();
+        this.coltype = type;
     }
 
     public void removeCard(Integer id) {
@@ -53,11 +54,28 @@ public class Collection extends Model implements Serializable {
         this.save();
     }
 
-    public static Collection create(String name, Integer owner_id, Visibility vis) {
-        Collection collection = new Collection(name, User.find.byId(owner_id), vis);
+    public static Collection createCollection(String name, Integer owner_id, Visibility vis, String type) {
+        Collection collection = new Collection(name, User.find.byId(owner_id), vis, type);
         collection.save();
         return collection;
     }
+    /*
+    public static Collection createDeck(String name, Integer owner_id, Visibility vis) {
+        Collection collection = new Collection(name, User.find.byId(owner_id), vis, "de");
+        collection.save();
+        return collection;
+    }
+    public static Collection createTradeList(String name, Integer owner_id, Visibility vis) {
+        Collection collection = new Collection(name, User.find.byId(owner_id), vis, "tl");
+        collection.save();
+        return collection;
+    }
+    public static Collection createWantList(String name, Integer owner_id, Visibility vis) {
+        Collection collection = new Collection(name, User.find.byId(owner_id), vis, "wl");
+        collection.save();
+        return collection;
+    }
+    */
 
     public void addCard(Card c) {
         cards.add(c);
@@ -67,7 +85,32 @@ public class Collection extends Model implements Serializable {
 
     // find all collections of some user
     public static List<Collection> findUserCollections(Integer userId) {
-        return find.where().eq("owner.id", userId).findList();
+        return find.where().and(
+                com.avaje.ebean.Expr.eq("owner.id", userId),
+                com.avaje.ebean.Expr.eq("coltype", "co")
+        ).findList();
+        //eq("owner.id", userId).and("coltype", "co").findList();
+    }
+    // find all decks of some user
+    public static List<Collection> findUserDecks(Integer userId) {
+        return find.where().and(
+                com.avaje.ebean.Expr.eq("owner.id", userId),
+                com.avaje.ebean.Expr.eq("coltype", "de")
+        ).findList();
+    }
+    // find all wantlists of some user
+    public static List<Collection> findUserWantLists(Integer userId) {
+        return find.where().and(
+                com.avaje.ebean.Expr.eq("owner.id", userId),
+                com.avaje.ebean.Expr.eq("coltype", "wl")
+        ).findList();
+    }
+    // find all tradelists of some user
+    public static List<Collection> findUserTradeLists(Integer userId) {
+        return find.where().and(
+                com.avaje.ebean.Expr.eq("owner.id", userId),
+                com.avaje.ebean.Expr.eq("coltype", "tl")
+        ).findList();
     }
 
     public static Collection findCollectionByID(Integer id){

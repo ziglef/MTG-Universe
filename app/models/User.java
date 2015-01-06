@@ -29,6 +29,10 @@ public class User extends Model implements Serializable{
     @Column(name = "city")
     public String city;
 
+    public void setCity(String c) {
+        this.city=c;
+    }
+
     @Basic(optional = false)
     @Column(name ="username")
     public String username;

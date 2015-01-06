@@ -10,13 +10,13 @@ import java.util.List;
 
 public class CollectionTest extends WithApplication {
 
-    @Test //create collection
+    @Test //createCollection collection
     public void test1() {
         User u1 = new User("bob", "bobuser", "bob@email", "12345");
         u1.setCity("Porto");
         u1.save();
 
-        Collection.create("CollectionTest", u1.id, Visibility.PUBLIC_);
+        Collection.createCollection("CollectionTest", u1.id, Visibility.PUBLIC_, "co");
         List<Collection> collections = Collection.findUserCollections(u1.id);
         assertNotNull(collections);
     }
@@ -27,7 +27,7 @@ public class CollectionTest extends WithApplication {
         u1.setCity("Porto");
         u1.save();
 
-        Collection collection = Collection.create("CollectionTest", u1.id, Visibility.PUBLIC_);
+        Collection collection = Collection.createCollection("CollectionTest", u1.id, Visibility.PUBLIC_, "co");
 
         Card c1 = Card.findCardsByName("").get(1);
         Card c2 = Card.findCardsByName("").get(2);
@@ -45,7 +45,7 @@ public class CollectionTest extends WithApplication {
         u1.setCity("Porto");
         u1.save();
 
-        Collection collection = Collection.create("CollectionTest", u1.id, Visibility.PUBLIC_);
+        Collection collection = Collection.createCollection("CollectionTest", u1.id, Visibility.PUBLIC_, "co");
 
         Card c1 = Card.findCardsByName("").get(1);
         Card c2 = Card.findCardsByName("").get(2);
@@ -67,7 +67,7 @@ public class CollectionTest extends WithApplication {
         u1.setCity("Porto");
         u1.save();
 
-        Collection collection = Collection.create("CollectionTest", u1.id, Visibility.PUBLIC_);
+        Collection collection = Collection.createCollection("CollectionTest", u1.id, Visibility.PUBLIC_, "co");
 
         collection.delete();
 

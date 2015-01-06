@@ -626,11 +626,13 @@ public class Application extends Controller {
 
         ArrayNode an = result.putArray("aaData");
 
-        for(Card c: cardsPage.getList()){
-            ObjectNode row = Json.newObject();
-            row.put("0","<a href=\"#\" rel=\"popover\" data-img=\""+c.imageName+"\">"+c.name.replaceAll("\"","\\\"")+"</a>");
-            row.put("1","<button class=\"btn btn-sm btn-success btn-block\" name=\""+c.name.replace("\"", "&quot;")+"\" onclick=\"addToCollection(this.name,"+c.id+")\"> Add </button>");
-            an.add(row);
+        for(Card c: cardsPage.getList()) {
+            if (c.multiverseid != 0) {
+                ObjectNode row = Json.newObject();
+                row.put("0", "<a href=\"#\" rel=\"popover\" data-img=\"" + c.imageName + "\">" + c.name.replaceAll("\"", "\\\"") + "</a>");
+                row.put("1", "<button class=\"btn btn-sm btn-success btn-block\" name=\"" + c.name.replace("\"", "&quot;") + "\" onclick=\"addToCollection(this.name," + c.id + ")\"> Add </button>");
+                an.add(row);
+            }
         }
 
         return ok(result);

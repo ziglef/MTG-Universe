@@ -1,24 +1,24 @@
-@(userCollections: com.fasterxml.jackson.databind.JsonNode)
+@(userTradeLists: com.fasterxml.jackson.databind.JsonNode)
 @import com.fasterxml.jackson.databind.JsonNode;
 
-@dashboard("Collections") {
-    <div id="type" value="co"></div>
+@dashboard("Trade Lists") {
+    <div id="type" value="tl"></div>
     <div class="col-md-4">
         <button class="btn btn-block btn-primary" data-toggle="modal" data-target="#newCollection" style="cursor : pointer ;">
-            New Collection</button>
+            New Trade list</button>
         </div>
     <div class="col-md-4">
         <button class="btn btn-block btn-warning" onclick="editCollection()" style="cursor : pointer ;">
-            Edit Collection</button>
+            Edit Trade list</button>
         </div>
     <div class="col-md-4">
         <button class="btn btn-block btn-danger" onclick="removeCollection()" style="cursor : pointer ;">
-            Delete Collection</button>
+            Delete Trade list</button>
         </div>
-    <p class="col-md-12" style="margin-top:10px">Collections</p>
+    <p class="col-md-12" style="margin-top:10px">Trade lists</p>
     <div class="col-md-12" style="margin-top:10px">
         <select id="myCollections" data-width="100%">
-        @for(name <- userCollections.elements()){
+        @for(name <- userTradeLists.elements()){
             <option class="col@name.findValuesAsText("id").get(0)">@name.findValuesAsText("name").get(0)</option>
         }
         </select>
@@ -26,7 +26,7 @@
         <!--<div class="panel panel-default">
             <div class="panel-body">
                 <ul id="myCollections" class="list-unstyled">
-                    @for(name <- userCollections.elements()){
+                    @for(name <- userTradeLists.elements()){
                         <li>
                             <a href="">@name.findValuesAsText("name").get(0)</a>
                             <button name="col@name.findValuesAsText("id").get(0)" onclick="removeCollection(this.name)" class="badge pull-right label-danger remove">X</button>
@@ -46,9 +46,10 @@
                 <tr>
                     <th width="35%">Name</th>
                     <th width="20%">Type</th>
-                    <th width="25%">Edition</th>
-                    <th width="5%">Signed</th>
-                    <th width="5%">Foil</th>
+                    <th width="15%">Edition</th>
+                    <th width="15%">Mana Cost</th>
+                    <th width="10%">Rarity</th>
+                    <th width="5%">ID</th>
                 </tr>
             </thead>
             <tbody><!--
@@ -70,7 +71,7 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">
                         Close</span></button>
-                    <h4 class="modal-title">Create new collection</h4>
+                    <h4 class="modal-title">Create new Trade list</h4>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
@@ -78,7 +79,7 @@
                         <input class="form-control collection-name" placeholder="Collection name" type="text" name="collection-name">
                     </div>
                     <div class="btn-group collection-privacy" datatoggle="buttons">
-                        <label>Who can see this collection?</label><br>
+                        <label>Who can see this Trade List?</label><br>
                         <label class="btn btn-primary active">
                             <input type="radio" name="options" id="option1" class="private" checked> Only me
                         </label>
@@ -91,13 +92,13 @@
                     </div>
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox"> Allow comments on this collection
+                            <input type="checkbox"> Allow comments on this Trade list
                         </label>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" onclick="createNewCollection()">Create</button>
+                    <button type="button" class="btn btn-primary" onclick="createNewTradeList()">Create</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
