@@ -4,6 +4,7 @@ import models.enums.Visibility;
 import play.db.ebean.Model;
 
 import javax.persistence.*;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,11 +34,14 @@ public class Collection extends Model implements Serializable {
     public User owner;
 
     public Visibility visibility;
+    
+    public long dateMs;
 
     public Collection(String name, User owner, Visibility vis) {
         this.name=name;
         this.owner=owner;
         this.visibility=vis;
+        this.dateMs = System.currentTimeMillis();
     }
 
     public void removeCard(Integer id) {

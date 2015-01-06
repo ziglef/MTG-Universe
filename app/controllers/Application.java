@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.common.collect.Lists;
 
 import models.*;
+import models.Collection;
 import play.libs.Json;
 import play.twirl.api.Html;
 import utilities.AuthenticationSystem;
@@ -23,6 +24,8 @@ import views.html.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static play.libs.Json.toJson;
@@ -217,6 +220,65 @@ public class Application extends Controller {
     	}
     	
     	return ok(followers.render(users));
+    }
+    
+    // Timeline
+    public static class TimelineEntry {
+        public String username, content, entryType, dateStr;
+        public long date;
+    }
+    
+    
+    public static Result timeline() {    
+    	
+    	List<TimelineEntry> entries = new ArrayList<>();
+    	List<Followers> list = Followers.getFollowing(session().get("username"));
+    	List<Article> articles = new ArrayList<>();
+    	List<Collection> collections = new ArrayList<>();
+    	DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+
+    	// Put articles on timeline
+    	for( Followers f : list ) {
+    		articles.addAll( Article.findUserArticles(f.to.id) );
+    	}
+    	    	
+    	for( Article a : articles ) {
+    		TimelineEntry tmp = new TimelineEntry();
+    		tmp.date = a.dateMs;
+    		tmp.dateStr = dateFormat.format(a.dateMs);
+    		tmp.username = a.writer.username;
+    		tmp.entryType = "article";
+    		tmp.content = a.title;
+    		
+    		entries.add(tmp);
+    	}   
+    	
+    	// Put collections on timeline
+    	for( Followers f : list ) {
+    		collections.addAll( Collection.findUserCollections(f.to.id) );
+    	}
+    	    	
+    	for( Collection a : collections ) {
+    		TimelineEntry tmp = new TimelineEntry();
+    		tmp.date = a.dateMs;
+    		tmp.dateStr = dateFormat.format(a.dateMs);
+    		tmp.username = a.owner.username;
+    		tmp.entryType = "collection";
+    		tmp.content = a.name;
+    		
+    		entries.add(tmp);
+    	}  
+    	
+    	// Sort articles by id
+    	java.util.Collections.sort(entries, java.util.Collections.reverseOrder(new Comparator<TimelineEntry>() {
+	        @Override
+	        public int compare(TimelineEntry a, TimelineEntry b)
+	        {
+	            return Double.compare(a.date, b.date);
+	        }
+	    }));
+    	
+    	return ok(timeline.render(entries));
     }
     
     // Class de message

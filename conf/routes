@@ -43,6 +43,9 @@ GET         /unfollow/:name                	 controllers.Application.unfollow(na
 GET         /followers		               	 controllers.Application.followers()
 GET         /following	                	 controllers.Application.following()
 
+# Timeline
+GET         /timeline	                	 controllers.Application.timeline()
+
 # Card search form
 GET         /searchcard                      controllers.Application.searchCard()
 

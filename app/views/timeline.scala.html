@@ -1,0 +1,19 @@
+@(list: List[Application.TimelineEntry])
+
+@dashboard("Timeline") {
+
+	@if( list.size == 0 ) {
+		<div class="alert alert-warning" role="alert">No timeline results found.</div>
+    } else {
+		@for(index <- 0 until list.size) {
+
+			<div class="list-group-item">
+				<h4 class="list-group-item-heading">
+					<a href="@routes.Application.profile("" + list(index).username + "")">@list(index).username</a> posted a @list(index).entryType on @list(index).dateStr
+				</h4>
+				<p class="list-group-item-text">@list(index).content</p>
+			</div>
+
+		}
+	}
+}
