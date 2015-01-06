@@ -2,6 +2,7 @@
 @import com.fasterxml.jackson.databind.JsonNode;
 
 @dashboard("Decks") {
+    <div id="type" value="de"></div>
     <div class="col-md-4">
         <button class="btn btn-block btn-primary" data-toggle="modal" data-target="#newCollection" style="cursor : pointer ;">
             New Deck</button>
@@ -46,8 +47,8 @@
                     <th width="35%">Name</th>
                     <th width="20%">Type</th>
                     <th width="25%">Edition</th>
-                    <th width="5%">Signed</th>
-                    <th width="5%">Foil</th>
+                    <th width="20%">Mana Cost</th>
+                  <!--  <th width="5%">Foil</th> -->
                 </tr>
             </thead>
             <tbody><!--

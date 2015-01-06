@@ -285,52 +285,135 @@ function fillArticle() {
 }
 
 function fillCards() {
-    var elem = document.getElementById('myCollections');
-    if(elem != null) {
+    var elemCo = document.getElementById('myCollections');
 
-        var id = getActualCollection();
-
-        var str = '{"colID": "' + id + '"}';
-        $.ajax({
-            url: '/getCollectionCards',
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
-            data: str,
-            type: 'POST',
-            success: function (data, textStatus, jqXHR) {
-
-                console.log(data);
-                data.forEach(function (obj) {
-
-                    rand1 = Math.floor((Math.random() * 2) + 1);
-                    rand2 = Math.floor((Math.random() * 2) + 1);
-
-                    if(rand1==1) fsimbol = "fa fa-check fa-success";
-                    else fsimbol = "";
-
-                    if(rand2==1)ssimbol = "fa fa-check fa-success";
-                    else ssimbol = "";
-
-                    table.row.add([
-                        "<tr><td width=\"35%\"><a href=\"#\" data-trigger=\"click\"  rel=\"popover\" data-container=\"body\" data-html=\"true\" data-content='<img class=\"img-responsive\" src=\"http://mtgimage.com/multiverseid/"+obj.multiverseid+".jpg\"/>' >" + obj.name + "</a></td>",
-                        "<td width=\"20%\">" + obj.type + "</td>",
-                        "<td width=\"25%\">" + obj.edition + "</td>",
-                        "<td class=\"text-center\" width=\"5%\"><i class=\""+fsimbol+"\"></i></td>",
-                        "<td class=\"text-center\" width=\"5%\"><i class=\""+ssimbol+"\"></i></td>",
-                        "</tr>",
-                    ]).draw();
-
-                });
-
-                $('[rel="popover"]').popover();
-
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                alert(textStatus + ": " + errorThrown);
-            }
-        });
+    if(elemCo != null) {
+        if($('#type').attr("value") == "co")
+            fillCollectionCards();
+        else if($('#type').attr("value") == "de")
+            fillDeckCards();
+        else
+            fillListCards();
     }
 }
+
+function fillCollectionCards() {
+    var id = getActualCollection();
+
+    var str = '{"colID": "' + id + '"}';
+    $.ajax({
+        url: '/getCollectionCards',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: str,
+        type: 'POST',
+        success: function (data, textStatus, jqXHR) {
+
+            console.log(data);
+            data.forEach(function (obj) {
+
+                rand1 = Math.floor((Math.random() * 2) + 1);
+                rand2 = Math.floor((Math.random() * 2) + 1);
+
+                if(rand1==1) fsimbol = "fa fa-check fa-success";
+                else fsimbol = "";
+
+                if(rand2==1)ssimbol = "fa fa-check fa-success";
+                else ssimbol = "";
+
+                table.row.add([
+                    "<tr><td width=\"35%\"><a href=\"#\" data-trigger=\"click\"  rel=\"popover\" data-container=\"body\" data-html=\"true\" data-content='<img class=\"img-responsive\" src=\"http://mtgimage.com/multiverseid/"+obj.multiverseid+".jpg\"/>' >" + obj.name + "</a></td>",
+                    "<td width=\"20%\">" + obj.type + "</td>",
+                    "<td width=\"25%\">" + obj.edition + "</td>",
+                    "<td class=\"text-center\" width=\"5%\"><i class=\""+fsimbol+"\"></i></td>",
+                    "<td class=\"text-center\" width=\"5%\"><i class=\""+ssimbol+"\"></i></td>",
+                    "</tr>",
+                ]).draw();
+
+            });
+
+            $('[rel="popover"]').popover();
+
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert(textStatus + ": " + errorThrown);
+        }
+    });
+}
+
+function fillDeckCards() {
+    var id = getActualCollection();
+
+    var str = '{"colID": "' + id + '"}';
+    $.ajax({
+        url: '/getCollectionCards',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: str,
+        type: 'POST',
+        success: function (data, textStatus, jqXHR) {
+
+            console.log(data);
+            data.forEach(function (obj) {
+               cmc = obj.cmc;
+                if(cmc==null) cmc="0";
+                table.row.add([
+                    "<tr><td width=\"35%\"><a href=\"#\" data-trigger=\"click\"  rel=\"popover\" data-container=\"body\" data-html=\"true\" data-content='<img class=\"img-responsive\" src=\"http://mtgimage.com/multiverseid/"+obj.multiverseid+".jpg\"/>' >" + obj.name + "</a></td>",
+                    "<td width=\"20%\">" + obj.type + "</td>",
+                    "<td width=\"25%\">" + obj.edition + "</td>",
+                    "<td width=\"20%\">" + cmc + "</td>",
+                    "</tr>",
+                ]).draw();
+
+            });
+
+            $('[rel="popover"]').popover();
+
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert(textStatus + ": " + errorThrown);
+        }
+    });
+}
+
+function fillListCards() {
+    var id = getActualCollection();
+
+    var str = '{"colID": "' + id + '"}';
+    $.ajax({
+        url: '/getCollectionCards',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: str,
+        type: 'POST',
+        success: function (data, textStatus, jqXHR) {
+
+            console.log(data);
+            data.forEach(function (obj) {
+                console.log(obj);
+                cmc = obj.cmc;
+                if(cmc==null) cmc="0";
+                table.row.add([
+                    "<tr><td width=\"35%\"><a href=\"#\" data-trigger=\"click\"  rel=\"popover\" data-container=\"body\" data-html=\"true\" data-content='<img class=\"img-responsive\" src=\"http://mtgimage.com/multiverseid/"+obj.multiverseid+".jpg\"/>' >" + obj.name + "</a></td>",
+                    "<td width=\"20%\">" + obj.type + "</td>",
+                    "<td width=\"15%\">" + obj.edition + "</td>",
+                    "<td width=\"15%\">" + cmc + "</td>",
+                    "<td width=\"10%\">" + obj.rarity + "</td>",
+                    "<td width=\"5%\">" + obj.multiverseid + "</td>",
+                    "</tr>",
+                ]).draw();
+
+            });
+
+            $('[rel="popover"]').popover();
+
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert(textStatus + ": " + errorThrown);
+        }
+    });
+}
+
 
 $(document).on("click", "#myCollections li .remove", function(){
     $(this).closest("li").remove();

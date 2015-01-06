@@ -2,6 +2,7 @@
 @import com.fasterxml.jackson.databind.JsonNode;
 
 @dashboard("Want Lists") {
+    <div id="type" value="wl"></div>
     <div class="col-md-4">
         <button class="btn btn-block btn-primary" data-toggle="modal" data-target="#newCollection" style="cursor : pointer ;">
             New Want list</button>
@@ -45,9 +46,10 @@
                 <tr>
                     <th width="35%">Name</th>
                     <th width="20%">Type</th>
-                    <th width="25%">Edition</th>
-                    <th width="5%">Signed</th>
-                    <th width="5%">Foil</th>
+                    <th width="15%">Edition</th>
+                    <th width="15%">Mana Cost</th>
+                    <th width="10%">Rarity</th>
+                    <th width="5%">ID</th>
                 </tr>
             </thead>
             <tbody><!--
@@ -77,7 +79,7 @@
                         <input class="form-control collection-name" placeholder="Collection name" type="text" name="collection-name">
                     </div>
                     <div class="btn-group collection-privacy" datatoggle="buttons">
-                        <label>Who can see this Deck?</label><br>
+                        <label>Who can see this Want List?</label><br>
                         <label class="btn btn-primary active">
                             <input type="radio" name="options" id="option1" class="private" checked> Only me
                         </label>
