@@ -49,13 +49,13 @@
 			</thead>
 			@for(name <- results.elements()) {
 			<tr>
-				<td>@name.findValuesAsText("name")</td>
-				<td>@name.findValuesAsText("manaCost")</td>
-				<td>@name.findValuesAsText("cmc")</td>
-				<td>@name.findValuesAsText("type")</td>
-				<td>@name.findValuesAsText("rarity")</td>
-				<td>@name.findValuesAsText("artist")</td>
-				<td>@name.findValuesAsText("flavor")</td>
+				<td>@name.findValuesAsText("name").get(0)</td>
+				<td>@name.findValuesAsText("manaCost").get(0)</td>
+				<td>@name.findValuesAsText("cmc").get(0)</td>
+				<td>@name.findValuesAsText("type").get(0)</td>
+				<td>@name.findValuesAsText("rarity").get(0)</td>
+				<td>@name.findValuesAsText("artist").get(0)</td>
+				<td>@name.findValuesAsText("flavor").get(0)</td>
 				<td><i class="fa fa-plus-circle"></i></td>
 			</tr>
 			}

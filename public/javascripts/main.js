@@ -602,9 +602,10 @@ $(function() {
     });
 });
 
+/*
 $(document).on("click", "#makeSearch", function(){
 
     window.location.replace("searchResult/"+ $("#text2Search").val());
 
 });
-
+ */

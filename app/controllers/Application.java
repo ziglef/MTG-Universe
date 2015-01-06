@@ -143,7 +143,8 @@ public class Application extends Controller {
                 ArrayList<Card> results = Card.findCardsByName(searchForm.get().text2Search);
                 JsonNode arraynode = Json.toJson(results);
                                     	
-            	return ok(searchBar.render(searchForm.get().text2Search, users, Json.toJson(arraynode)));	
+            	return ok(searchBar.render(searchForm.get().text2Search, users, Json.toJson(arraynode)));
+            	//return ok(searchBar.render(searchForm.get().text2Search, users, results));
             }
         }
     }
