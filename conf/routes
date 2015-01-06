@@ -94,6 +94,3 @@ GET         /search                          controllers.Application.advancedSea
 
 #Cards
 GET         /card/:id                        controllers.Cards.getCard(id: Long)
-
-
-
