@@ -30,16 +30,27 @@ GET         /messages                        controllers.Application.listAllMess
 GET         /messages/                       controllers.Application.conversation(name: String = "")
 GET         /messages/:name                  controllers.Application.conversation(name: String)
 POST        /messages                        controllers.Application.saveMessage()
+
 # Charge messages
 GET         /chargeMessages                  controllers.Application.chargeMessages()
+
+# Search bar
+POST        /searchBar                       controllers.Application.searchBar()
+
+# Followers
+GET         /follow/:name                  	 controllers.Application.follow(name: String)
+GET         /unfollow/:name                	 controllers.Application.unfollow(name: String)
+GET         /followers		               	 controllers.Application.followers()
+GET         /following	                	 controllers.Application.following()
+
+# Timeline
+GET         /timeline	                	 controllers.Application.timeline()
 
 # Card search form
 GET         /searchcard                      controllers.Application.searchCard()
 
 # Simple card search - checks if a certain card exists
 POST        /checkcard                       controllers.Application.checkCard()
-
-GET         /searchResult/:string            controllers.Application.searchResult(string : String)
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file                    controllers.Assets.at(path="/public", file)
@@ -65,7 +76,6 @@ POST        /deleteCardFromCollection        controllers.Collections.deleteCardF
 POST        /getCollectionCards              controllers.Collections.getCollectionCards()
 
 
-
 # Articles
 GET         /articles                        controllers.Articles.articles()
 GET         /createarticle                   controllers.Articles.createArticle()
@@ -81,6 +91,9 @@ POST        /getArticleComments              controllers.Articles.getArticleComm
 
 GET         /events                          controllers.Events.events()
 GET         /search                          controllers.Application.advancedSearch()
+
+#Cards
+GET         /card/:id                        controllers.Cards.getCard(id: Long)
 
 
 

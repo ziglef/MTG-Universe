@@ -3,6 +3,7 @@ package models;
 import play.db.ebean.Model;
 
 import javax.persistence.*;
+
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -29,6 +30,8 @@ public class Article extends Model implements Serializable {
 
     //https://www.playframework.com/documentation/2.0/api/java/play/data/format/Formats.DateTime.html
     public String date;
+    
+    public long dateMs;
 
 
     public Article(String title, String text, String date, String username) {
@@ -37,6 +40,7 @@ public class Article extends Model implements Serializable {
         this.date = date;
         this.imageUrl="default.png";
         this.writer = User.find.where().eq("username", username).findUnique();
+        this.dateMs = System.currentTimeMillis();
     }
 
     public void setImageUrl() {

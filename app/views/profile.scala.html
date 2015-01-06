@@ -1,4 +1,4 @@
-@(user: User, userEdit: Form[Application.Profile])
+@(user: User, following : Boolean, userEdit: Form[Application.Profile])
 @import play.api.Play.resource
 @import play.api.Play.current
 
@@ -94,6 +94,17 @@
                     <a href="@routes.Application.conversation("" + user.username + "")" class="btn btn-primary" style="color: #FFFFFF;">
                         Send message
                     </a>
+                </div>
+                <div class="col-md-4">
+                    @if( following ) {
+                        <a href="@routes.Application.unfollow("" + user.username + "")" class="btn btn-primary" style="color: #FFFFFF;">
+                            Unfollow
+                        </a>
+                    } else {
+                        <a href="@routes.Application.follow("" + user.username + "")" class="btn btn-primary" style="color: #FFFFFF;">
+                            Follow
+                        </a>
+                    }
                 </div>
             }
         </div>

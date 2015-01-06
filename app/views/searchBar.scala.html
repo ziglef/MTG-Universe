@@ -1,0 +1,74 @@
+@(string: String, list: List[User], results: com.fasterxml.jackson.databind.JsonNode)
+
+@dashboard("Results") {
+
+	<h3>Search Results for: @string</h3>
+	<br>
+
+	<h4>User results</h4>
+
+	@if( list == null || list.size == 0 ) {
+		<div class="alert alert-warning" role="alert">No user results found.</div>
+    } else {
+		<table id="searchUsers" class="display" cellspacing="0" width="100%">
+			<thead>
+				<tr>
+					<th>Username</th>
+					<th>Name</th>
+					<th>Email</th>
+				</tr>
+			</thead>
+			@for(index <- 0 until list.size) {
+			<tr>
+				<td><a href="@routes.Application.profile("" + list(index).username + "")">@list(index).username</a></td>
+				<td>@list(index).name</td>
+				<td>@list(index).email</td>
+			</tr>
+			}
+
+		</table>
+	}
+
+	<h4>Card results</h4>
+
+	@if( results == null || results.size == 0 ) {
+		<div class="alert alert-warning" role="alert">No card results found.</div>
+    } else {
+		<table id="searchCards" class="display" cellspacing="0" width="100%">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Mana Cost</th>
+					<th>CMC</th>
+					<th>Type</th>
+					<th>Rarity</th>
+					<th>Artist</th>
+					<th>Flavor</th>
+					<th>See More</th>
+				</tr>
+			</thead>
+			@for(name <- results.elements()) {
+			<tr>
+				<td>@name.findValuesAsText("name")</td>
+				<td>@name.findValuesAsText("manaCost")</td>
+				<td>@name.findValuesAsText("cmc")</td>
+				<td>@name.findValuesAsText("type")</td>
+				<td>@name.findValuesAsText("rarity")</td>
+				<td>@name.findValuesAsText("artist")</td>
+				<td>@name.findValuesAsText("flavor")</td>
+				<td><i class="fa fa-plus-circle"></i></td>
+			</tr>
+			}
+
+		</table>
+	}
+
+	<script>
+		$ ( document ).ready ( function ( ) {
+
+			var t = $ ( '#searchUsers' ).DataTable ( {responsive: true}) ;
+			var t2 = $ ( '#searchCards' ).DataTable ( {responsive: true}) ;
+
+		});
+	</script>
+}

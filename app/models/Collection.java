@@ -1,14 +1,13 @@
+package models;
 
+import models.enums.Visibility;
+import play.db.ebean.Model;
 
-        package models;
+import javax.persistence.*;
 
-        import models.enums.Visibility;
-        import play.db.ebean.Model;
-
-        import javax.persistence.*;
-        import java.io.Serializable;
-        import java.util.ArrayList;
-        import java.util.List;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Collection extends Model implements Serializable {
@@ -35,11 +34,14 @@ public class Collection extends Model implements Serializable {
     public User owner;
 
     public Visibility visibility;
+    
+    public long dateMs;
 
     public Collection(String name, User owner, Visibility vis) {
         this.name=name;
         this.owner=owner;
         this.visibility=vis;
+        this.dateMs = System.currentTimeMillis();
     }
 
     public void removeCard(Integer id) {
@@ -77,4 +79,7 @@ public class Collection extends Model implements Serializable {
         return c.cards;
     }
 
+    public boolean containsCard(Card newcard) {
+        return cards.contains(newcard);
+    }
 }

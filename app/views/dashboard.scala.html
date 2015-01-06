@@ -329,14 +329,11 @@
                                 </p>
                             </li>
                             <li class="user-body">
-                                <div class="col-xs-4 text-center">
-                                    <a href="#">Followers</a>
+                                <div class="col-xs-6 text-center">
+                                    <a href="/followers">Followers</a>
                                 </div>
-                                <div class="col-xs-4 text-center">
-                                    <a href="#">Following</a>
-                                </div>
-                                <div class="col-xs-4 text-center">
-                                    <a href="#">Friends</a>
+                                <div class="col-xs-6 text-center">
+                                    <a href="/following">Following</a>
                                 </div>
                             </li>
                             <li class="user-footer">
@@ -352,9 +349,9 @@
                 </ul>
 
 
-                <form class="form-inline top-search shadowed col-md-7">
+                <form class="form-inline top-search shadowed col-md-7" action="/searchBar" method="POST">
                     <button id="makeSearch" type="button" ><i class="fa fa-search"></i></button>
-                    <input id="text2Search" type="text" class="form-control" placeholder="Search for anything...">
+                    <input id="text2Search" name="text2Search" type="text" class="form-control" placeholder="Search for anything...">
                 </form>
             </header>
             <aside id="leftbar" class="pull-left">

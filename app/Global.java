@@ -17,11 +17,11 @@ public class Global extends GlobalSettings {
                 e.printStackTrace();
             }
         }
-        /*
-        /*
-        User admin = new User("admin", "admin", "admin@admin.pt", "admin");
-        admin.city = "Porto";
-        admin.save(true);
-        */
+
+        if(User.findUserByUsername("admin")==null) {
+            User admin = new User("admin", "admin", "admin@admin.pt", "admin");
+            admin.city = "Porto";
+            admin.save(true);
+        }
     }
 }

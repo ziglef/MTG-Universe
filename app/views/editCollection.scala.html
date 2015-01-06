@@ -46,7 +46,7 @@
             <tbody>
             @for(name <- listOfCards.elements()){
                 <tr>
-                    <td><a href="#" rel="popover" data-img="@name.findValuesAsText("imageName").get(0)">@name.findValuesAsText("name").get(0)</a></td>
+                    <td><a href="/card/@name.findValuesAsText("multiverseid").get(0)" rel="popover" data-img="@name.findValuesAsText("imageName").get(0)">@name.findValuesAsText("name").get(0)</a></td>
                     <td><button class="btn btn-sm btn-danger btn-block" onclick="removeFromCollection(this,@name.findValuesAsText("id").get(0))"> X </button></td>
                 </tr>
             }
