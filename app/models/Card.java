@@ -9,6 +9,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 // The model for a single card (current version uses the simple .json file)
 
@@ -19,7 +20,8 @@ public class Card extends Model implements Serializable, Comparable{
     // Finds all cards containing a given string
     public static ArrayList<Card> findCardsByName(String name){
 
-        ArrayList<Card> cards = new ArrayList<>(find.where().icontains("name", name).findList());
+        ArrayList<Card> cards = new ArrayList<>(find.where().icontains("name", name).findPagingList(200).getPage(0).getList());
+
 
         return cards.size() > 0 ? cards : null;
     }
@@ -30,6 +32,12 @@ public class Card extends Model implements Serializable, Comparable{
         ArrayList<Card> cards = new ArrayList<>(find.all());
 
         return cards.size() > 0 ? cards : null;
+    }
+
+    public static Card findbyMultiverseId(long mid) {
+        if(mid == 0)
+            return find.where().eq("multiverseid", mid).findList().get(0);
+        return find.where().eq("multiverseid", mid).findUnique();
     }
 
     // Finds all the cards in the database
@@ -52,7 +60,7 @@ public class Card extends Model implements Serializable, Comparable{
 
     // Card names (if it has multiple names, optional)
     @Column(name = "names")
-    public ArrayList<String> names;
+    public ArrayList<String> names; //FIXME
 
     // Card mana cost
     @Column(name = "manaCost")
@@ -64,7 +72,7 @@ public class Card extends Model implements Serializable, Comparable{
 
     // Card color(s)
     @Column(name = "colors")
-    public ArrayList<String> colors;
+    public ArrayList<String> colors; //FIXME
 
     // Card type
     @Column(name = "type")
@@ -72,15 +80,15 @@ public class Card extends Model implements Serializable, Comparable{
 
     // Card supertype(s)
     @Column(name = "supertypes")
-    public ArrayList<String> supertypes;
+    public ArrayList<String> supertypes; //FIXME
 
     // Card types
     @Column(name = "types")
-    public ArrayList<String> types;
+    public ArrayList<String> types; //FIXME
 
     // Card subtypes
     @Column(name = "subtypes")
-    public ArrayList<String> subtypes;
+    public ArrayList<String> subtypes; //FIXME
 
     // Card rarity
     @Column(name = "rarity")
@@ -116,11 +124,11 @@ public class Card extends Model implements Serializable, Comparable{
 
     // Card multiverseid
     @Column(name = "multiverseid")
-    public Integer multiverseid;
+    public long multiverseid;
 
     // Card variations (doesnt include its own multiverseid)
     @Column(name = "variations")
-    public ArrayList<Integer> variations;
+    public ArrayList<Integer> variations; //FIXME
 
     // Card image name (for use with mtgimage.com)
     @Column(name = "imageName")
@@ -158,15 +166,15 @@ public class Card extends Model implements Serializable, Comparable{
 
     // Card rulings
     @Column(name = "rulings")
-    public ArrayList<HashMap<String, String>> rulings;
+    public ArrayList<HashMap<String, String>> rulings; //FIXME
 
     // Card foreign names
     @Column(name = "foreignNames")
-    public ArrayList<HashMap<String, String>> foreignNames;
+    public ArrayList<HashMap<String, String>> foreignNames; //FIXME
 
     // Card printings (in which sets the card was print on)
     @Column(name = "printings")
-    public ArrayList<String> printings;
+    public ArrayList<String> printings; //FIXME
 
     // Card original text
     @Column(name = "originalText", columnDefinition = "TEXT(1023)")
@@ -179,11 +187,23 @@ public class Card extends Model implements Serializable, Comparable{
     // Will hash map work? //
     // Card legalities
     @Column(name = "legalities")
-    public HashMap<String, String> legalities;
+    public HashMap<String, String> legalities; //FIXME
 
     // Card source (where promo cards could be obtained)
     @Column(name = "source")
     public String source;
+
+    public String edition;
+
+    public void setEdition(String ed) {
+        this.edition=ed;
+    }
+
+    // not necessary
+    // Collections on which the card is
+    //@ManyToMany(cascade=CascadeType.ALL)
+    // @JoinTable(name="cards_collection")
+    // List<GenericCollection> collection = new ArrayList<>();
 
     @Override
     public int hashCode(){

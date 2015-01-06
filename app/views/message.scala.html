@@ -1,0 +1,38 @@
+@(name: String, list: List[Message])
+
+@dashboard("Conversation") {
+
+    <h2>Conversation with <a href="@routes.Application.profile("" + name + "")">@name</a></h2>
+
+    <div class="list-group">
+
+        @for(index <- 0 until list.size) {
+
+            <div class="list-group-item">
+                <h4 class="list-group-item-heading">
+                @if( list(index).from.username.equals(session().get("username")) ) {
+                    Eu
+                } else {
+                    @list(index).from.username
+                }
+                <small>@list(index).dateStr</small>
+                </h4>
+                <p class="list-group-item-text" style="word-wrap: break-word;">@list(index).content</p>
+            </div>
+
+        }
+
+    </div>
+
+    <form role="form" action="/messages" method="POST">
+
+        <input type="hidden" name="messageTo" id="messageTo" value="@name">
+
+        <div class="form-group">
+            <textarea class="form-control" name="messageContent" rows="3"></textarea>
+        </div>
+
+        <input type="submit" class="btn btn-primary" value="Send">
+    </form>
+
+}

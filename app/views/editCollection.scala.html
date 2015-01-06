@@ -1,0 +1,65 @@
+@(collectionInfo: models.Collection, listOfCards: com.fasterxml.jackson.databind.JsonNode, tp: String)
+
+@dashboard("Edit "+tp) {
+
+    <script type="text/javascript">
+        var table;
+    $(document).ready(function () {
+
+        $('#example').DataTable({
+            "bProcessing": true,
+            "aaSorting": [[0, "asc"]],
+            "bServerSide": true,
+            "bJQueryUI":true,
+            "sPaginationType": "simple",
+            "sAjaxSource": "@routes.Application.sortCards()",
+        });
+
+        $('#example1').DataTable({
+            "pagingType": "simple",
+        });
+
+    });
+    </script>
+    <div class="col-md-6">
+        <h3>Add cards</h3>
+        <hr class="hr">
+        <table id="example" class="table table-bordered table-hover" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th width="90%">Name</th>
+                    <th width="10%">Action</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <div class="col-md-6">
+        <h3 class="collection" collection="@collectionInfo.id">My @tp : @collectionInfo.name</h3>
+        <hr class="hr">
+        <table id="example1" class="table table-bordered table-hover" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th width="90%">Name</th>
+                    <th width="10%">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            @for(name <- listOfCards.elements()) {
+                <tr>
+                    <td><a href="#" rel="popover" data-img="@name.findValuesAsText("imageName").get(0)">@name.findValuesAsText("name").get(0)</a></td>
+                    <td><button class="btn btn-sm btn-danger btn-block" onclick="removeFromCollection ( this, @name.findValuesAsText("id").get(0) )"> X </button></td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+                    
+    <!-- Modal -->
+    <div class="modal fade" id="myCard" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-body">
+                <img src="@routes.Assets.at("images/cardback.jpg")" alt="Card unavailable" class="img-responsive img-modal img-card" style="margin : 0 auto ;"/>
+            </div>
+        </div>
+    </div>      
+}

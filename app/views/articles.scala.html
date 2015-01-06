@@ -1,0 +1,60 @@
+@(userArticles: com.fasterxml.jackson.databind.JsonNode)
+@import com.fasterxml.jackson.databind.JsonNode;
+@import play.api.Play.resource
+@import play.api.Play.current
+
+@dashboard("Articles") {
+
+    <div class="col-md-4">
+        <a class="btn btn-block btn-primary color-white" href="@routes.Articles.createArticle()" style="cursor : pointer ;">
+            New Article</a>
+    </div>
+    <div class="col-md-4">
+        <button class="btn btn-block btn-warning" onclick="editArticle()" style="cursor : pointer ;">
+            Edit Article</button>
+    </div>
+    <div class="col-md-4">
+        <button class="btn btn-block btn-danger" onclick="removeArticle( )" style="cursor : pointer ;">
+            Delete Article</button>
+    </div>
+    <p class="col-md-12" style="margin-top : 10 px">My articles</p>
+    <div class="col-md-12" style="margin-top : 10 px">
+        <select id="articleSelect" data-width="100%">
+        @for(name <- userArticles.elements()) {
+            <option class="art@name.findValuesAsText("id").get(0)">@name.findValuesAsText("title").get(0)</option>
+        }
+        </select>
+    </div>
+    <div>
+        <div id="fillarticle">
+
+        </div>
+
+        <div id="commentArea" style="display : none">
+            <div class="col-md-12">
+                <div class="comment-area">
+                    <ul class="comment-menu list-inline">
+                        <li><i class="fa fa-comment"></i> <span>Write a comment here down below</span></li>
+                    </ul>
+                    <div class="commenting">
+                        <div id="commentEditor"></div>
+                    </div>
+                    <button id="send-comment" value="@session.get("username")|@session.get("id")|@session.get("imageurl")"  class="btn btn-primary pull-right" style="cursor : pointer ;margin-top: 5px;">
+                        Post comment</button>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <table id="article-com" class="display" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th><i class="fa fa-comments"></i> <span class="nr-total-comments">Comments</th>
+                        </tr>
+                    </thead>
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+}

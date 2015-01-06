@@ -3,38 +3,94 @@
 # ~~~~
 
 # Home page
-GET         /                        controllers.Application.index()
+GET         /                                controllers.Application.index()
 
 # Add a User to the system
-POST        /user                    controllers.Application.addUser()
+POST        /user                            controllers.Application.addUser()
 
 # Get a User from the system
-GET         /users                   controllers.Application.getPersons()
+GET         /users                           controllers.Application.getPersons()
 
 # Login/logout
-#GET         /login               controllers.Application.login()
-POST        /login                   controllers.Application.authenticate()
-GET         /logout                  controllers.Application.logout()
-POST        /recover                 controllers.Application.recover()
+#GET        /login                   		 controllers.Application.login()
+POST        /login                           controllers.Application.authenticate()
+GET         /logout                          controllers.Application.logout()
+POST        /recover                         controllers.Application.recover()
 
 # Profile
-GET         /profile               controllers.Application.profile()
-POST        /profile               controllers.Application.editUser()
+GET         /profile                         controllers.Application.profile(name: String = "")
+GET         /profile/                        controllers.Application.profile(name: String = "")
+GET         /profile/:name                   controllers.Application.profile(name: String)
+POST        /profile/edit/avatar             controllers.Application.editAvatar()
+POST        /profile/edit/password           controllers.Application.editPassword()
+POST        /profile/edit/about              controllers.Application.editAbout()
+
+# Mensagens
+GET         /messages                        controllers.Application.listAllMessages()
+GET         /messages/                       controllers.Application.conversation(name: String = "")
+GET         /messages/:name                  controllers.Application.conversation(name: String)
+POST        /messages                        controllers.Application.saveMessage()
+
+# Charge messages
+GET         /chargeMessages                  controllers.Application.chargeMessages()
+
+# Search bar
+POST        /searchBar                       controllers.Application.searchBar()
+
+# Followers
+GET         /follow/:name                  	 controllers.Application.follow(name: String)
+GET         /unfollow/:name                	 controllers.Application.unfollow(name: String)
+GET         /followers		               	 controllers.Application.followers()
+GET         /following	                	 controllers.Application.following()
+
+# Timeline
+GET         /timeline	                	 controllers.Application.timeline()
 
 # Card search form
-GET         /searchcard              controllers.Application.searchCard()
+GET         /searchcard                      controllers.Application.searchCard()
 
 # Simple card search - checks if a certain card exists
-POST        /checkcard               controllers.Application.checkCard()
+POST        /checkcard                       controllers.Application.checkCard()
 
 # Map static resources from the /public folder to the /assets URL path
-GET         /assets/*file            controllers.Assets.at(path="/public", file)
+GET         /assets/*file                    controllers.Assets.at(path="/public", file)
 
 # Create card database (needs to run one time, alternatives?)
-GET         /loadCards               utilities.JsonUtil.loadCardsDB(s: String = "app/assets/json/AllCards-x.json")
-
-# Create a list (collection) of cards
-GET         /createCollection        controllers.Application.createCollectionData()
+GET         /loadCards                       utilities.JsonUtil.loadCardsDB(s: String = "app/assets/json/AllCards-x.json")
 
 # Sort all cards
-GET         /sortCards              controllers.Application.sortCards()
+GET         /sortCards                       controllers.Application.sortCards()
+
+# Collections
+# Collections MainPages
+GET         /collections                     controllers.Collections.createCollectionData()
+GET         /decks                           controllers.Collections.decks()
+GET         /wantlists                       controllers.Collections.wantlists()
+GET         /tradelists                      controllers.Collections.tradelists()
+# Create a list (collection) of cards
+POST        /createNewCollection             controllers.Collections.addCollection()
+POST        /deleteCollection                controllers.Collections.deleteCollection()
+GET         /editCollection/:id              controllers.Collections.editCollection1(id: Integer)
+POST        /addCardToCollection             controllers.Collections.addCardtoCollection()
+POST        /deleteCardFromCollection        controllers.Collections.deleteCardFromCollection()
+POST        /getCollectionCards              controllers.Collections.getCollectionCards()
+
+
+# Articles
+GET         /articles                        controllers.Articles.articles()
+GET         /createarticle                   controllers.Articles.createArticle()
+POST        /addArticleToDB                  controllers.Articles.addArticleToDB()
+GET         /viewarticles                    controllers.Articles.viewArticles()
+POST        /getArticle                      controllers.Articles.getArticle()
+POST        /deleteArticle                   controllers.Articles.deleteArticle()
+GET         /editArticle/:id                 controllers.Articles.editArticle(id: Integer)
+POST        /addEditedArticleToDB            controllers.Articles.addEditedArticleToDB()
+#Article Comments
+POST        /addComment                      controllers.Articles.addComment()
+POST        /getArticleComments              controllers.Articles.getArticleComments()
+
+GET         /events                          controllers.Events.events()
+GET         /search                          controllers.Application.advancedSearch()
+
+#Cards
+GET         /card/:id                        controllers.Cards.getCard(id: Long)

@@ -42,6 +42,7 @@ public class JsonUtil {
 
         for(Set set : sets.values()){
             for(Card card : set.getCards()){
+                card.setEdition(set.getName());
                 allCards.add(card);
             }
         }

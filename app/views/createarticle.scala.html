@@ -1,0 +1,54 @@
+@()
+@import play.api.Play.resource
+@import play.api.Play.current
+
+@dashboard("Create new article") {
+    <script type="text/javascript">
+        $(document).ready( function() {
+            $("#txtEditor").Editor();
+        });
+    </script>
+
+    <h3>Create a new article</h3>
+    <div class="col-md-12">
+        <form role="form" class="block-body form-validation" id="createArticle">
+            <div class="form-group">
+                <label for="articleTitle">Article Title</label>
+                <input type="text" class="form-control input-sm validate[required] input-sm" name="articleTitle" placeholder="Title of the article">
+            </div>
+            <div class="form-group">
+                <label for="post">Post</label>
+                <!--<textarea class="form-control input-sm validate[required] input-sm" name="articlePost" placeholder="Text of the article..." rows="15"></textarea>-->
+                <div id="txtEditor"></div>
+            </div>
+            <label>Featured Image</label><br>
+            <div class="fileinput fileinput-new" data-provides="fileinput">
+                <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 150px; height: 150px;"></div>
+                <div>
+                    <span class="btn btn-default btn-file">
+                        <span class="fileinput-new" data-trigger="fileinput">Select image</span>
+                        <span class="fileinput-exists" data-trigger="fileinput">Change</span>
+
+                        <input type="file" name="articleImage">
+                    </span>
+                    <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <!--<button type="button" class="btn btn-default" onclick="teste();">check</button>-->
+                <input  type="submit" class="btn btn-primary" value="Publish">
+            </div>
+            <textarea id="atc" name="atc" style="display: none"></textarea>
+        </form>
+    </div>
+
+
+
+    <script type="text/javascript">
+        function teste(){
+            //alert('alo');
+           // content = document.createTextNode($('.Editor-editor' ).html());
+            //console.log(content);
+        }
+    </script>
+}

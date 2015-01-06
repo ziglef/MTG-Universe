@@ -1,9 +1,9 @@
 package models;
 
-import com.avaje.ebean.event.BeanPersistController;
 import play.db.ebean.Model;
 import javax.persistence.*;
 import java.io.Serializable;
+
 import org.mindrot.jbcrypt.BCrypt;
 
 // The model for the average user
@@ -24,6 +24,14 @@ public class User extends Model implements Serializable{
     @Basic(optional = false)
     @Column(name = "name")
     public String name;
+    
+    @Basic(optional = false)
+    @Column(name = "city")
+    public String city;
+
+    public void setCity(String c) {
+        this.city=c;
+    }
 
     @Basic(optional = false)
     @Column(name ="username")
@@ -35,14 +43,36 @@ public class User extends Model implements Serializable{
 
     @Basic(optional = false)
     @Column(name = "password")
-    public String password; // to be changed just for testing
+    public String password;
+
+    @Basic(optional = false)
+    @Column(name = "imageurl")
+    public String imageurl;
+
+
+    //Collection of cards
+    //@OneToMany
+    //public Collection collection;
+
+    public User(String name, String username, String email, String password) {
+        this.name = name;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.imageurl="default-avatar.png";
+    }
 
     @Override
     public void save() {
-        // Hash password
-        this.password = BCrypt.hashpw(this.password, BCrypt.gensalt());
-
+    	// Call super save() method
         super.save();
+    }
+    
+    public void save(boolean save) {
+    	// Hash password
+        if ( save ) this.password = BCrypt.hashpw(this.password, BCrypt.gensalt());
+
+        this.save();
     }
     
     public static User authenticate(String username, String password) {
@@ -54,5 +84,11 @@ public class User extends Model implements Serializable{
     		return logged;
     	
     	return null;
+    }
+
+    public static User findUserByUsername(String username){
+        User user = null;
+        user = find.where().eq("username", username).findUnique();
+        return user;
     }
 }

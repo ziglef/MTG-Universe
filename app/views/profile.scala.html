@@ -1,47 +1,258 @@
-@(userEdit: Form[Application.Profile])
+@(user: User, following : Boolean, userEdit: Form[Application.Profile])
+@import play.api.Play.resource
+@import play.api.Play.current
 
-@dashboard("Home") {
-	<div class="col-md-3 content-sidebar">
-	
-		<h3>Profile</h3>
-		<hr class="hr">		
-		
-		<form role="form" action="/profile" id="userEdit" method="POST" enctype="multipart/form-data">
-		  <div class="form-group">
-			<label for="inputUsername">Username</label>
-			<input type="text" class="form-control" id="inputUsername" name="username" value="@session.get("username")">
-		  </div>
-		  <div class="form-group">
-			<label for="inputName">Name</label>
-			<input type="text" class="form-control" id="inputName" name="name" value="@session.get("name")">
-		  </div>
-		  <div class="form-group">
-			<label for="inputEmail">Email address</label>
-			<input type="email" class="form-control" id="inputEmail" name="email" value="@session.get("email")">
-		  </div>
-		  <div class="form-group">
-			<label for="inputAvatar">Avatar input</label>
-			<input type="file" id="inputAvatar" name="avatar">
-			<p class="help-block">Choose a avatar to your profile.</p>
-		  </div>
-		  <div class="form-group">
-			<label for="inputNewPassword">New password</label>
-			<input type="password" class="form-control" name="newPassword" id="inputNewPassword">
-		  </div>
-		  <div class="form-group">
-			<label for="inputNewPasswordConfirm">New password confirm</label>
-			<input type="password" class="form-control" name="newPassword2" id="inputNewPasswordConfirm">
-		  </div>
-		  
-		  <br>
-		  <div class="form-group">
-			<label for="inputActualPassword">Confirm new password</label>
-			<input type="password" class="form-control" name="actualPassword" id="inputActualPassword" required>
-		  </div>
-		  <button type="submit" class="btn btn-default">Submit</button>
-		</form>
-		
-	</div>
-	
-	<br>
+@dashboard("Profile of "+user.username) {
+
+    @if( user == null ) {
+        <div class="alert alert-danger" role="alert">Invalid or private user</div>
+    } else {
+        <div class="col-md-12">
+
+            <h3>Profile of @user.name</h3>
+
+            <div class="col-md-3 simple-list masonry">
+            @if(resource("public/images/avatar/" + user.id + ".png").isDefined) {
+                <img src="@routes.Assets.at("images/avatar/" + user.id + ".png")" class="profile-pic img-responsive" alt="avatar" />
+            } else {
+                <img src="@routes.Assets.at("images/avatar/default-avatar.png")" class="profile-pic img-responsive" alt="avatar" />
+            }
+
+        </div>
+
+        <div class="col-md-9 simple-list masonry">
+            <div class="block">
+                <h2>ABOUT</h2>
+                @if( user.id == Integer.parseInt(session.get("id")) ) {
+                    <div class="config">
+                        <a href="" data-toggle="modal" data-target="#editAbout" class="ttips">
+                            <i class="fa fa-cog"></i>
+                        </a>
+                    </div>
+                }
+
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <div class="media">
+                            <i class="fa fa-user fa-2x pull-left"></i>
+                            <div class="media-body">
+                            @user.username
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="media">
+                            <i class="fa fa-file-text fa-2x pull-left"></i>
+                            <div class="media-body">
+                            @user.name
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="media">
+                            <i class="fa fa-envelope fa-2x pull-left"></i>
+                            <div class="media-body">
+                            @user.email
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="media">
+                            <i class="fa fa-university fa-2x pull-left"></i>
+                            <div class="media-body">
+                            @user.city
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!--<div class="block">
+                <h2>SUMMARY</h2>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        bla bla
+                    </li>
+                </ul>
+            </div>-->
+
+            @if( user.id == Integer.parseInt(session.get("id")) ) {
+                <div class="col-md-4">
+                    <button class="btn btn-block btn-primary"  data-toggle="modal" data-target="#editAvatar" style="cursor : pointer ;">
+                        Change avatar</button>
+                </div>
+                <div class="col-md-4">
+                    <button class="btn btn-block btn-primary" data-toggle="modal" data-target="#editPassword" style="cursor : pointer ;">
+                        Edit password</button>
+                </div>
+                <div class="col-md-4">
+                    <button class="btn btn-block btn-primary" data-toggle="modal" data-target="#editSettings" style="cursor : pointer ;">
+                        Edit Settings</button>
+                </div>
+            } else {
+                <div class="col-md-4">
+                    <a href="@routes.Application.conversation("" + user.username + "")" class="btn btn-primary" style="color: #FFFFFF;">
+                        Send message
+                    </a>
+                </div>
+                <div class="col-md-4">
+                    @if( following ) {
+                        <a href="@routes.Application.unfollow("" + user.username + "")" class="btn btn-primary" style="color: #FFFFFF;">
+                            Unfollow
+                        </a>
+                    } else {
+                        <a href="@routes.Application.follow("" + user.username + "")" class="btn btn-primary" style="color: #FFFFFF;">
+                            Follow
+                        </a>
+                    }
+                </div>
+            }
+        </div>
+
+
+        @if( user.id == Integer.parseInt(session.get("id")) ) {
+            <div class="modal fade" id="editAvatar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form role="form" action="/profile/edit/avatar" method="POST" enctype="multipart/form-data">
+
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">
+                                    Close</span></button>
+                                <h4 class="modal-title">Edit Avatar</h4>
+                            </div>
+                            <div class="modal-body">
+                                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                                        <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
+                                        <div>
+                                            <span class="btn btn-default btn-file">
+                                                <span class="fileinput-new" data-trigger="fileinput">Select image</span>
+                                                <span class="fileinput-exists" data-trigger="fileinput">Change</span>
+
+                                                <input type="file" name="avatar">
+                                            </span>
+                                            <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                                        </div>
+                                    </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <input type="submit" class="btn btn-primary" value="Change">
+                            </div>
+
+                        </form>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div> <!-- /.modal -->
+
+            <div class="modal fade" id="editPassword" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form role="form" action="/profile/edit/password" method="POST">
+
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">
+                                    Close</span></button>
+                                <h4 class="modal-title">Edit password</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <input class="form-control collection-name" name="actualPassword" placeholder="Actual password" type="password" required>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control collection-name" name="newPassword" placeholder="New password" type="password">
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control collection-name" name="newPassword2" placeholder="Confirm password" type="password">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <input type="submit" class="btn btn-primary" value="Change">
+                            </div>
+
+                        </form>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div> <!-- /.modal -->
+
+            <div class="modal fade" id="editAbout" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form role="form" action="/profile/edit/about" method="POST">
+
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">
+                                    Close</span></button>
+                                <h4 class="modal-title">Edit about me</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <input class="form-control collection-name" name="name" placeholder="Name" type="text" value="@user.name">
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control collection-name" name="email" placeholder="Email" type="text" value="@user.email">
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control collection-name" name="city" placeholder="City" type="text" value="@user.city">
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control collection-name" name="actualPassword" placeholder="Actual password" type="password" required>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <input type="submit" class="btn btn-primary" value="Change">
+                            </div>
+
+                        </form>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div> <!-- /.modal -->
+
+
+
+            <div class="modal fade" id="editSettings" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">
+                                Close</span></button>
+                            <h4 class="modal-title">Edit settings</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="btn-group collection-privacy" datatoggle="buttons">
+                                <label>Profile type:</label><br>
+                                <label class="btn btn-primary active">
+                                    <input type="radio" name="options" id="option1" class="private" checked> Friends
+                                </label>
+                                <label class="btn btn-primary">
+                                    <input type="radio" name="options" id="option2" class="friends"> Public
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox"> Show summary
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox"> Show my friends
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox"> Show my articles
+                                </label>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" onclick="">Change</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div> <!-- /.modal -->
+        }
+    }
 }

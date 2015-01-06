@@ -17,6 +17,10 @@ public class Set {
     @Column(name = "name")
     private String	name;
 
+    public String getName() {
+        return name;
+    }
+
     @Column(name = "code")
     private String	code;
 
