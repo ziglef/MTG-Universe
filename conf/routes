@@ -43,7 +43,7 @@ GET         /searchcard                      controllers.Application.searchCard(
 # Simple card search - checks if a certain card exists
 POST        /checkcard                       controllers.Application.checkCard()
 
-GET         /searchResult/:string            controllers.Application.searchResult(string : String)
+#GET         /searchResult/:string            controllers.Application.searchResult(string : String)
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file                    controllers.Assets.at(path="/public", file)

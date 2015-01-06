@@ -125,10 +125,11 @@ public class Application extends Controller {
     				.findList();
             	
             	
-            	// Procura mais coisas e adiciona outra lista ao resultado para apresentar na pagina
-            	// ....
+            	// Procura cartas
+                ArrayList<Card> results = Card.findCardsByName(searchForm.get().text2Search);
+                JsonNode arraynode = Json.toJson(results);
                                     	
-            	return ok(searchBar.render(users));	
+            	return ok(searchBar.render(searchForm.get().text2Search, users, Json.toJson(arraynode)));	
             }
         }
     }
@@ -297,14 +298,14 @@ public class Application extends Controller {
         return ok(searchSimple.render(Form.form(String.class)));
     }
 
-    public static Result searchResult(String string) {
+    /*public static Result searchResult(String string) {
 
         ArrayList<Card> results = Card.findCardsByName(string);
         JsonNode arraynode = Json.toJson(results);
 
         return ok(searchResult.render(string,Json.toJson(arraynode)));
 
-    }
+    }*/
 
     public static Result checkCard(){
 
