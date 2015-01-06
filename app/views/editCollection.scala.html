@@ -1,6 +1,6 @@
-@(collectionInfo: models.Collection, listOfCards: com.fasterxml.jackson.databind.JsonNode)
+@(collectionInfo: models.Collection, listOfCards: com.fasterxml.jackson.databind.JsonNode, tp: String)
 
-@dashboard("Create Collection") {
+@dashboard("Edit "+tp) {
 
     <script type="text/javascript">
         var table;
@@ -34,7 +34,7 @@
         </table>
     </div>
     <div class="col-md-6">
-        <h3 class="collection" collection="@collectionInfo.id">My collection : @collectionInfo.name</h3>
+        <h3 class="collection" collection="@collectionInfo.id">My @tp : @collectionInfo.name</h3>
         <hr class="hr">
         <table id="example1" class="table table-bordered table-hover" cellspacing="0" width="100%">
             <thead>
@@ -44,10 +44,10 @@
                 </tr>
             </thead>
             <tbody>
-            @for(name <- listOfCards.elements()){
+            @for(name <- listOfCards.elements()) {
                 <tr>
-                    <td><a href="/card/@name.findValuesAsText("multiverseid").get(0)" rel="popover" data-img="@name.findValuesAsText("imageName").get(0)">@name.findValuesAsText("name").get(0)</a></td>
-                    <td><button class="btn btn-sm btn-danger btn-block" onclick="removeFromCollection(this,@name.findValuesAsText("id").get(0))"> X </button></td>
+                    <td><a href="#" rel="popover" data-img="@name.findValuesAsText("imageName").get(0)">@name.findValuesAsText("name").get(0)</a></td>
+                    <td><button class="btn btn-sm btn-danger btn-block" onclick="removeFromCollection ( this, @name.findValuesAsText("id").get(0) )"> X </button></td>
                 </tr>
             }
             </tbody>

@@ -10,8 +10,7 @@ import play.libs.Json;
 import play.mvc.BodyParser;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.collections;
-import views.html.comingsoon;
+import views.html.*;
 
 import java.util.List;
 
@@ -27,6 +26,7 @@ public class Collections extends Controller {
 
         String name;
         String visibility;
+        String type;
 
         JsonNode json = request().body().asJson();
 
@@ -38,15 +38,16 @@ public class Collections extends Controller {
             if(name == null) {
                 return badRequest("Missing parameter [name]");
             }
+            type = json.findPath("type").textValue();
         }
 
         Collection collection;
         if(visibility.equals("public"))
-            collection =  Collection.create(name, Integer.parseInt(session().get("id")), Visibility.PUBLIC_);
+            collection =  Collection.createCollection(name, Integer.parseInt(session().get("id")), Visibility.PUBLIC_, type);
         else if(visibility.equals("friends"))
-            collection =  Collection.create(name, Integer.parseInt(session().get("id")), Visibility.FRIENDS);
+            collection =  Collection.createCollection(name, Integer.parseInt(session().get("id")), Visibility.FRIENDS, type);
         else
-            collection =  Collection.create(name, Integer.parseInt(session().get("id")), Visibility.PRIVATE);
+            collection =  Collection.createCollection(name, Integer.parseInt(session().get("id")), Visibility.PRIVATE, type);
 
 
         // String response = new String("<li><a href=\"#\" id=\"col"+collection.id+"\">" + name + "</a><a href=\"#\" name=\""+collection.id+"\" onclick=\"removeCollection(this.name)\" class=\"badge pull-right label-danger remove\">X</a><a href=\"#\" class=\"badge pull-right label-warning\">Edit</a></li>");
@@ -130,6 +131,18 @@ public class Collections extends Controller {
         List<Collection> collections = Collection.findUserCollections(Integer.parseInt(session().get("id")));
         return Json.toJson(Lists.reverse(collections));
     }
+    public static JsonNode getUserDecks(){
+        List<Collection> collections = Collection.findUserDecks(Integer.parseInt(session().get("id")));
+        return Json.toJson(Lists.reverse(collections));
+    }
+    public static JsonNode getUserTradeLists(){
+        List<Collection> collections = Collection.findUserTradeLists(Integer.parseInt(session().get("id")));
+        return Json.toJson(Lists.reverse(collections));
+    }
+    public static JsonNode getUserWantLists(){
+        List<Collection> collections = Collection.findUserWantLists(Integer.parseInt(session().get("id")));
+        return Json.toJson(Lists.reverse(collections));
+    }
 
     public static Result editCollection1(Integer id){
 
@@ -141,7 +154,17 @@ public class Collections extends Controller {
         if(Integer.parseInt(session().get("id")) != col.owner.id)
             return ok("COLECÇÃO NÃO PERTENCENTE A ESTE UTILIZADOR");
 
-        return ok(views.html.editCollection.render(Collection.findCollectionByID(id),Json.toJson(Collection.findCollectionCards(id))));
+        String type;
+        if(col.coltype.equals("co"))
+            type = "Collection";
+        else if(col.coltype.equals("de"))
+            type = "Deck";
+        else if(col.coltype.equals("tl"))
+            type = "TradeList";
+        else
+            type = "WantList";
+
+        return ok(views.html.editCollection.render(Collection.findCollectionByID(id),Json.toJson(Collection.findCollectionCards(id)), type));
     }
 
     public static Result getCollectionCards() {
@@ -154,16 +177,15 @@ public class Collections extends Controller {
     }
 
 
-    //Coming Soon
-
     public static Result decks() {
-        return ok(comingsoon.render("Decks"));
+        return ok(decks.render(Collections.getUserDecks()));
     }
+    //Coming Soon
     public static Result wantlists() {
-        return ok(comingsoon.render("Want Lists"));
+        return ok(wantlists.render(Collections.getUserWantLists()));
     }
     public static Result tradelists() {
-        return ok(comingsoon.render("Trade Lists"));
+        return ok(tradelists.render(Collections.getUserTradeLists()));
     }
 
 }

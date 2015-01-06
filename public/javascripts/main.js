@@ -302,12 +302,21 @@ function fillCards() {
                 console.log(data);
                 data.forEach(function (obj) {
 
+                    rand1 = Math.floor((Math.random() * 2) + 1);
+                    rand2 = Math.floor((Math.random() * 2) + 1);
+
+                    if(rand1==1) fsimbol = "fa fa-check fa-success";
+                    else fsimbol = "";
+
+                    if(rand2==1)ssimbol = "fa fa-check fa-success";
+                    else ssimbol = "";
+
                     table.row.add([
-                        "<tr><td width=\"35%\"><a href=\"card/" +obj.multiverseid+ "\" data-trigger=\"click\"  rel=\"popover\" data-container=\"body\" data-html=\"true\" data-content='<img class=\"img-responsive\" src=\"http://mtgimage.com/multiverseid/"+obj.multiverseid+".jpg\"/>' >" + obj.name + "</a></td>",
+                        "<tr><td width=\"35%\"><a href=\"#\" data-trigger=\"click\"  rel=\"popover\" data-container=\"body\" data-html=\"true\" data-content='<img class=\"img-responsive\" src=\"http://mtgimage.com/multiverseid/"+obj.multiverseid+".jpg\"/>' >" + obj.name + "</a></td>",
                         "<td width=\"20%\">" + obj.type + "</td>",
                         "<td width=\"25%\">" + obj.edition + "</td>",
-                        "<td class=\"text-center\" width=\"5%\"><i class=\"fa fa-check fa-success\"></i></td>",
-                        "<td class=\"text-center\" width=\"5%\"><i class=\"fa fa-check fa-success\"></i></td>",
+                        "<td class=\"text-center\" width=\"5%\"><i class=\""+fsimbol+"\"></i></td>",
+                        "<td class=\"text-center\" width=\"5%\"><i class=\""+ssimbol+"\"></i></td>",
                         "</tr>",
                     ]).draw();
 
@@ -393,7 +402,7 @@ function removeCollection(){
         data : str,
         type : 'POST',
         success : function ( data, textStatus, jqXHR ) {
-
+            window.location.replace("/collections");
         },
         error : function ( jqXHR, textStatus, errorThrown ) {
             alert ( textStatus + ": " + errorThrown ) ;
@@ -414,7 +423,74 @@ function editArticle(){
 function createNewCollection ( ) {
 
     var str = '{"name": "'+$('input[name=collection-name]' ).val()+'", ' +
+              ' "type": "co", '+
               ' "visibility": "'+$('.collection-privacy input[type="radio"]:checked').attr('class')+'"}';
+
+    $.ajax ( {
+        url : '/createNewCollection',
+        dataType : 'json',
+        contentType : 'application/json; charset=utf-8',
+        data : str,
+        type : 'POST',
+        success : function ( data, textStatus, jqXHR ) {
+            window.location.replace(data["url"]);
+
+        },
+        error : function ( jqXHR, textStatus, errorThrown ) {
+            alert ( textStatus + ": " + errorThrown ) ;
+        }
+    } ) ;
+}
+
+function createNewDeck ( ) {
+
+    var str = '{"name": "'+$('input[name=collection-name]' ).val()+'", ' +
+        ' "type": "de", '+
+        ' "visibility": "'+$('.collection-privacy input[type="radio"]:checked').attr('class')+'"}';
+
+    $.ajax ( {
+        url : '/createNewCollection',
+        dataType : 'json',
+        contentType : 'application/json; charset=utf-8',
+        data : str,
+        type : 'POST',
+        success : function ( data, textStatus, jqXHR ) {
+            window.location.replace(data["url"]);
+
+        },
+        error : function ( jqXHR, textStatus, errorThrown ) {
+            alert ( textStatus + ": " + errorThrown ) ;
+        }
+    } ) ;
+}
+
+function createNewTradeList ( ) {
+
+    var str = '{"name": "'+$('input[name=collection-name]' ).val()+'", ' +
+        ' "type": "tl", '+
+        ' "visibility": "'+$('.collection-privacy input[type="radio"]:checked').attr('class')+'"}';
+
+    $.ajax ( {
+        url : '/createNewCollection',
+        dataType : 'json',
+        contentType : 'application/json; charset=utf-8',
+        data : str,
+        type : 'POST',
+        success : function ( data, textStatus, jqXHR ) {
+            window.location.replace(data["url"]);
+
+        },
+        error : function ( jqXHR, textStatus, errorThrown ) {
+            alert ( textStatus + ": " + errorThrown ) ;
+        }
+    } ) ;
+}
+
+function createNewWantList ( ) {
+
+    var str = '{"name": "'+$('input[name=collection-name]' ).val()+'", ' +
+        ' "type": "wl", '+
+        ' "visibility": "'+$('.collection-privacy input[type="radio"]:checked').attr('class')+'"}';
 
     $.ajax ( {
         url : '/createNewCollection',

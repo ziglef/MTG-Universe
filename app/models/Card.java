@@ -35,6 +35,8 @@ public class Card extends Model implements Serializable, Comparable{
     }
 
     public static Card findbyMultiverseId(long mid) {
+        if(mid == 0)
+            return find.where().eq("multiverseid", mid).findList().get(0);
         return find.where().eq("multiverseid", mid).findUnique();
     }
 
