@@ -1439,12 +1439,6 @@ body::-webkit-scrollbar-thumb {
 }
 
 /** ARTICLE **/
-.article-text{
-    border: 1px solid #ccc;
-    border-radius: 0;
-    padding: 1%;
-    background-color: #fff;
-}
 
 /** COMMENTS */
 
