@@ -1,4 +1,4 @@
-@(title: String)(content: Html)
+@(title: String, option: Integer)(content: Html)
 
 @import play.api.Play.resource
 @import play.api.Play.current
@@ -10,7 +10,7 @@
             <header id="header" class="clearfix">
                     <!-- Logo -->
                 <a href="/" class="logo">
-                    <img src="@routes.Assets.at("images/yolo.png")" style="max-width: 133px"/>
+                    <img src="@routes.Assets.at("images/yolo.png")" style="max-width: 200px; margin-top: -25px; margin-bottom: -20px;"/>
                 </a>
 
                 <ul class="nav nav-pills pull-right shadowed" id="top-menu">
@@ -52,9 +52,10 @@
                 </ul>
 
 
-                <form class="form-inline top-search shadowed col-md-7" action="/searchBar" method="POST">
-                    <button id="makeSearch" type="button" ><i class="fa fa-search"></i></button>
+                <form class="form-inline top-search shadowed col-md-7" action="/searchBar" method="POST" style="margin-right: 200px;">
+
                     <input id="text2Search" name="text2Search" type="text" class="form-control" placeholder="Search for anything...">
+                    <button id="makeSearch" type="button" style="cursor: unset;" ><i class="fa fa-search"></i></button>
                 </form>
             </header>
             <aside id="leftbar" class="pull-left">
@@ -62,25 +63,57 @@
                         <!-- Main Menu -->
                     <ul class="side-menu shadowed">
                         <li>
-                            <a class="active" href="/timeline"><i class="fa fa-clock-o"></i> <span>Timeline</span></a>
+                            @if(option == 1) {
+                                <a class="active" href="/timeline"><i class="fa fa-clock-o"></i> <span>Timeline</span></a>
+                            } else {
+                                <a class="" href="/timeline"><i class="fa fa-clock-o"></i> <span>Timeline</span></a>
+                            }
+
                         </li>
                         <li class="submenu">
-                            <a href=""><i class="fa fa-list"></i> My cards</a>
+                            <a ><i class="fa fa-list"></i> My cards</a>
                             <ul>
+                            @if(option == 2) {
+                                <li><a class="active" href="/collections"><i class="fa fa-angle-double-right"></i>
+                                    Collections</a></li>
+                            } else {
                                 <li><a href="/collections"><i class="fa fa-angle-double-right"></i> Collections</a></li>
+                            }
+                            @if(option == 3) {
+                                <li><a class="active" href="/decks"><i class="fa fa-angle-double-right"></i> Decks</a></li>
+                            } else {
                                 <li><a href="/decks"><i class="fa fa-angle-double-right"></i> Decks</a></li>
+                            }
+                            @if(option == 4) {
+                                <li><a class="active" href="/wantlists"><i class="fa fa-angle-double-right"></i> Want List</a></li>
+                            } else {
                                 <li><a href="/wantlists"><i class="fa fa-angle-double-right"></i> Want List</a></li>
+                            }
+                            @if(option == 5) {
+                                <li><a class="active" href="/tradelists"><i class="fa fa-angle-double-right"></i> Trade List</a></li>
+                            } else {
                                 <li><a href="/tradelists"><i class="fa fa-angle-double-right"></i> Trade List</a></li>
+                            }
+
                             </ul>
                         </li>
                         <li>
-                            <a href="/articles"><i class="fa fa-newspaper-o"></i> My Articles</a>
+                            @if(option == 6) {
+                                <a class="active" href="/articles"><i class="fa fa-newspaper-o"></i> My Articles</a>
+                            } else {
+                                <a href="/articles"><i class="fa fa-newspaper-o"></i> My Articles</a>
+                            }
+
                         </li>
                         <li class="submenu">
                             <a href="/events"><i class="fa fa-calendar"></i> <span> Events</span></a>
                         </li>
                         <li>
-                            <a href="/messages"><i class="fa fa-envelope"></i> <span> Messages</span><small class="badge pull-right label-warning">12</small></a>
+                            @if(option == 7) {
+                                <a class="active" href="/messages"><i class="fa fa-envelope"></i> <span> Messages</span><!--<small class="badge pull-right label-warning">12</small>--></a>
+                            } else {
+                                <a href="/messages"><i class="fa fa-envelope"></i> <span> Messages</span><!--<small class="badge pull-right label-warning">12</small>--></a>
+                            }
                         </li>
                         <li>
                             <a href="/search"><i class="fa fa-search-plus"></i> <span> Advanced Search</span></a>

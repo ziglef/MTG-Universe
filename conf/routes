@@ -3,7 +3,8 @@
 # ~~~~
 
 # Home page
-GET         /                                controllers.Application.index()
+GET         /dashboard                       controllers.Application.index()
+GET         /                                controllers.Application.timeline()
 
 # Add a User to the system
 POST        /user                            controllers.Application.addUser()
@@ -38,13 +39,13 @@ GET         /chargeMessages                  controllers.Application.chargeMessa
 POST        /searchBar                       controllers.Application.searchBar()
 
 # Followers
-GET         /follow/:name                  	 controllers.Application.follow(name: String)
-GET         /unfollow/:name                	 controllers.Application.unfollow(name: String)
-GET         /followers		               	 controllers.Application.followers()
-GET         /following	                	 controllers.Application.following()
+GET         /follow/:name                    controllers.Application.follow(name: String)
+GET         /unfollow/:name                  controllers.Application.unfollow(name: String)
+GET         /followers                       controllers.Application.followers()
+GET         /following                       controllers.Application.following()
 
 # Timeline
-GET         /timeline	                	 controllers.Application.timeline()
+GET         /timeline                        controllers.Application.timeline()
 
 # Card search form
 GET         /searchcard                      controllers.Application.searchCard()
@@ -94,3 +95,5 @@ GET         /search                          controllers.Application.advancedSea
 
 #Cards
 GET         /card/:id                        controllers.Cards.getCard(id: Long)
+
+GET         /jenkins                         controllers.Application.redirectJenkins()

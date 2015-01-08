@@ -36,7 +36,7 @@ public class Application extends Controller {
 
     public static Result index() {
 		if ( AuthenticationSystem.isLoggedIn() )
-			return ok(dashboard.render("Dashboard", null));
+			return ok(dashboard.render("Dashboard", 1, null));
 		else
 			return ok(index.render(Form.form(User.class), Form.form(Login.class)));
     }
@@ -75,7 +75,11 @@ public class Application extends Controller {
         }
     }
 
-    // Class de login
+	public static Result redirectJenkins() {
+		return redirect("http://ldso02.fe.up.pt:8080");
+	}
+
+	// Class de login
     public static class Profile {
         public String name, username, email, actualPassword, newPassword, newPassword2, city;
     }

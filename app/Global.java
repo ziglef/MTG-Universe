@@ -2,9 +2,18 @@ import models.Card;
 import models.User;
 import play.Application;
 import play.GlobalSettings;
+import play.libs.F.Promise;
+import play.mvc.Http.RequestHeader;
+import play.mvc.Result;
+import play.mvc.Results;
+import play.mvc.SimpleResult;
 import utilities.JsonUtil;
+import views.html.dashboard;
+import views.html.error;
 
 import java.io.IOException;
+
+import static play.mvc.Results.notFound;
 
 public class Global extends GlobalSettings {
     @Override
@@ -24,4 +33,15 @@ public class Global extends GlobalSettings {
             admin.save(true);
         }
     }
+/*
+    @Override
+    public Promise<Result> onHandlerNotFound(RequestHeader request) {
+        return Results.notFound(error.render());
+    }
+
+    @Override
+    public Result onError(RequestHeader request, Throwable t) {
+        return Results.internalServerError(error.render());
+    }
+    */
 }
