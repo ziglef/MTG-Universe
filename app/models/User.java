@@ -62,6 +62,10 @@ public class User extends Model implements Serializable{
         this.imageurl="default-avatar.png";
     }
 
+    public void setImageUrl() {
+        this.imageurl = id+".png";
+    }
+
     @Override
     public void save() {
     	// Call super save() method

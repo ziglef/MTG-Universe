@@ -1,6 +1,6 @@
 @(list: List[Application.TimelineEntry])
 
-@dashboard("Timeline") {
+@dashboard("Timeline", 1) {
 
 	@if( list.size == 0 ) {
 		<div class="alert alert-warning" role="alert">No timeline results found.</div>

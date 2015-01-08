@@ -17,7 +17,7 @@ public class UserTests extends WithApplication {
         u2.setCity("Porto");
         u2.save();
 
-        assertEquals(2, User.find.all().size());
+        assertEquals(3, User.find.all().size()); //+1 because of automatic admin
     }
 
     @Test //search user

@@ -2,7 +2,7 @@
 @import play.api.Play.resource
 @import play.api.Play.current
 
-@dashboard("Profile of "+user.username) {
+@dashboard("Profile of "+user.username, 0) {
 
     @if( user == null ) {
         <div class="alert alert-danger" role="alert">Invalid or private user</div>
