@@ -36,7 +36,8 @@ public class Application extends Controller {
 
     public static Result index() {
 		if ( AuthenticationSystem.isLoggedIn() )
-			return ok(dashboard.render("Dashboard", 1, null));
+			return redirect(controllers.routes.Application.timeline());
+			//return ok(dashboard.render("Dashboard", 1, null));
 		else
 			return ok(index.render(Form.form(User.class), Form.form(Login.class)));
     }

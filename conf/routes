@@ -3,8 +3,8 @@
 # ~~~~
 
 # Home page
-GET         /dashboard                       controllers.Application.index()
-GET         /                                controllers.Application.timeline()
+GET         /                                controllers.Application.index()
+#GET         /                                controllers.Application.timeline()
 
 # Add a User to the system
 POST        /user                            controllers.Application.addUser()
